@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 49–50 단어</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday study tool for a middle-schooler: calm, clear, a little playful
+   IDEA the academy notebook: teal spiral wordbook, ruled paper, teacher's red pen marks
+   PICTURE the working card / test sheet itself, drawn as a ruled page with spiral holes
+   COLOUR teal #0f8b8d field, paper white, ink, red pen #d7263d for marks and scores
+   TYPE Lexend for English + UI, Gowun Dodum for Korean, Nanum Pen Script for red-pen marks
+   LAYOUT teal band (title, day chips, tabs) on top, one centred page below; same stack on phone */
+:root{color-scheme:light dark;--bg:light-dark(#f4faf9,#0c1b1b);--paper:light-dark(#ffffff,#132726);--ink:light-dark(#16232a,#e6efee);--mute:light-dark(#5b6b70,#9db3b1);--teal:light-dark(#0f8b8d,#2bb3b0);--tealdk:light-dark(#0a6567,#0d3a3a);--red:light-dark(#d7263d,#ff6b7c);--line:light-dark(#d6e8f2,#22403f);--soft:light-dark(#e6f4f3,#183332);--ok:light-dark(#0f8b8d,#3cc7c3)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Lexend,"Gowun Dodum",system-ui,sans-serif;overflow-x:clip}
+button,input,select{font:inherit;color:inherit}
+.top{background:var(--teal);color:#fff;padding:18px max(16px,4vw) 14px}
+.top h1{margin:0;font-size:clamp(26px,5vw,34px);line-height:1.05;letter-spacing:-.02em;font-weight:700}
+.top h1 small{font:400 15px/1.4 "Gowun Dodum",sans-serif;opacity:.9;margin-left:8px;letter-spacing:0}
+.days{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.chip{border:2px solid rgba(255,255,255,.7);background:transparent;color:#fff;border-radius:22px;padding:6px 14px;min-height:40px;cursor:pointer;font-weight:600}
+.chip[aria-pressed=true]{background:#fff;color:var(--tealdk);border-color:#fff}
+.chip:focus-visible,.btn:focus-visible,.tab:focus-visible{outline:3px solid #ffd24a;outline-offset:2px}
+nav{position:sticky;top:0;z-index:5;background:var(--tealdk);display:flex;overflow-x:auto;padding:0 max(8px,3vw)}
+.tab{flex:none;border:0;background:none;color:#cfeceb;padding:12px 14px;min-height:48px;cursor:pointer;font-weight:600;border-bottom:3px solid transparent}
+.tab[aria-selected=true]{color:#fff;border-bottom-color:#ffd24a}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:2px solid var(--teal);background:var(--paper);color:var(--teal);border-radius:12px;padding:10px 18px;min-height:46px;font-weight:600;cursor:pointer}
+.btn.fill{background:var(--teal);color:#fff}
+.btn.red{border-color:var(--red);color:var(--red)}
+.btn.redfill{background:var(--red);border-color:var(--red);color:#fff}
+.btn:active{transform:translateY(1px)}
+.seg{display:inline-flex;border:2px solid var(--teal);border-radius:12px;overflow:hidden}
+.seg button{border:0;background:var(--paper);color:var(--teal);padding:8px 14px;min-height:42px;cursor:pointer;font-weight:600}
+.seg button[aria-pressed=true]{background:var(--teal);color:#fff}
+label.chk{display:inline-flex;gap:6px;align-items:center;min-height:42px;cursor:pointer}
+select{min-height:44px;border:2px solid var(--line);border-radius:10px;background:var(--paper);padding:0 10px}
+.meta{color:var(--mute);font-size:14px}
+.bar{height:8px;background:var(--soft);border-radius:4px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.paper{position:relative;background:var(--paper);border-radius:6px 16px 16px 6px;padding:22px 22px 22px 58px;box-shadow:0 1px 0 var(--line),0 8px 24px -16px rgba(0,40,40,.45);background-image:linear-gradient(90deg,transparent 46px,var(--red) 46px,var(--red) 48px,transparent 48px),repeating-linear-gradient(180deg,transparent 0 33px,var(--line) 33px 34px);background-attachment:local}
+.paper::before{content:"";position:absolute;left:12px;top:14px;bottom:14px;width:18px;background:radial-gradient(circle at 9px 9px,var(--bg) 6px,var(--teal) 7px,var(--teal) 8.5px,transparent 9px) 0 0/18px 34px repeat-y}
+.card{min-height:300px;cursor:pointer;display:flex;flex-direction:column;justify-content:center}
+.hint{color:var(--mute);font-size:15px;margin-top:12px}
+.hint b{color:var(--teal)}
+.mean{white-space:pre-line;font-family:"Gowun Dodum",sans-serif;font-size:19px;line-height:34px;margin:0}
+.word{font-size:clamp(34px,8vw,48px);font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sa{margin-top:10px;display:grid;gap:4px}
+.sa div{white-space:pre-line}
+.sa b{display:inline-block;width:3em;color:var(--teal)}
+.sa .ant b{color:var(--red)}
+.spk{width:44px;height:44px;border-radius:50%;border:2px solid var(--teal);background:var(--paper);color:var(--teal);display:inline-grid;place-items:center;cursor:pointer;flex:none}
+.spk svg{width:20px;height:20px}
+.pen{font-family:"Nanum Pen Script",cursive;color:var(--red);line-height:1}
+.flipnote{position:absolute;right:16px;bottom:10px;font-size:13px;color:var(--mute)}
+.acts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:14px}
+.acts .btn{min-height:54px;font-size:17px}
+form.q{display:grid;gap:10px;margin-top:14px}
+.fld{display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:8px;align-items:center}
+.fld span{font-weight:600;color:var(--teal)}
+.fld.ant span{color:var(--red)}
+.fld input{height:46px;font-size:18px;border:2px solid var(--line);border-radius:10px;background:var(--paper);padding:0 12px;width:100%}
+.fld input:focus{outline:none;border-color:var(--teal)}
+.fld.good input{border-color:var(--ok)}
+.fld.bad input{border-color:var(--red);text-decoration:line-through;text-decoration-color:var(--red)}
+.fld .mk{grid-column:2;font-size:24px;margin-top:-4px;color:var(--red)}
+.fld.good .mk{color:var(--ok)}
+.ans{margin-top:14px;border-top:2px dashed var(--line);padding-top:12px}
+.score{font-size:clamp(64px,16vw,96px);text-align:center;margin:8px 0}
+.list{display:grid;gap:10px;margin-top:14px}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px}
+.item .w{font-weight:700;font-size:19px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.item .code{font-size:12px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--mute);font-weight:400}
+.item .m{grid-column:1/-1;white-space:pre-line;font-family:"Gowun Dodum",sans-serif;font-size:15px}
+.item .sa{grid-column:1/-1;margin:0;font-size:15px}
+.dayh{margin:22px 0 0;font-size:20px;color:var(--teal)}
+.search{width:100%;height:48px;font-size:16px;border:2px solid var(--line);border-radius:12px;padding:0 14px;background:var(--paper)}
+.cnt{font-family:"Nanum Pen Script",cursive;color:var(--red);font-size:26px;line-height:1}
+.empty{text-align:center;color:var(--mute);padding:40px 10px}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.01em}
+@media(max-width:600px){.paper{padding:18px 16px 18px 50px;background-image:linear-gradient(90deg,transparent 40px,var(--red) 40px,var(--red) 42px,transparent 42px),repeating-linear-gradient(180deg,transparent 0 33px,var(--line) 33px 34px)}.paper::before{left:9px}.mean{font-size:18px}.top h1 small{display:block;margin:4px 0 0}}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<a id="hub-back" href="../index.html" style="display:flex;align-items:center;gap:4px;padding:11px 16px;font:600 15px/1.2 -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#1a7f37;background:#ffffff;border-bottom:1px solid #d0d7de;text-decoration:none;-webkit-tap-highlight-color:transparent;position:relative;z-index:20"><span style="font-size:20px;line-height:1">‹</span> 단어장 목록</a>
+
+<header class="top">
+  <h1>Day 49–50 단어<small>뜻 보고 단어 + 동의어·반의어까지</small></h1>
+  <div class="days" id="days"></div>
+</header>
+<nav id="tabs" role="tablist">
+  <button class="tab" role="tab" data-tab="card">카드</button>
+  <button class="tab" role="tab" data-tab="test">실전 시험</button>
+  <button class="tab" role="tab" data-tab="sa">동의어·반의어</button>
+  <button class="tab" role="tab" data-tab="list">단어장</button>
+  <button class="tab" role="tab" data-tab="wrong">오답</button>
+</nav>
+<main id="app"></main>
+<script>
+{
+const WORDS = [{"w":"gesture","d":49,"m":"1. n. 몸짓, 제스처\n2. n. (감정·의사 등의) 표현, 표시\n3. v. 몸짓[손짓]을 하다","t":"n. 몸짓, 제스처; (감정·의사 등의) 표현, 표시\nv. 몸짓[손짓]을 하다","s":"","a":"","sl":[],"al":[]},{"w":"digest","d":49,"m":"1. v. 소화하다; 소화되다\n2. v. 이해하다\n3. n. 요약, 개요","t":"v. 소화하다; 소화되다; 이해하다\nn. 요약, 개요","s":"3. summary","a":"","sl":["summary"],"al":[]},{"w":"register","d":49,"m":"1. v. 등록하다, 이름을 적다\n2. v. 나타내다, 기록하다\n3. n. 기록(부), 등록","t":"v. 등록하다, 이름을 적다; 나타내다, 기록하다\nn. 기록(부), 등록","s":"1. sign up, enroll, enlist","a":"","sl":["sign up","enroll","enlist"],"al":[]},{"w":"probable","d":49,"m":"a. 있을 법한, 그럴듯한","t":"a. 있을 법한, 그럴듯한","s":"likely","a":"improbable","sl":["likely"],"al":["improbable"]},{"w":"probe","d":49,"m":"1. v. 엄밀히 조사하다, (진상 등을) 규명하다\n2. n. (철저한) 조사","t":"v. 엄밀히 조사하다, (진상 등을) 규명하다\nn. (철저한) 조사","s":"1. investigate","a":"","sl":["investigate"],"al":[]},{"w":"prove","d":49,"m":"1. v. 증명하다, 입증하다\n2. v. ~로 판명되다","t":"v. 증명하다, 입증하다; ~로 판명되다","s":"1. verify\n2. turn out","a":"1. disprove","sl":["verify","turn out"],"al":["disprove"]},{"w":"approve","d":49,"m":"1. v. 찬성하다, 승낙하다\n2. v. (공식적으로) 허가하다, 승인하다","t":"v. 찬성하다, 승낙하다; (공식적으로) 허가하다, 승인하다","s":"2. authorize","a":"1. disapprove of","sl":["authorize"],"al":["disapprove of"]},{"w":"urban","d":49,"m":"a. 도시의","t":"a. 도시의","s":"","a":"rural","sl":[],"al":["rural"]},{"w":"suburb","d":49,"m":"n. 교외, 도시 주변의 주택지","t":"n. 교외, 도시 주변의 주택지","s":"outskirts","a":"","sl":["outskirts"],"al":[]},{"w":"thesis","d":49,"m":"1. n. 논문\n2. n. 주장, 논제","t":"n. 논문; 주장, 논제","s":"","a":"","sl":[],"al":[]},{"w":"hypothesis","d":49,"m":"1. n. 가설\n2. n. 가정, 추측","t":"n. 가설; 가정, 추측","s":"1. theory\n2. speculation, assumption","a":"","sl":["theory","speculation","assumption"],"al":[]},{"w":"theme","d":49,"m":"n. 주제, 테마","t":"n. 주제, 테마","s":"","a":"","sl":[],"al":[]},{"w":"attach","d":49,"m":"1. v. 붙이다\n2. v. 첨부하다\n3. v. 소속시키다","t":"v. 붙이다; 첨부하다; 소속시키다","s":"add","a":"detach","sl":["add"],"al":["detach"]},{"w":"attack","d":49,"m":"1. n. 공격\n2. n. (갑작스런) 발병\n3. v. 공격하다\n4. v. (갑자기) 발병하다","t":"n. 공격; (갑작스런) 발병\nv. 공격하다; (갑자기) 발병하다","s":"4. break out","a":"1. defense\n3. defend","sl":["break out"],"al":["defense","defend"]},{"w":"stake","d":49,"m":"1. n. (회사에 투자한) 돈, 지분\n2. n. 내기(돈)\n3. n. 말뚝","t":"n. (회사에 투자한) 돈, 지분; 내기(돈); 말뚝","s":"","a":"","sl":[],"al":[]},{"w":"estimate","d":49,"m":"1. v. (가치·비용 등을) 평가하다, 추정하다, 견적하다\n2. n. 평가, 추정; 견적(서)","t":"v. (가치·비용 등을) 평가하다, 추정하다, 견적하다\nn. 평가, 추정; 견적(서)","s":"","a":"","sl":[],"al":[]},{"w":"overestimate","d":49,"m":"n./v. 과대평가(하다)","t":"n./v. 과대평가(하다)","s":"","a":"","sl":[],"al":[]},{"w":"esteem","d":49,"m":"1. v. 존경하다, 존중하다\n2. n. 존경, 경의","t":"v. 존경하다, 존중하다\nn. 존경, 경의","s":"respect","a":"disrespect, disregard","sl":["respect"],"al":["disrespect","disregard"]},{"w":"circulate","d":49,"m":"1. v. 돌다, 순환하다\n2. v. 퍼지다\n3. v. 유통[유포]하다, 배포하다","t":"v. 돌다, 순환하다; 퍼지다; 유통[유포]하다, 배포하다","s":"","a":"","sl":[],"al":[]},{"w":"circumstance","d":49,"m":"1. n. 주위 사정, 상황\n2. n. (경제적·물질적) 환경, 처지","t":"n. 주위 사정, 상황; (경제적·물질적) 환경, 처지","s":"","a":"","sl":[],"al":[]},{"w":"circuit","d":49,"m":"1. n. 순회 (여행)\n2. n. 주위, 둘레\n3. n. 회로","t":"n. 순회 (여행); 주위, 둘레; 회로","s":"","a":"","sl":[],"al":[]},{"w":"disturb","d":49,"m":"1. v. 방해하다\n2. v. (평화·질서·상태를) 깨뜨리다, 어지럽히다","t":"v. 방해하다; (평화·질서·상태를) 깨뜨리다, 어지럽히다","s":"1. bother, interrupt","a":"","sl":["bother","interrupt"],"al":[]},{"w":"trouble","d":49,"m":"1. n. 문제, 어려움, 곤란, 근심\n2. v. 괴롭히다, 걱정시키다; 성가시게 하다","t":"n. 문제, 어려움, 곤란, 근심\nv. 괴롭히다, 걱정시키다; 성가시게 하다","s":"2. bother","a":"","sl":["bother"],"al":[]},{"w":"civil","d":50,"m":"1. a. 시민의, 민간인의\n2. a. 민사의","t":"a. 시민의, 민간인의; 민사의","s":"","a":"2. criminal","sl":[],"al":["criminal"]},{"w":"civilize","d":50,"m":"v. 문명화하다","t":"v. 문명화하다","s":"","a":"","sl":[],"al":[]},{"w":"citizen","d":50,"m":"1. n. 시민\n2. n. 국민","t":"n. 시민; 국민","s":"","a":"","sl":[],"al":[]},{"w":"donate","d":50,"m":"v. (학교·자선 단체·병원 등에) 기부하다, 기증하다","t":"v. (학교·자선 단체·병원 등에) 기부하다, 기증하다","s":"contribute","a":"","sl":["contribute"],"al":[]},{"w":"anecdote","d":50,"m":"n. 일화","t":"n. 일화","s":"","a":"","sl":[],"al":[]},{"w":"dose","d":50,"m":"1. n. (약의 1회분) 복용량, 투여량\n2. v. ~에게 (약물 등을) 투여하다","t":"n. (약의 1회분) 복용량, 투여량\nv. ~에게 (약물 등을) 투여하다","s":"1. dosage","a":"","sl":["dosage"],"al":[]},{"w":"liberal","d":50,"m":"1. a. 관대한, 개방적인\n2. a. 진보주의의\n3. a. 인색하지 않은","t":"a. 관대한, 개방적인; 진보주의의; 인색하지 않은","s":"generous","a":"2. conservative","sl":["generous"],"al":["conservative"]},{"w":"liberate","d":50,"m":"v. 자유롭게 하다, 해방[석방]하다","t":"v. 자유롭게 하다, 해방[석방]하다","s":"set free, release","a":"","sl":["set free","release"],"al":[]},{"w":"deliver","d":50,"m":"1. v. 배달하다, 전하다\n2. v. 강연하다\n3. v. 분만하다\n4. v. 이행하다","t":"v. 배달하다, 전하다; 강연하다; 분만하다; 이행하다","s":"","a":"","sl":[],"al":[]},{"w":"anniversary","d":50,"m":"n. (해마다 있는) 기념일","t":"n. (해마다 있는) 기념일","s":"","a":"","sl":[],"al":[]},{"w":"annual","d":50,"m":"1. a. 해마다의, 연례의\n2. a. 일 년(간)의","t":"a. 해마다의, 연례의; 일 년(간)의","s":"","a":"","sl":[],"al":[]},{"w":"electric","d":50,"m":"a. 전기의, 전기로 작동하는, 전기를 띤[일으키는]","t":"a. 전기의, 전기로 작동하는, 전기를 띤[일으키는]","s":"","a":"","sl":[],"al":[]},{"w":"electronic","d":50,"m":"1. a. 전자의\n2. a. 전자 공학의","t":"a. 전자의; 전자 공학의","s":"","a":"","sl":[],"al":[]},{"w":"origin","d":50,"m":"1. n. 기원, 유래\n2. n. 출신","t":"n. 기원, 유래; 출신","s":"","a":"","sl":[],"al":[]},{"w":"orient","d":50,"m":"1. v. (일정 방향으로) 향하게 하다\n2. v. 적응시키다","t":"v. (일정 방향으로) 향하게 하다; 적응시키다","s":"","a":"","sl":[],"al":[]},{"w":"conscious","d":50,"m":"1. a. ~을 의식하고 있는, 알고 있는\n2. a. 깨어있는\n3. a. 의식적인","t":"a. ~을 의식하고 있는, 알고 있는; 깨어있는; 의식적인","s":"1. aware","a":"unconscious","sl":["aware"],"al":["unconscious"]},{"w":"subconscious","d":50,"m":"n./a. 잠재의식(의)","t":"n./a. 잠재의식(의)","s":"","a":"","sl":[],"al":[]},{"w":"conscience","d":50,"m":"n. 양심, 도덕심","t":"n. 양심, 도덕심","s":"","a":"","sl":[],"al":[]},{"w":"merge","d":50,"m":"v. 결합하다, 합병하다, 융합하다","t":"v. 결합하다, 합병하다, 융합하다","s":"","a":"","sl":[],"al":[]},{"w":"emerge","d":50,"m":"1. v. (모습이) 드러나다\n2. v. (사실이) 알려지다, 부각되다","t":"v. (모습이) 드러나다; (사실이) 알려지다, 부각되다","s":"","a":"","sl":[],"al":[]},{"w":"submerge","d":50,"m":"1. v. 잠수하다, 잠기다\n2. v. 잠그다\n3. v. 깊이 감추다","t":"v. 잠수하다, 잠기다; 잠그다; 깊이 감추다","s":"","a":"","sl":[],"al":[]},{"w":"assure","d":50,"m":"1. v. 보장하다, 장담하다\n2. v. ~을 확실하게 하다","t":"v. 보장하다, 장담하다; ~을 확실하게 하다","s":"1. guarantee\n2. ensure","a":"","sl":["guarantee","ensure"],"al":[]},{"w":"reassure","d":50,"m":"v. 안심시키다","t":"v. 안심시키다","s":"","a":"","sl":[],"al":[]},{"w":"insure","d":50,"m":"v. 보험에 들다[가입하다]","t":"v. 보험에 들다[가입하다]","s":"","a":"","sl":[],"al":[]}];
+const DAYS = [49, 50];
+const KEY = 'voca-day49-50';
+const C = '①②③④⑤';
+const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+const canSpeak = 'speechSynthesis' in window;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const hint = n => C.slice(0, n).split('').join(' ');
+const byW = Object.fromEntries(WORDS.map(w => [w.w, w]));
+
+let S = { tab: 'card', days: new Set(DAYS), wrong: {}, dir: 'mw', mix: true, qn: 0, card: null, quiz: null, q: '', clearArm: false };
+
+function load() { try { const v = JSON.parse(localStorage.getItem(KEY) || '{}'); if (v.wrong) S.wrong = v.wrong; } catch (e) {} }
+function save() { try { localStorage.setItem(KEY, JSON.stringify({ wrong: S.wrong })); } catch (e) {} }
+function speak(t) { if (!canSpeak) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'en-US'; u.rate = 0.9; speechSynthesis.speak(u); } catch (e) {} }
+const spkBtn = w => canSpeak ? `<button class="spk" type="button" data-say="${esc(w)}" aria-label="${esc(w)} 듣기">${SPK}</button>` : '';
+
+const norm = s => String(s).toLowerCase().replace(/[’`]/g, "'").replace(/\.$/, '').replace(/\s+/g, ' ').trim();
+function variants(t) {
+  const out = new Set();
+  const base = norm(t);
+  for (const v of [base, base.replace(/[()]/g, ''), base.replace(/\s*\([^)]*\)/g, '')]) {
+    for (const x of [v, v.replace(/to-v/g, 'to v'), v.replace(/to-v/g, 'to'), v.replace(/\s*to-v/g, '')]) out.add(norm(x));
+  }
+  return out;
+}
+function matchAll(inputs, targets) {
+  const pool = targets.map(t => ({ t, v: variants(t), used: false }));
+  return inputs.map(x => { const n = norm(x); const hit = n && pool.find(p => !p.used && p.v.has(n)); if (hit) hit.used = true; return !!hit; });
+}
+
+const pool = () => WORDS.filter(w => S.days.has(w.d));
+const saPool = () => pool().filter(w => w.sl.length || w.al.length);
+const saHint = w => [w.sl.length ? `<b>Syn</b> ${hint(w.sl.length)}` : '', w.al.length ? `<b>Ant</b> ${hint(w.al.length)}` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
+const saBlock = w => `<div class="sa">${w.s ? `<div><b>Syn</b>${esc(w.s)}</div>` : ''}${w.a ? `<div class="ant"><b>Ant</b>${esc(w.a)}</div>` : ''}${!w.s && !w.a ? '<div class="meta">동의어·반의어 없음</div>' : ''}</div>`;
+function addWrong(w) { S.wrong[w] = (S.wrong[w] || 0) + 1; save(); }
+function easeWrong(w) { if (S.wrong[w]) { S.wrong[w]--; if (!S.wrong[w]) delete S.wrong[w]; save(); } }
+
+/* ---------- cards ---------- */
+function startCards(list) { S.card = { queue: S.mix ? shuffle(list) : list.slice(), total: list.length, known: 0, missed: new Set(), flip: false }; }
+function viewCard() {
+  const c = S.card;
+  const setup = `<div class="row" style="justify-content:space-between;margin-bottom:12px">
+    <div class="seg" role="group" aria-label="방향"><button data-dir="mw" aria-pressed="${S.dir === 'mw'}">뜻 → 단어</button><button data-dir="wm" aria-pressed="${S.dir === 'wm'}">단어 → 뜻</button></div>
+    <div class="row"><label class="chk"><input type="checkbox" id="mix" ${S.mix ? 'checked' : ''}> 섞기</label><button class="btn" data-act="cards-all">처음부터</button></div></div>`;
+  if (!c || !c.total) return setup + `<p class="empty">선택한 Day에 단어가 없어요.</p>`;
+  if (!c.queue.length) return setup + `<div class="paper"><h2>다 외웠어요</h2><p class="pen score">${c.total}</p><p style="text-align:center">처음에 몰랐던 단어 <b class="cnt">${c.missed.size}</b>개</p>
+    <div class="acts">${c.missed.size ? `<button class="btn red" data-act="cards-missed">몰랐던 것만 다시</button>` : '<span></span>'}<button class="btn fill" data-act="cards-all">전체 다시</button></div></div>`;
+  const w = c.queue[0];
+  const done = c.total - c.queue.length;
+  const front = S.dir === 'mw'
+    ? `<p class="mean">${esc(w.t)}</p><div class="hint">${saHint(w) || '동의어·반의어 없음'}</div>`
+    : `<p class="word">${esc(w.w)} ${spkBtn(w.w)}</p><div class="hint">${saHint(w) || '동의어·반의어 없음'}</div>`;
+  const back = `<p class="word">${esc(w.w)} ${spkBtn(w.w)}</p><p class="mean">${esc(w.m)}</p>${saBlock(w)}`;
+  return setup + `<div class="meta">Day ${w.d} · ${done + 1} / ${c.total} · 남은 카드 ${c.queue.length}</div>
+    <div class="bar"><i style="width:${done / c.total * 100}%"></i></div>
+    <div class="paper card" data-act="flip" role="button" tabindex="0" aria-label="카드 뒤집기">${c.flip ? back : front}<span class="flipnote">${c.flip ? '' : '눌러서 정답 보기'}</span></div>
+    <div class="acts">${c.flip
+      ? `<button class="btn redfill" data-act="no">몰랐어요</button><button class="btn fill" data-act="yes">알았어요</button>`
+      : `<button class="btn" data-act="flip" style="grid-column:1/-1">정답 보기</button>`}</div>`;
+}
+
+/* ---------- quiz (실전 시험 + 동의어·반의어) ---------- */
+function startQuiz(mode, list) { S.quiz = { mode, list: S.mix ? shuffle(list) : list.slice(), i: 0, res: [], graded: null }; }
+function quizSetup(mode) {
+  const n = mode === 'test' ? pool().length : saPool().length;
+  const opts = [0, 20, 40].filter(k => k < n).map(k => `<option value="${k}" ${S.qn === k ? 'selected' : ''}>${k ? k + '문제' : '전체 ' + n + '문제'}</option>`).join('');
+  const what = mode === 'test'
+    ? '학원 시험처럼 <b>뜻</b>을 보고 단어와 동의어·반의어를 써요. 커트라인 87.5% (40문제 중 35개).'
+    : '<b>단어</b>를 보고 동의어·반의어만 써요. 동의어나 반의어가 있는 단어만 나와요.';
+  return `<div class="paper"><h2>${mode === 'test' ? '실전 시험' : '동의어·반의어 연습'}</h2><p>${what}</p>
+    <div class="row"><select id="qn" aria-label="문제 수">${opts}</select><label class="chk"><input type="checkbox" id="mix" ${S.mix ? 'checked' : ''}> 섞기</label>
+    <button class="btn fill" data-act="go-${mode}">시작</button></div></div>`;
+}
+function fields(w, mode, g) {
+  const f = (cls, key, label, i, val) => {
+    const st = g ? (g[key][i] ? 'good' : 'bad') : '';
+    return `<div class="fld ${cls} ${st}"><span>${label}</span><input id="in-${key}-${i}" data-k="${key}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" ${g ? 'readonly' : ''} value="${esc(val || '')}">${g ? `<span class="mk pen">${g[key][i] ? '✓' : '✗'}</span>` : ''}</div>`;
+  };
+  const v = g ? g.vals : { w: [''], s: [], a: [] };
+  let h = mode === 'test' ? f('', 'w', '단어', 0, v.w[0]) : '';
+  w.sl.forEach((_, i) => h += f('', 's', 'Syn ' + C[i], i, v.s[i]));
+  w.al.forEach((_, i) => h += f('ant', 'a', 'Ant ' + C[i], i, v.a[i]));
+  return h;
+}
+function viewQuiz(mode) {
+  const q = S.quiz;
+  if (!q || q.mode !== mode) return quizSetup(mode);
+  if (!q.list.length) return `<p class="empty">문제가 없어요. Day를 골라 주세요.</p>`;
+  if (q.i >= q.list.length) {
+    const ok = q.res.filter(r => r.ok).length, n = q.res.length, pass = ok / n >= 0.875;
+    const bad = q.res.filter(r => !r.ok);
+    return `<div class="paper"><h2>${mode === 'test' ? '시험 결과' : '연습 결과'}</h2>
+      <p class="pen score">${ok} / ${n}</p>
+      <p style="text-align:center;margin-top:0">${pass ? '<b style="color:var(--teal)">통과!</b> 커트라인 87.5% 넘었어요.' : `<b style="color:var(--red)">재시험</b> 커트라인까지 ${Math.ceil(n * 0.875) - ok}개 더 맞혀야 해요.`}</p>
+      ${bad.length ? `<div class="list">${bad.map(r => `<div class="item"><div class="w">${esc(r.w.w)} ${spkBtn(r.w.w)}</div><div class="m">${esc(r.w.t)}</div>${saBlock(r.w)}</div>`).join('')}</div>` : ''}
+      <div class="acts">${bad.length ? `<button class="btn red" data-act="retry">틀린 것만 다시</button>` : '<span></span>'}<button class="btn fill" data-act="new-quiz">새로 시작</button></div></div>`;
+  }
+  const w = q.list[q.i], g = q.graded;
+  const prompt = mode === 'test'
+    ? `<p class="mean">${esc(w.t)}</p>`
+    : `<p class="word">${esc(w.w)} ${spkBtn(w.w)}</p><p class="mean" style="font-size:16px;line-height:28px">${esc(w.t)}</p>`;
+  return `<div class="meta">Day ${w.d} · ${q.i + 1} / ${q.list.length} · 맞힘 ${q.res.filter(r => r.ok).length}</div>
+    <div class="bar"><i style="width:${q.i / q.list.length * 100}%"></i></div>
+    <div class="paper">${prompt}${mode === 'test' && !w.sl.length && !w.al.length ? '<div class="hint">동의어·반의어 없음 — 단어만 쓰면 돼요</div>' : ''}
+    <form class="q" id="qf">${fields(w, mode, g)}
+    ${g ? `<div class="ans"><p class="word" style="font-size:30px">${esc(w.w)} ${spkBtn(w.w)} <span class="pen" style="font-size:40px">${g.ok ? '참 잘했어요' : '다시 보기'}</span></p><p class="mean" style="font-size:16px;line-height:28px">${esc(w.m)}</p>${saBlock(w)}</div>
+      <button class="btn fill" type="submit" id="nextbtn">${q.i + 1 < q.list.length ? '다음' : '결과 보기'}</button>`
+      : `<button class="btn fill" type="submit">채점</button>`}</form></div>`;
+}
+function grade() {
+  const q = S.quiz, w = q.list[q.i];
+  const val = k => [...document.querySelectorAll(`#qf input[data-k="${k}"]`)].map(x => x.value);
+  const vals = { w: val('w'), s: val('s'), a: val('a') };
+  const g = { vals, w: q.mode === 'test' ? [norm(vals.w[0]) === norm(w.w)] : [], s: matchAll(vals.s, w.sl), a: matchAll(vals.a, w.al) };
+  g.ok = [...g.w, ...g.s, ...g.a].every(Boolean);
+  q.graded = g;
+  q.res.push({ w, ok: g.ok });
+  g.ok ? easeWrong(w.w) : addWrong(w.w);
+}
+
+/* ---------- word list ---------- */
+function viewList() {
+  const qs = norm(S.q);
+  const rows = pool().filter(w => !qs || [w.w, w.m, w.s, w.a].some(x => norm(x).includes(qs)));
+  let h = `<input class="search" id="search" type="search" placeholder="단어·뜻·동의어 검색" value="${esc(S.q)}" aria-label="검색">`;
+  if (!rows.length) return h + `<p class="empty">찾는 단어가 없어요.</p>`;
+  for (const d of DAYS) {
+    const r = rows.filter(w => w.d === d);
+    if (!r.length) continue;
+    h += `<h3 class="dayh">Day ${d} <span class="meta">${r.length}개</span></h3><div class="list">` + r.map(w => {
+      const code = (w.sl.length ? 'S' + w.sl.length : '') + (w.al.length ? 'A' + w.al.length : '') || '0';
+      return `<div class="item"><div class="w">${esc(w.w)}<span class="code">${code}</span>${S.wrong[w.w] ? `<span class="cnt">✗${S.wrong[w.w]}</span>` : ''}</div>${spkBtn(w.w)}<div class="m">${esc(w.m)}</div>${w.s || w.a ? saBlock(w) : ''}</div>`;
+    }).join('') + `</div>`;
+  }
+  return h;
+}
+
+/* ---------- wrong notes ---------- */
+function viewWrong() {
+  const list = Object.entries(S.wrong).filter(([w]) => byW[w]).sort((a, b) => b[1] - a[1]);
+  if (!list.length) return `<div class="paper"><h2>오답 노트</h2><p>아직 틀린 단어가 없어요. 카드에서 <b>몰랐어요</b>를 누르거나 시험에서 틀리면 여기에 모여요.</p></div>`;
+  return `<div class="paper"><h2>오답 노트 <span class="cnt">${list.length}</span></h2><p class="meta" style="margin-top:0">틀릴 때마다 ✗가 하나씩 늘고, 시험에서 맞히면 하나씩 줄어요. 선택한 Day와 상관없이 전부 보여요.</p>
+    <div class="row"><button class="btn" data-act="wrong-cards">오답 카드</button><button class="btn fill" data-act="wrong-test">오답 시험</button>
+    <button class="btn red" data-act="clear">${S.clearArm ? '정말 지울까요? 한 번 더' : '기록 지우기'}</button></div></div>
+    <div class="list">${list.map(([k, n]) => { const w = byW[k]; return `<div class="item"><div class="w">${esc(w.w)} <span class="code">Day ${w.d}</span> <span class="cnt">✗${n}</span></div>${spkBtn(w.w)}<div class="m">${esc(w.t)}</div>${saBlock(w)}</div>`; }).join('')}</div>`;
+}
+
+/* ---------- render + events ---------- */
+function render() {
+  $('days').innerHTML = DAYS.map(d => `<button class="chip" data-day="${d}" aria-pressed="${S.days.has(d)}">Day ${d}</button>`).join('') + `<span style="align-self:center;opacity:.9">${pool().length}단어</span>`;
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.tab === S.tab));
+  const v = { card: viewCard, test: () => viewQuiz('test'), sa: () => viewQuiz('sa'), list: viewList, wrong: viewWrong }[S.tab];
+  $('app').innerHTML = v();
+  const first = document.querySelector('#qf input:not([readonly])');
+  if (first) first.focus({ preventScroll: true });
+  else if ($('nextbtn')) $('nextbtn').focus({ preventScroll: true });
+}
+function act(a) {
+  const c = S.card;
+  if (a === 'flip' && c && c.queue.length) { c.flip = !c.flip; }
+  else if (a === 'yes') { c.queue.shift(); c.flip = false; }
+  else if (a === 'no') { const w = c.queue.shift(); c.queue.push(w); if (!c.missed.has(w.w)) { c.missed.add(w.w); addWrong(w.w); } c.flip = false; }
+  else if (a === 'cards-all') startCards(pool());
+  else if (a === 'cards-missed') startCards(WORDS.filter(w => c.missed.has(w.w)));
+  else if (a === 'go-test' || a === 'go-sa') {
+    const mode = a.slice(3), n = +($('qn')?.value || 0); S.qn = n;
+    let l = mode === 'test' ? pool() : saPool(); if (S.mix) l = shuffle(l); if (n) l = l.slice(0, n);
+    S.quiz = { mode, list: l, i: 0, res: [], graded: null };
+  }
+  else if (a === 'retry') { const q = S.quiz; startQuiz(q.mode, q.res.filter(r => !r.ok).map(r => r.w)); }
+  else if (a === 'new-quiz') S.quiz = null;
+  else if (a === 'wrong-cards') { startCards(Object.keys(S.wrong).map(k => byW[k]).filter(Boolean)); S.tab = 'card'; }
+  else if (a === 'wrong-test') { startQuiz('test', Object.keys(S.wrong).map(k => byW[k]).filter(Boolean)); S.tab = 'test'; }
+  else if (a === 'clear') { if (S.clearArm) { S.wrong = {}; save(); S.clearArm = false; } else { S.clearArm = true; } render(); return; }
+  S.clearArm = false;
+  render();
+}
+document.addEventListener('click', e => {
+  const say = e.target.closest('[data-say]'); if (say) { e.stopPropagation(); speak(say.dataset.say); return; }
+  const day = e.target.closest('[data-day]');
+  if (day) { const d = +day.dataset.day; if (S.days.has(d) && S.days.size > 1) S.days.delete(d); else S.days.add(d); startCards(pool()); S.quiz = null; render(); return; }
+  const tab = e.target.closest('[data-tab]'); if (tab) { S.tab = tab.dataset.tab; S.clearArm = false; if (S.tab === 'wrong' || S.tab === 'list') {} render(); window.scrollTo(0, 0); return; }
+  const dir = e.target.closest('[data-dir]'); if (dir) { S.dir = dir.dataset.dir; if (S.card) S.card.flip = false; render(); return; }
+  const el = e.target.closest('[data-act]'); if (el) act(el.dataset.act);
+});
+document.addEventListener('keydown', e => {
+  if (e.target.matches?.('.card') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); act('flip'); }
+});
+document.addEventListener('change', e => { if (e.target.id === 'mix') S.mix = e.target.checked; if (e.target.id === 'qn') S.qn = +e.target.value; });
+document.addEventListener('input', e => {
+  if (e.target.id === 'search') { S.q = e.target.value; const pos = e.target.selectionStart; render(); const s = $('search'); s.focus(); try { s.setSelectionRange(pos, pos); } catch (x) {} }
+});
+document.addEventListener('submit', e => {
+  if (e.target.id !== 'qf') return;
+  e.preventDefault();
+  const q = S.quiz;
+  if (!q.graded) {
+    const empty = [...document.querySelectorAll('#qf input')].find(x => !x.value.trim());
+    if (empty && document.activeElement !== empty && document.activeElement?.tagName === 'INPUT' && document.activeElement.compareDocumentPosition(empty) & Node.DOCUMENT_POSITION_FOLLOWING) { empty.focus(); return; }
+    grade();
+  } else { q.i++; q.graded = null; }
+  render();
+});
+
+function start(data) {
+  load();
+  if (data && data.wrong) S.wrong = data.wrong;
+  if (data && data.tab) S.tab = data.tab;
+  if (data && data.days && data.days.length) S.days = new Set(data.days);
+  startCards(pool());
+  render();
+}
+window.claude?.hot?.snapshot?.(() => ({ tab: S.tab, days: [...S.days], wrong: S.wrong }));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,778 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<a id="hub-back" href="../index.html" style="display:flex;align-items:center;gap:4px;padding:11px 16px;font:600 15px/1.2 -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#1a7f37;background:#ffffff;border-bottom:1px solid #d0d7de;text-decoration:none;-webkit-tap-highlight-color:transparent;position:relative;z-index:20"><span style="font-size:20px;line-height:1">‹</span> 단어장 목록</a>
+
+<title>UNIT16 접미사 단어</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans:wght@400;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: single 600px study column, sticky 5-tab bar, one task card per screen (same look as the UNIT v4 apps) */
+:root{
+  --bg:#f6f8fa; --card:#ffffff; --sunken:#eef1f4; --border:#d0d7de;
+  --text:#1f2328; --muted:#57606a;
+  --green:#1a7f37; --green-soft:rgba(26,127,55,.10);
+  --red:#cf222e; --red-soft:rgba(207,34,46,.09);
+  --blue:#0969da; --blue-soft:rgba(9,105,218,.09);
+  --amber:#8a5d00; --amber-soft:rgba(154,103,0,.10);
+  --on-accent:#ffffff;
+  --scrim:rgba(31,35,40,.45);
+  --shadow:0 1px 2px rgba(31,35,40,.05),0 6px 18px rgba(31,35,40,.06);
+  --shadow-lg:0 10px 40px rgba(31,35,40,.18);
+  --f-ko:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --f-en:'Noto Sans','Helvetica Neue',Arial,'Noto Sans KR',sans-serif;
+  --f-mono:'Space Mono',ui-monospace,Menlo,'Noto Sans KR',monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1117; --card:#161b22; --sunken:#1c2230; --border:#30363d;
+    --text:#e6edf3; --muted:#8b949e;
+    --green:#3fb950; --green-soft:rgba(63,185,80,.14);
+    --red:#f85149; --red-soft:rgba(248,81,73,.13);
+    --blue:#58a6ff; --blue-soft:rgba(88,166,255,.13);
+    --amber:#d29922; --amber-soft:rgba(210,153,34,.13);
+    --on-accent:#0d1117;
+    --scrim:rgba(1,4,9,.7);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+    --shadow-lg:0 10px 40px rgba(0,0,0,.55);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1117; --card:#161b22; --sunken:#1c2230; --border:#30363d;
+  --text:#e6edf3; --muted:#8b949e;
+  --green:#3fb950; --green-soft:rgba(63,185,80,.14);
+  --red:#f85149; --red-soft:rgba(248,81,73,.13);
+  --blue:#58a6ff; --blue-soft:rgba(88,166,255,.13);
+  --amber:#d29922; --amber-soft:rgba(210,153,34,.13);
+  --on-accent:#0d1117;
+  --scrim:rgba(1,4,9,.7);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  --shadow-lg:0 10px 40px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--f-ko);font-size:15px;line-height:1.55;margin:0;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+p,h1,h2,ul{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+.app{max-width:600px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px;display:flex;flex-direction:column;gap:14px}
+
+/* header */
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{min-width:0}
+.brand h1{font-family:var(--f-mono);font-size:1.05rem;font-weight:700;letter-spacing:.14em;color:var(--green);text-transform:uppercase}
+.brand p{margin-top:3px;color:var(--muted);font-size:.84rem}
+.auto-btn{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--border);background:var(--card);border-radius:999px;padding:6px 12px;font-size:.78rem;color:var(--muted);cursor:pointer}
+.auto-btn b{font-weight:700}
+.auto-btn[aria-pressed="true"]{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+
+/* tabs */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:6px}
+.nav-tabs{display:flex;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card)}
+.nav-tab{position:relative;flex:1 1 0;min-width:0;padding:11px 2px;border:0;border-right:1px solid var(--border);background:transparent;color:var(--muted);font-size:.8rem;letter-spacing:-.02em;white-space:nowrap;cursor:pointer;transition:background .15s,color .15s}
+.nav-tab:last-child{border-right:0}
+.nav-tab[aria-selected="true"]{background:var(--green-soft);color:var(--green);font-weight:700}
+.nav-tab .count{position:absolute;top:3px;right:3px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--red);color:var(--on-accent);font-family:var(--f-mono);font-size:.6rem;line-height:16px;font-weight:700}
+
+/* pages */
+.page{display:flex;flex-direction:column;gap:14px}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+.progress-row{display:flex;align-items:center;gap:12px}
+.progress-bar{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--green);border-radius:3px;transition:width .35s ease}
+.progress-label{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+.score-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.round-chip{margin-right:auto;font-size:.8rem;color:var(--muted);font-weight:500}
+.score-badge{font-family:var(--f-mono);font-size:.8rem;padding:3px 11px;border-radius:12px;font-variant-numeric:tabular-nums}
+.score-badge.correct{background:var(--green-soft);color:var(--green)}
+.score-badge.wrong{background:var(--red-soft);color:var(--red)}
+
+/* speaker button */
+.say{flex:none;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);color:var(--blue);cursor:pointer}
+.say svg{width:17px;height:17px}
+.say:active{background:var(--blue-soft)}
+
+/* flashcard */
+.fc{background:var(--card);border:1.5px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:30px 20px 22px;display:flex;flex-direction:column;gap:14px;cursor:pointer;min-height:230px;justify-content:center;-webkit-tap-highlight-color:transparent}
+.fc-front{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.fc-word{font-family:var(--f-en);font-size:clamp(2rem,9vw,2.6rem);font-weight:700;line-height:1.1;letter-spacing:-.01em;overflow-wrap:anywhere}
+.fc-sub{display:flex;align-items:center;gap:10px}
+.ipa{font-family:var(--f-en);color:var(--muted);font-size:.98rem}
+.fc-hint{margin-top:6px;font-size:.8rem;color:var(--muted);border:1px dashed var(--border);border-radius:999px;padding:3px 12px}
+.fc-back{border-top:1px dashed var(--border);padding-top:16px;cursor:default}
+
+.detail{display:flex;flex-direction:column;gap:12px}
+.senses{display:flex;flex-direction:column;gap:8px}
+.sense{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.pos{font-family:var(--f-mono);font-size:.7rem;color:var(--blue);background:var(--blue-soft);border-radius:6px;padding:1px 7px;margin-top:3px;min-width:34px;text-align:center}
+.sense-txt{display:flex;flex-direction:column;min-width:0}
+.sense-ko{font-weight:700;font-size:1.02rem}
+.sense-en{font-family:var(--f-en);color:var(--muted);font-size:.86rem;line-height:1.45}
+.ex{display:grid;grid-template-columns:1fr auto;gap:4px 10px;background:var(--sunken);border-radius:12px;padding:11px 12px;align-items:start}
+.ex-en{font-family:var(--f-en);font-size:.98rem;line-height:1.5;min-width:0}
+.ex-tr{grid-column:1/2;color:var(--muted);font-size:.86rem}
+.ex .say{grid-row:1/3;grid-column:2;width:30px;height:30px}
+.ex .say svg{width:15px;height:15px}
+mark.hl{background:var(--green-soft);color:var(--green);font-weight:700;padding:0 3px;border-radius:4px}
+mark.hl.miss{background:var(--red-soft);color:var(--red)}
+.tip{display:flex;gap:8px;color:var(--amber);background:var(--amber-soft);border-radius:12px;padding:9px 12px;font-size:.87rem;line-height:1.5}
+.tip-arrow{font-family:var(--f-mono);font-weight:700;flex:none}
+
+/* buttons */
+.btn{border:1.5px solid transparent;border-radius:12px;padding:14px 12px;font-weight:700;cursor:pointer;transition:transform .08s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn.no{background:var(--card);border-color:var(--red);color:var(--red)}
+.btn.yes,.btn.primary{background:var(--green);color:var(--on-accent)}
+.btn.ghost{background:var(--card);border-color:var(--border);color:var(--text);font-weight:500}
+.btn.ghost.danger{border-color:var(--red);color:var(--red);background:var(--red-soft)}
+.btn.small{padding:8px 14px;font-size:.84rem;border-radius:10px}
+.judge{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.judge .btn{font-size:1.02rem;padding:16px 10px}
+.note{color:var(--muted);font-size:.8rem;text-align:center}
+
+.done{background:var(--card);border:1.5px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:30px 22px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.done-eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;color:var(--green)}
+.done h2{font-size:1.3rem;font-weight:900;text-wrap:balance}
+.done p{color:var(--muted);font-size:.9rem}
+.done-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+
+/* question cards */
+.q-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px}
+.q-prompt{font-size:.8rem;color:var(--muted)}
+.q-sentence{font-family:var(--f-en);font-size:1.2rem;line-height:1.7}
+.blank{display:inline-block;min-width:5.5em;height:1.1em;border-bottom:2.5px solid var(--blue);vertical-align:-.15em;margin:0 3px}
+.q-tr{color:var(--muted);font-size:.9rem;border-left:3px solid var(--border);padding-left:10px}
+.link-btn{align-self:flex-start;border:0;background:none;color:var(--blue);font-size:.84rem;padding:2px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts.one{grid-template-columns:1fr}
+.opt{min-width:0;overflow-wrap:anywhere;padding:14px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:1rem;cursor:pointer;text-align:center;transition:background .15s,border-color .15s}
+.opt.en{font-family:var(--f-en);font-size:1.05rem}
+.opts.one .opt{text-align:left;padding:13px 16px}
+.opt:disabled{cursor:default}
+.opt:disabled:not(.correct):not(.wrong){opacity:.5}
+.opt.correct{border-color:var(--green);background:var(--green-soft);color:var(--green);font-weight:700}
+.opt.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+
+.feedback-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;min-height:50px}
+.feedback{font-weight:700;font-size:.95rem;min-width:0;flex:1 1 200px}
+.feedback.ok{color:var(--green)}
+.feedback.no{color:var(--red)}
+.feedback-row .btn{padding:12px 22px}
+
+/* listening */
+.listen-top{display:flex;flex-direction:column;align-items:center;gap:14px;padding-block:8px}
+.play-big{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;background:var(--blue);color:var(--on-accent);padding:16px 30px;font-size:1.05rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow)}
+.play-big svg{width:22px;height:22px}
+.listen-btns{display:flex;gap:10px;align-items:center}
+.listen-reveal{display:flex;flex-direction:column;align-items:center;gap:2px}
+.listen-reveal .fc-word{font-size:1.9rem}
+
+/* section heads */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sec-title{font-size:1.15rem;font-weight:900}
+.sec-sub{color:var(--muted);font-size:.82rem;margin-top:2px}
+.toggle{border:1.5px solid var(--border);background:var(--card);border-radius:999px;padding:7px 14px;font-size:.82rem;cursor:pointer;color:var(--muted)}
+.toggle[aria-pressed="true"]{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);font-weight:700}
+
+/* wordbook + wrong list */
+.wb-list,.wr-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
+.wb-item,.wr-item{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px 14px 14px 16px;display:flex;flex-direction:column;gap:10px}
+.wb-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wb-word{font-family:var(--f-en);font-weight:700;font-size:1.2rem}
+.wb-head .say{margin-left:auto}
+.wb-list.masked .wb-item{cursor:pointer}
+.wb-list.masked .wb-item:not(.peek) .wb-body{filter:blur(7px);user-select:none;-webkit-user-select:none;pointer-events:none}
+.mask-hint{display:none;font-size:.78rem;color:var(--blue)}
+.wb-list.masked .wb-item:not(.peek) .mask-hint{display:inline}
+
+.miss-count{font-family:var(--f-mono);font-size:.75rem;color:var(--red);background:var(--red-soft);border-radius:8px;padding:2px 8px;font-variant-numeric:tabular-nums}
+.wr-item .wb-head .say{margin-left:0}
+.wr-item .miss-count{margin-left:auto}
+.wr-ko{font-weight:700}
+.wr-ex{font-family:var(--f-en);font-size:.92rem;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:.72rem;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:1px 9px}
+.wr-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.empty{background:var(--card);border:1.5px dashed var(--border);border-radius:16px;padding:32px 20px;text-align:center;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.empty b{color:var(--text)}
+
+/* modal */
+.modal-back{position:fixed;inset:0;z-index:50;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.modal{background:var(--card);border:1.5px solid var(--border);border-radius:20px;box-shadow:var(--shadow-lg);width:100%;max-width:380px;padding:26px 20px 20px;display:flex;flex-direction:column;gap:6px;text-align:center}
+.m-eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;color:var(--muted)}
+.m-score{font-family:var(--f-mono);font-size:2.6rem;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums;line-height:1.2}
+.modal h2{font-size:1.15rem;font-weight:900;text-wrap:balance}
+.m-body{color:var(--muted);font-size:.88rem}
+.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+
+.suf{color:var(--green)}
+.pos{font-family:var(--f-ko);font-weight:700;font-size:.72rem}
+.sfx{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;font-size:.92rem}
+.sfx-root{font-family:var(--f-en);font-weight:700}
+.sfx-plus{color:var(--muted)}
+.sfx-suf{font-family:var(--f-en);font-weight:700;color:var(--green);background:var(--green-soft);border-radius:6px;padding:0 7px}
+.sfx-note{color:var(--muted);font-size:.84rem}
+.wb-group{display:flex;align-items:baseline;gap:8px;padding:12px 2px 0;font-weight:900;font-size:.98rem}
+.wb-group:first-child{padding-top:0}
+.wb-group span{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);font-weight:400}
+@media (max-width:380px){
+  .nav-tab{font-size:.74rem}
+  .opts:not(.one){grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <h1>Vocab · Unit 16</h1>
+      <p id="sub">품사를 변화시키는 접미사</p>
+    </div>
+    <button type="button" class="auto-btn" id="auto-btn" aria-pressed="true">
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a4.5 4.5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      자동 발음 <b id="auto-state">켜짐</b>
+    </button>
+  </header>
+
+  <nav class="nav" aria-label="학습 메뉴">
+    <div class="nav-tabs" role="tablist">
+      <button type="button" class="nav-tab" role="tab" data-page="flash" aria-selected="true">플래시카드</button>
+      <button type="button" class="nav-tab" role="tab" data-page="ex" aria-selected="false">예문퀴즈</button>
+      <button type="button" class="nav-tab" role="tab" data-page="list" aria-selected="false">단어장</button>
+      <button type="button" class="nav-tab" role="tab" data-page="wrong" aria-selected="false">오답정리<span class="count" id="wrong-count" hidden>0</span></button>
+      <button type="button" class="nav-tab" role="tab" data-page="listen" aria-selected="false">듣기</button>
+    </div>
+  </nav>
+
+  <!-- 플래시카드 -->
+  <section class="page" id="page-flash" role="tabpanel">
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" id="fc-fill"></div></div>
+      <span class="progress-label" id="fc-label">0 / 0</span>
+    </div>
+    <div class="score-row">
+      <span class="round-chip" id="fc-mode">전체 단어</span>
+      <span class="score-badge correct">O <b id="fc-o">0</b></span>
+      <span class="score-badge wrong">X <b id="fc-x">0</b></span>
+    </div>
+    <div class="stack" id="fc-play">
+      <div class="fc" id="fc-card" role="button" tabindex="0" aria-expanded="false" aria-label="카드를 눌러 뜻 보기">
+        <div class="fc-front">
+          <span class="fc-word" id="fc-word"></span>
+          <div class="fc-sub">
+            <span class="ipa" id="fc-ipa"></span>
+            <button type="button" class="say" id="fc-say" data-say="" aria-label="발음 듣기"></button>
+          </div>
+          <span class="fc-hint" id="fc-hint">탭해서 뜻 보기</span>
+        </div>
+        <div class="fc-back" id="fc-back" hidden></div>
+      </div>
+      <div class="judge">
+        <button type="button" class="btn no" id="fc-no">몰랐어요</button>
+        <button type="button" class="btn yes" id="fc-yes">알았어요</button>
+      </div>
+      <p class="note">몰랐어요를 누른 단어는 맨 뒤로 가서 다시 나와요. 모두 알았어요가 될 때까지 계속돼요.</p>
+    </div>
+    <div class="done" id="fc-done" hidden>
+      <p class="done-eyebrow">FLASHCARD CLEAR</p>
+      <h2 id="fc-done-title">모든 단어를 알았어요!</h2>
+      <p id="fc-done-msg"></p>
+      <div class="done-actions">
+        <button type="button" class="btn yes" id="fc-restart">전체 단어 다시</button>
+        <button type="button" class="btn ghost" id="fc-to-wrong">오답정리 보기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 예문퀴즈 -->
+  <section class="page" id="page-ex" role="tabpanel" hidden>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" id="ex-fill"></div></div>
+      <span class="progress-label" id="ex-label">0 / 0</span>
+    </div>
+    <div class="score-row">
+      <span class="round-chip" id="ex-round">1회차</span>
+      <span class="score-badge correct">O <b id="ex-o">0</b></span>
+      <span class="score-badge wrong">X <b id="ex-x">0</b></span>
+    </div>
+    <div class="q-card">
+      <p class="q-prompt">빈칸에 알맞은 단어를 고르세요</p>
+      <p class="q-sentence" id="ex-sentence"></p>
+      <button type="button" class="link-btn" id="ex-tr-btn">해석 보기</button>
+      <p class="q-tr" id="ex-tr" hidden></p>
+    </div>
+    <div class="opts" id="ex-opts"></div>
+    <div class="feedback-row">
+      <p class="feedback" id="ex-feedback" aria-live="polite"></p>
+      <button type="button" class="btn primary" id="ex-next" hidden>다음 문제</button>
+    </div>
+  </section>
+
+  <!-- 단어장 -->
+  <section class="page" id="page-list" role="tabpanel" hidden>
+    <div class="sec-head">
+      <div>
+        <h2 class="sec-title">단어장</h2>
+        <p class="sec-sub" id="wb-sub">본문 순서</p>
+      </div>
+      <button type="button" class="toggle" id="wb-mask" aria-pressed="false">뜻 가리기</button>
+    </div>
+    <ul class="wb-list" id="wb-list"></ul>
+  </section>
+
+  <!-- 오답정리 -->
+  <section class="page" id="page-wrong" role="tabpanel" hidden>
+    <div class="sec-head">
+      <div>
+        <h2 class="sec-title">오답정리</h2>
+        <p class="sec-sub" id="wr-sub">틀린 단어가 여기에 모여요</p>
+      </div>
+    </div>
+    <div class="wr-actions" id="wr-actions" hidden>
+      <button type="button" class="btn primary" id="wr-flash">이 단어로 플래시카드</button>
+      <button type="button" class="btn ghost" id="wr-clear">목록 비우기</button>
+    </div>
+    <ul class="wr-list" id="wr-list"></ul>
+    <div class="empty" id="wr-empty">
+      <b>아직 틀린 단어가 없어요</b>
+      <span>플래시카드에서 몰랐어요를 누르거나 예문퀴즈·듣기에서 틀리면 여기에 모여요.</span>
+    </div>
+    <p class="note">오답 기록은 앱을 새로고침하면 지워져요.</p>
+  </section>
+
+  <!-- 듣기 -->
+  <section class="page" id="page-listen" role="tabpanel" hidden>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" id="ls-fill"></div></div>
+      <span class="progress-label" id="ls-label">0 / 0</span>
+    </div>
+    <div class="score-row">
+      <span class="round-chip" id="ls-round">1회차</span>
+      <span class="score-badge correct">O <b id="ls-o">0</b></span>
+      <span class="score-badge wrong">X <b id="ls-x">0</b></span>
+    </div>
+    <div class="q-card">
+      <p class="q-prompt">단어를 듣고 알맞은 뜻을 고르세요</p>
+      <div class="listen-top">
+        <div class="listen-btns">
+          <button type="button" class="play-big" id="ls-play" data-say="">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            듣기
+          </button>
+          <button type="button" class="btn ghost small" id="ls-slow" data-say="" data-rate="0.55">느리게</button>
+        </div>
+        <div class="listen-reveal" id="ls-reveal" hidden>
+          <span class="fc-word" id="ls-word"></span>
+          <span class="ipa" id="ls-ipa"></span>
+        </div>
+      </div>
+    </div>
+    <div class="opts one" id="ls-opts"></div>
+    <div class="feedback-row">
+      <p class="feedback" id="ls-feedback" aria-live="polite"></p>
+      <button type="button" class="btn primary" id="ls-next" hidden>다음 문제</button>
+    </div>
+  </section>
+</div>
+
+<!-- 라운드 결과 모달 -->
+<div class="modal-back" id="modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <p class="m-eyebrow" id="m-eyebrow"></p>
+    <p class="m-score" id="m-score"></p>
+    <h2 id="m-title"></h2>
+    <p class="m-body" id="m-body"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="m-secondary">닫기</button>
+      <button type="button" class="btn primary" id="m-primary">확인</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- 단어 데이터 (본문 순서 → 선택지 순서) ---------- */
+const W=[
+{w:"heighten",ipa:"/ˈhaɪ.tən/",g:0,sf:["height(높이)","-en","명사 → 동사"],s:[["v","고조시키다, 고조되다","to make a feeling stronger, or to become stronger"]],ko:"고조시키다, 고조되다",ex:"The scary music ___ the tension in the movie.",ans:"heightened",tr:"무서운 음악이 영화의 긴장감을 고조시켰다.",tip:"-en은 '~하게 만들다'라는 뜻의 동사를 만든다. 높이(height)를 높게 만들다 → 고조시키다"},
+{w:"broaden",ipa:"/ˈbrɑː.dən/",g:0,sf:["broad(넓은)","-en","형용사 → 동사"],s:[["v","넓어지다; 넓히다","to become wider, or to make something wider"]],ko:"넓어지다; 넓히다",ex:"Reading books can ___ your view of the world.",ans:"broaden",tr:"책을 읽으면 세상을 보는 시야를 넓힐 수 있다.",tip:"broaden one's horizons = 시야를 넓히다. 같은 -en 동사: widen(넓히다), deepen(깊게 하다)"},
+{w:"exemplify",ipa:"/ɪɡˈzem.plə.faɪ/",g:0,sf:["example(예)","-ify","명사 → 동사"],s:[["v","예를 들다","to give an example of something"],["v","전형적인 예가 되다","to be a typical example of something"]],ko:"예를 들다; 전형적인 예가 되다",ex:"This painting ___ the artist's unique style.",ans:"exemplifies",tr:"이 그림은 그 화가의 독특한 스타일을 보여 주는 전형적인 예이다.",tip:"-ify = '~로 만들다' (simplify 단순화하다, classify 분류하다)"},
+{w:"individualize",ipa:"/ˌɪn.dəˈvɪdʒ.u.ə.laɪz/",g:0,sf:["individual(개인의)","-ize","형용사 → 동사"],s:[["v","개개인의 요구에 맞추다, 개별화하다","to change something to suit each person"]],ko:"개개인의 요구에 맞추다, 개별화하다",ex:"Good teachers ___ their lessons for each student.",ans:"individualize",tr:"좋은 선생님은 학생 한 명 한 명에 맞게 수업을 맞춘다.",tip:"-ize = '~화하다' (modernize 현대화하다, memorize 암기하다)"},
+{w:"differentiate",ipa:"/ˌdɪf.əˈren.ʃi.eɪt/",g:0,sf:["different(다른)","-iate","형용사 → 동사"],s:[["v","구별하다, 구분 짓다","to see or show the difference between things"]],ko:"구별하다, 구분 짓다",ex:"Can you ___ between a frog and a toad?",ans:"differentiate",tr:"개구리와 두꺼비를 구별할 수 있니?",tip:"differentiate A from B = A를 B와 구별하다 (= distinguish)"},
+{w:"liberate",ipa:"/ˈlɪb.ə.reɪt/",g:0,sf:["liber(자유)","-ate","어근 → 동사"],s:[["v","해방시키다","to set a country or people free"],["v","자유롭게[벗어나게] 해주다","to free someone from something that limits them"]],ko:"해방시키다; 자유롭게 해주다",ex:"The soldiers ___ the city from the enemy.",ans:"liberated",tr:"군인들이 적으로부터 그 도시를 해방시켰다.",tip:"liberty(자유), liberal(자유로운)과 같은 뿌리. liberate A from B = A를 B로부터 해방시키다"},
+{w:"countless",ipa:"/ˈkaʊnt.ləs/",g:1,sf:["count(세다)","-less","동사 → 형용사"],s:[["adj","무수한, 셀 수 없이 많은","too many to count"]],ko:"무수한, 셀 수 없이 많은",ex:"There are ___ stars in the night sky.",ans:"countless",tr:"밤하늘에는 셀 수 없이 많은 별이 있다.",tip:"-less = '~이 없는, ~할 수 없는' (endless 끝없는, careless 부주의한)"},
+{w:"defenseless",ipa:"/dɪˈfens.ləs/",g:1,sf:["defense(방어)","-less","명사 → 형용사"],s:[["adj","무방비의; 방어할 수 없는","not able to protect yourself"]],ko:"무방비의; 방어할 수 없는",ex:"A baby bird is ___ without its mother.",ans:"defenseless",tr:"아기 새는 어미가 없으면 무방비 상태이다.",tip:"방어(defense)가 없는(-less) → 무방비의. 영국식 철자는 defenceless"},
+{w:"iconic",ipa:"/aɪˈkɑː.nɪk/",g:1,sf:["icon(상징, 아이콘)","-ic","명사 → 형용사"],s:[["adj","상징[아이콘]이 되는","very famous and seen as a symbol of something"]],ko:"상징[아이콘]이 되는",ex:"The Eiffel Tower is one of the most ___ buildings in the world.",ans:"iconic",tr:"에펠탑은 세계에서 가장 상징적인 건물 중 하나이다.",tip:"-ic = '~의, ~적인' (historic 역사적인, scientific 과학적인)"},
+{w:"injurious",ipa:"/ɪnˈdʒʊr.i.əs/",g:1,sf:["injury(부상, 손상)","-ous","명사 → 형용사"],s:[["adj","손상을 주는, 해로운","causing harm or damage"]],ko:"손상을 주는, 해로운",ex:"Smoking is ___ to your health.",ans:"injurious",tr:"흡연은 건강에 해롭다.",tip:"be injurious to ~ = ~에 해롭다 (= harmful). -ous는 형용사를 만든다 (dangerous, famous)"},
+{w:"habitual",ipa:"/həˈbɪtʃ.u.əl/",g:1,sf:["habit(습관)","-ual","명사 → 형용사"],s:[["adj","습관적인","done often, as a habit"]],ko:"습관적인",ex:"He is a ___ liar, so no one believes him anymore.",ans:"habitual",tr:"그는 습관적인 거짓말쟁이라서 이제 아무도 그를 믿지 않는다.",tip:"-al/-ual = '~의, ~적인' (natural 자연의, cultural 문화의)"},
+{w:"fictional",ipa:"/ˈfɪk.ʃən.əl/",g:1,sf:["fiction(소설, 허구)","-al","명사 → 형용사"],s:[["adj","허구적인; 소설의","invented, not real; from a story"]],ko:"허구적인; 소설의",ex:"Sherlock Holmes is a famous ___ detective.",ans:"fictional",tr:"셜록 홈스는 유명한 소설 속 탐정이다.",tip:"fiction(소설) ↔ nonfiction(실화). fictional ↔ real(실제의)"},
+{w:"childish",ipa:"/ˈtʃaɪl.dɪʃ/",g:1,sf:["child(아이)","-ish","명사 → 형용사"],s:[["adj","어린애 같은","typical of a child"],["adj","((주로 부정적)) 유치한","behaving in a silly way, not like an adult"]],ko:"어린애 같은; 유치한",ex:"Stop being so ___ and say sorry to your brother.",ans:"childish",tr:"그렇게 유치하게 굴지 말고 동생에게 사과해.",tip:"-ish = '~ 같은, ~스러운'. childlike(순진한, 아이 같은)는 좋은 뜻, childish(유치한)는 주로 나쁜 뜻"},
+{w:"sensory",ipa:"/ˈsen.sɚ.i/",g:1,sf:["sense(감각)","-ory","명사 → 형용사"],s:[["adj","감각의, 지각의","related to sight, hearing, touch, taste, or smell"]],ko:"감각의, 지각의",ex:"Our eyes and ears are ___ organs.",ans:"sensory",tr:"눈과 귀는 감각 기관이다.",tip:"sensory organ = 감각 기관. sensitive(민감한), sensible(분별 있는)과 헷갈리지 않기"},
+{w:"collaborative",ipa:"/kəˈlæb.ə.rə.t̬ɪv/",g:1,sf:["collaborate(협력하다)","-ive","동사 → 형용사"],s:[["adj","공동의, 협력하는","done by people working together"]],ko:"공동의, 협력하는",ex:"The science project was a ___ effort by four students.",ans:"collaborative",tr:"그 과학 프로젝트는 학생 네 명의 공동 작업이었다.",tip:"col(함께) + labor(일하다) → 함께 일하다. -ive = '~하는, ~적인' (creative, active)"},
+{w:"timely",ipa:"/ˈtaɪm.li/",g:1,sf:["time(때)","-ly","명사 → 형용사"],s:[["adj","시기적절한, 때맞춘","happening at exactly the right time"]],ko:"시기적절한, 때맞춘",ex:"Thanks to the doctor's ___ help, the man survived.",ans:"timely",tr:"의사의 시기적절한 도움 덕분에 그 남자는 목숨을 건졌다.",tip:"-ly로 끝나지만 부사가 아니라 형용사! (friendly, lovely, costly도 형용사)"},
+{w:"handy",ipa:"/ˈhæn.di/",g:1,sf:["hand(손)","-y","명사 → 형용사"],s:[["adj","유용한, 편리한","useful and easy to use"],["adj","가까운[이용하기 편한] 곳에 있는","near and easy to reach"],["adj","손재주가 있는","good at using your hands to make or fix things"]],ko:"유용한, 편리한; 손재주가 있는",ex:"A small flashlight is ___ when the power goes off.",ans:"handy",tr:"정전되었을 때 작은 손전등은 유용하다.",tip:"손(hand) 안에 있다 → 가까이 있는, 쓰기 편한. come in handy = 쓸모가 있다"},
+{w:"troublesome",ipa:"/ˈtrʌb.əl.səm/",g:1,sf:["trouble(골칫거리)","-some","명사 → 형용사"],s:[["adj","골치 아픈, 성가신","causing problems or difficulties"]],ko:"골치 아픈, 성가신",ex:"The ___ printer broke down again.",ans:"troublesome",tr:"골치 아픈 그 프린터가 또 고장 났다.",tip:"-some = '~을 일으키는, ~한 경향이 있는' (worrisome 걱정스러운, awesome 굉장한)"},
+{w:"worrisome",ipa:"/ˈwɝː.i.səm/",g:1,sf:["worry(걱정하다)","-some","동사 → 형용사"],s:[["adj","걱정스럽게 만드는, 걱정스러운","making people worry"]],ko:"걱정스럽게 만드는, 걱정스러운",ex:"Her high fever is ___.",ans:"worrisome",tr:"그녀의 고열이 걱정스럽다.",tip:"y가 i로 바뀌고 -some이 붙음. troublesome(골치 아픈)과 같은 -some 형제"},
+{w:"observer",ipa:"/əbˈzɝː.vɚ/",g:2,sf:["observe(관찰하다)","-er","동사 → 명사"],s:[["n","관찰자, 감시자","a person who watches something carefully"],["n","(회의 등의) 참관인","a person who attends a meeting to watch, not to take part"]],ko:"관찰자, 감시자; 참관인",ex:"A careful ___ will notice even small changes.",ans:"observer",tr:"주의 깊은 관찰자는 작은 변화도 알아챌 것이다.",tip:"-er/-or = '~하는 사람' (teacher, visitor). observe → observation(관찰)"},
+{w:"migrant",ipa:"/ˈmaɪ.ɡrənt/",g:2,sf:["migrate(이주하다)","-ant","동사 → 명사"],s:[["n","이주자","a person who moves to another place to find work"],["n","철새; (계절에 따라) 이동하는 동물","a bird or animal that moves with the seasons"]],ko:"이주자; 철새",ex:"Many ___ moved to the city to find jobs.",ans:"migrants",tr:"많은 이주자들이 일자리를 찾아 도시로 왔다.",tip:"-ant = '~하는 사람[것]' (assistant 조수, participant 참가자)"},
+{w:"revolutionary",ipa:"/ˌrev.əˈluː.ʃən.er.i/",g:2,sf:["revolution(혁명)","-ary","명사 → 명사·형용사"],s:[["n","혁명가","a person who works for great political change"],["adj","혁명의, 혁명적인","bringing great change"]],ko:"혁명가; 혁명적인",ex:"The smartphone was a ___ invention.",ans:"revolutionary",tr:"스마트폰은 혁명적인 발명품이었다.",tip:"-ary는 사람(혁명가)을 뜻하는 명사도, '~의'를 뜻하는 형용사도 만든다"},
+{w:"attendee",ipa:"/əˌtenˈdiː/",g:2,sf:["attend(참석하다)","-ee","동사 → 명사"],s:[["n","참석자, 출석자","a person who goes to a meeting or event"]],ko:"참석자, 출석자",ex:"Every ___ received a free T-shirt.",ans:"attendee",tr:"모든 참석자가 무료 티셔츠를 받았다.",tip:"-ee = '~하는[~받는] 사람' (employee 직원, trainee 수습생). 강세가 -ee에 온다"},
+{w:"estimation",ipa:"/ˌes.təˈmeɪ.ʃən/",g:2,sf:["estimate(평가하다, 추정하다)","-ion","동사 → 명사"],s:[["n","(가치, 자질에 대한) 판단, 평가","your opinion of how good someone or something is"],["n","추산","a rough calculation of an amount"]],ko:"판단, 평가; 추산",ex:"In my ___, this is the best restaurant in town.",ans:"estimation",tr:"내 판단으로는 여기가 동네에서 제일 좋은 식당이다.",tip:"in one's estimation = ~의 판단[평가]으로는"},
+{w:"domination",ipa:"/ˌdɑː.məˈneɪ.ʃən/",g:2,sf:["dominate(지배하다)","-ion","동사 → 명사"],s:[["n","지배, 통치","power or control over others"],["n","우세","the state of being much stronger than others"]],ko:"지배, 통치; 우세",ex:"The country fought to be free from foreign ___.",ans:"domination",tr:"그 나라는 외세의 지배에서 벗어나기 위해 싸웠다.",tip:"dominant(우세한, 지배적인)도 함께 기억하기"},
+{w:"approximation",ipa:"/əˌprɑːk.səˈmeɪ.ʃən/",g:2,sf:["approximate(근사치를 내다)","-ion","동사 → 명사"],s:[["n","근사(치)","a number that is close to the exact one"],["n","비슷한[가까운] 것","something that is similar to something else"]],ko:"근사(치); 비슷한 것",ex:"The number 3.14 is only a rough ___ of pi.",ans:"approximation",tr:"3.14라는 숫자는 원주율의 대략적인 근사치일 뿐이다.",tip:"approximately = 대략 (= about). approximate는 '대략의'라는 형용사로도 쓰인다"},
+{w:"dependence",ipa:"/dɪˈpen.dəns/",g:2,sf:["depend(의존하다)","-ence","동사 → 명사"],s:[["n","의존(성), 의지","the state of needing someone or something"]],ko:"의존(성), 의지",ex:"We need to reduce our ___ on oil.",ans:"dependence",tr:"우리는 석유에 대한 의존을 줄여야 한다.",tip:"dependence on ~ = ~에 대한 의존. 반대말은 independence(독립)"},
+{w:"artistry",ipa:"/ˈɑːr.t̬ə.stri/",g:2,sf:["artist(예술가)","-ry","명사 → 명사"],s:[["n","예술적 기교; 예술성","great skill in art or in doing something"]],ko:"예술적 기교; 예술성",ex:"Everyone admired the ___ of the ballet dancer.",ans:"artistry",tr:"모두가 그 발레리나의 예술적 기교에 감탄했다.",tip:"-ry = 기술, 성질 등을 나타내는 명사 (bravery 용감함, jewelry 보석류)"},
+{w:"mastery",ipa:"/ˈmæs.tɚ.i/",g:2,sf:["master(달인; 숙달하다)","-y","명사·동사 → 명사"],s:[["n","숙달, 통달","great skill or knowledge"],["n","지배(력)","control or power over something"]],ko:"숙달, 통달; 지배(력)",ex:"It takes years to gain ___ of a foreign language.",ans:"mastery",tr:"외국어에 통달하려면 여러 해가 걸린다.",tip:"master(주인, 달인) → 무언가의 주인이 됨 → 숙달, 지배"},
+{w:"immediacy",ipa:"/ɪˈmiː.di.ə.si/",g:2,sf:["immediate(즉각적인)","-cy","형용사 → 명사"],s:[["n","신속성, 긴급성","the quality of being instant or urgent"],["n","직접성","the feeling of being directly involved"]],ko:"신속성, 긴급성; 직접성",ex:"The ___ of the internet lets us share news in seconds.",ans:"immediacy",tr:"인터넷의 신속성 덕분에 우리는 몇 초 만에 소식을 공유할 수 있다.",tip:"-cy = 성질, 상태를 나타내는 명사 (privacy 사생활, accuracy 정확성). immediately = 즉시"},
+{w:"presidency",ipa:"/ˈprez.ə.dən.si/",g:2,sf:["president(대통령, 회장)","-cy","명사 → 명사"],s:[["n","대통령 임기[직]; 회장 임기[직]","the job of a president, or the time someone is president"]],ko:"대통령 임기[직]; 회장 임기[직]",ex:"During his ___, the country's economy grew quickly.",ans:"presidency",tr:"그의 대통령 임기 동안 그 나라의 경제는 빠르게 성장했다.",tip:"-cy는 지위나 직책을 나타내기도 한다 (captaincy 주장직)"},
+{w:"companionship",ipa:"/kəmˈpæn.jən.ʃɪp/",g:2,sf:["companion(동료, 친구)","-ship","명사 → 명사"],s:[["n","동료애, 동지애, 우정","the good feeling of being with friends"]],ko:"동료애, 동지애, 우정",ex:"Dogs give their owners love and ___.",ans:"companionship",tr:"개는 주인에게 사랑과 우정을 준다.",tip:"-ship = 관계, 상태를 나타내는 명사 (friendship 우정, leadership 리더십)"},
+{w:"egocentrism",ipa:"/ˌiː.ɡoʊˈsen.trɪ.zəm/",g:2,sf:["ego(자아) + centr(중심)","-ism","어근 → 명사"],s:[["n","자기중심(성)","the habit of thinking only about yourself"]],ko:"자기중심(성)",ex:"Young children often show ___ because they see the world only from their own view.",ans:"egocentrism",tr:"어린아이들은 세상을 자기 관점에서만 보기 때문에 자기중심성을 자주 보인다.",tip:"-ism = 주의, 성향 (optimism 낙관주의, heroism 영웅적 행동). egocentric = 자기중심적인"},
+{w:"run out (of)",say:"run out of",ipa:"/rʌn aʊt (əv)/",g:3,sf:["run","out","끝까지 → 다 떨어지다"],s:[["phr","다 써버리다; (물건이) 동나다","to use all of something, or to be all used up"]],ko:"다 써버리다; 동나다",ex:"We ___ milk, so I went to the store.",ans:"ran out of",tr:"우유가 다 떨어져서 나는 가게에 갔다.",tip:"사람 + run out of + 물건 = ~을 다 써버리다 / 물건 + run out = 동나다 (Time is running out. 시간이 다 되어 간다.)"},
+{w:"set out",ipa:"/set aʊt/",g:3,sf:["set","out","밖으로 나서다 → 출발하다"],s:[["phr","출발하다; (목표, 목적 등을 위해) 착수하다, 시작하다","to start a trip, or to start working toward a goal"],["phr","진열하다, 준비하다","to arrange things so people can see or use them"]],ko:"출발하다, 착수하다; 진열하다",ex:"We ___ early in the morning to climb the mountain.",ans:"set out",tr:"우리는 산에 오르려고 아침 일찍 출발했다.",tip:"set-set-set (과거형도 set). set out to do = ~하려고 착수하다"},
+{w:"stand out",ipa:"/stænd aʊt/",g:3,sf:["stand","out","밖으로 튀어나와 서다 → 눈에 띄다"],s:[["phr","두드러지다, 눈에 띄다","to be easy to see or notice"]],ko:"두드러지다, 눈에 띄다",ex:"Her red coat made her ___ in the crowd.",ans:"stand out",tr:"빨간 코트 덕분에 그녀는 군중 속에서 눈에 띄었다.",tip:"outstanding(뛰어난, 두드러진)도 같은 뜻에서 나온 말"},
+{w:"turn out",ipa:"/tɝːn aʊt/",g:3,sf:["turn","out","뒤집어 밖으로 → 드러나다"],s:[["phr","모습을 드러내다, 나타나다","to come to an event"],["phr","(~인 것으로) 드러나다, 밝혀지다","to be found to be something in the end"],["phr","만들어내다, 생산하다","to make or produce something"],["phr","(불 등을) 끄다","to switch off a light"]],ko:"나타나다; 밝혀지다; 생산하다; 끄다",ex:"The rumor ___ to be false.",ans:"turned out",tr:"그 소문은 거짓으로 밝혀졌다.",tip:"turn out (to be) ~ = ~인 것으로 드러나다. 시험에 가장 자주 나오는 뜻!"},
+{w:"wear out",ipa:"/wer aʊt/",g:3,sf:["wear","out","끝까지 쓰다 → 닳다"],s:[["phr","닳다, 닳게 하다","to become thin or useless from use, or to make something do this"],["phr","지치게 하다","to make someone very tired"]],ko:"닳다; 지치게 하다",ex:"My sneakers ___ after a year of running.",ans:"wore out",tr:"내 운동화는 1년 동안 달리고 나니 닳아 버렸다.",tip:"wear-wore-worn. worn out = 닳아 해진; 몹시 지친"},
+{w:"wipe out",ipa:"/waɪp aʊt/",g:3,sf:["wipe","out","싹 닦아 내다 → 없애다"],s:[["phr","파괴하다, 완전히 없애다","to destroy something completely"],["phr","녹초로 만들다, 지치게 하다","to make someone extremely tired"]],ko:"완전히 없애다; 녹초로 만들다",ex:"The flood ___ the whole village.",ans:"wiped out",tr:"홍수가 마을 전체를 완전히 파괴했다.",tip:"I'm wiped out. = 나 완전히 녹초가 됐어."},
+{w:"work out",ipa:"/wɝːk aʊt/",g:3,sf:["work","out","끝까지 해내다 → 해결하다"],s:[["phr","(일이) 잘 되어가다","to happen in a good way"],["phr","(문제를) 해결하다; (해결책을) 찾다","to find the answer to a problem"],["phr","운동하다","to exercise to make your body strong"],["phr","계산하다","to calculate an amount"]],ko:"잘 되어가다; 해결하다; 운동하다",ex:"My dad ___ at the gym every morning.",ans:"works out",tr:"우리 아빠는 매일 아침 헬스장에서 운동한다.",tip:"Everything will work out. = 다 잘될 거야. workout(명사) = 운동"}
+];
+const N=W.length;
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const ESC={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>ESC[c]);
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const range=n=>Array.from({length:n},(_,i)=>i);
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a;}
+const SPK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+function exParts(w){const p=w.ex.split('___');return{pre:p[0],post:p[1]||'',a:p[0]===''?cap(w.ans):w.ans};}
+function fillEx(w,cls){const x=exParts(w);return esc(x.pre)+'<mark class="hl '+(cls||'')+'">'+esc(x.a)+'</mark>'+esc(x.post);}
+function plainEx(w){const x=exParts(w);return x.pre+x.a+x.post;}
+function blankEx(w){const x=exParts(w);return esc(x.pre)+'<span class="blank" aria-label="빈칸"></span>'+esc(x.post);}
+
+const POS={v:'동',adj:'형',n:'명',phr:'구동사'};
+const sayOf=w=>w.say||w.w;
+function sufLen(w){const f=w.sf;if(!f||f[1].charAt(0)!=='-')return 0;const t=f[1].slice(1);return w.w.endsWith(t)?t.length:0;}
+function wordHTML(w){const n=sufLen(w);if(!n)return esc(w.w);return esc(w.w.slice(0,-n))+'<span class="suf">'+esc(w.w.slice(-n))+'</span>';}
+function sfxHTML(w){if(!w.sf)return '';return '<p class="sfx"><span class="sfx-root">'+esc(w.sf[0])+'</span><span class="sfx-plus">+</span><span class="sfx-suf">'+esc(w.sf[1])+'</span><span class="sfx-note">'+esc(w.sf[2])+'</span></p>';}
+function detailHTML(w){
+  const senses=w.s.map(s=>'<div class="sense"><span class="pos">'+(POS[s[0]]||s[0])+'</span><div class="sense-txt"><span class="sense-ko">'+esc(s[1])+'</span><span class="sense-en">'+esc(s[2])+'</span></div></div>').join('');
+  const ex='<div class="ex"><p class="ex-en">'+fillEx(w)+'</p><p class="ex-tr">'+esc(w.tr)+'</p><button type="button" class="say" data-say="'+esc(plainEx(w))+'" aria-label="예문 듣기">'+SPK+'</button></div>';
+  const tip=w.tip?'<p class="tip"><span class="tip-arrow" aria-hidden="true">→</span><span>'+esc(w.tip)+'</span></p>':'';
+  return '<div class="detail">'+sfxHTML(w)+'<div class="senses">'+senses+'</div>'+ex+tip+'</div>';
+}
+function optsFor(i,field){
+  const seen=new Set([W[i][field]]),pool=[];
+  for(const j of shuffle(range(N))){
+    if(j===i||seen.has(W[j][field]))continue;
+    seen.add(W[j][field]);pool.push(j);
+    if(pool.length===3)break;
+  }
+  return shuffle([i].concat(pool));
+}
+
+/* ---------- 상태 (메모리 전용: iPad/Safari 호환) ---------- */
+const S={auto:true,interacted:false,wrong:new Map()};
+function addWrong(i,src){
+  let r=S.wrong.get(i);
+  if(!r){r={count:0,src:new Set()};S.wrong.set(i,r);}
+  r.count++;r.src.add(src);updateWrongCount();
+}
+function updateWrongCount(){const c=$('#wrong-count');c.textContent=S.wrong.size;c.hidden=S.wrong.size===0;}
+
+/* ---------- 발음 (Web Speech API) ---------- */
+const hasTTS='speechSynthesis' in window;
+let voice=null;
+function pickVoice(){
+  try{
+    const vs=speechSynthesis.getVoices()||[];
+    voice=vs.find(v=>/^en[-_]US/i.test(v.lang)&&/Samantha|Google US English|Ava|Allison|Aaron|Nicky/i.test(v.name))
+      ||vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;
+  }catch(e){voice=null;}
+}
+if(hasTTS){pickVoice();try{speechSynthesis.addEventListener('voiceschanged',pickVoice);}catch(e){speechSynthesis.onvoiceschanged=pickVoice;}}
+function speak(text,rate){
+  if(!hasTTS||!text)return;
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US';if(voice)u.voice=voice;u.rate=rate||0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function stopSpeak(){if(hasTTS){try{speechSynthesis.cancel();}catch(e){}}}
+function autoSpeak(text){if(S.auto&&S.interacted)speak(text);}
+document.addEventListener('pointerdown',function(){
+  if(S.interacted)return;
+  S.interacted=true;
+  if(hasTTS){try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}}
+},true);
+document.addEventListener('click',function(e){
+  const b=e.target.closest('[data-say]');
+  if(!b)return;
+  S.interacted=true;
+  speak(b.dataset.say,b.dataset.rate?parseFloat(b.dataset.rate):0.9);
+});
+
+const autoBtn=$('#auto-btn');
+function renderAuto(){autoBtn.setAttribute('aria-pressed',String(S.auto));$('#auto-state').textContent=S.auto?'켜짐':'꺼짐';}
+autoBtn.addEventListener('click',function(){S.auto=!S.auto;renderAuto();if(!S.auto)stopSpeak();});
+
+/* ---------- 탭 ---------- */
+function showPage(p){
+  $$('.nav-tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.page===p)));
+  $$('.page').forEach(pg=>{pg.hidden=pg.id!=='page-'+p;});
+  stopSpeak();
+  if(p==='wrong')renderWrong();
+  if(p==='flash'&&F.cur>=0)autoSpeak(sayOf(W[F.cur]));
+  if(p==='listen'&&!L.answered&&L.items.length)autoSpeak(sayOf(W[L.items[L.pos]]));
+}
+$$('.nav-tab').forEach(t=>t.addEventListener('click',()=>showPage(t.dataset.page)));
+
+/* ---------- 모달 ---------- */
+const M={p:null,s:null};
+function openModal(o){
+  $('#m-eyebrow').textContent=o.eyebrow;
+  $('#m-score').textContent=o.score;
+  $('#m-title').textContent=o.title;
+  $('#m-body').textContent=o.body;
+  $('#m-primary').textContent=o.primary[0];M.p=o.primary[1];
+  if(o.secondary){$('#m-secondary').textContent=o.secondary[0];M.s=o.secondary[1];}
+  else{$('#m-secondary').textContent='닫기';M.s=null;}
+  $('#modal').hidden=false;
+}
+function closeModal(){$('#modal').hidden=true;}
+$('#m-primary').addEventListener('click',()=>{const f=M.p;closeModal();if(f)f();});
+$('#m-secondary').addEventListener('click',()=>{const f=M.s;closeModal();if(f)f();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#modal').hidden)closeModal();});
+
+/* ---------- 플래시카드 ---------- */
+const F={queue:[],cur:-1,o:0,x:0,done:0,total:0,revealed:false,label:'전체 단어'};
+function flashStart(ids,label){
+  F.queue=shuffle(ids);F.total=ids.length;F.o=0;F.x=0;F.done=0;F.label=label||'전체 단어';
+  $('#fc-done').hidden=true;$('#fc-play').hidden=false;
+  flashNext();
+}
+function flashNext(){
+  if(!F.queue.length){flashFinish();return;}
+  F.cur=F.queue.shift();F.revealed=false;renderFlash();
+  if(!$('#page-flash').hidden)autoSpeak(sayOf(W[F.cur]));
+}
+function flashStats(){
+  $('#fc-fill').style.width=(F.total?F.done/F.total*100:0)+'%';
+  $('#fc-label').textContent=F.done+' / '+F.total;
+  $('#fc-o').textContent=F.o;$('#fc-x').textContent=F.x;
+  $('#fc-mode').textContent=F.label;
+}
+function renderFlash(){
+  const w=W[F.cur];
+  $('#fc-word').innerHTML=wordHTML(w);
+  $('#fc-ipa').textContent=w.ipa;
+  $('#fc-say').dataset.say=sayOf(w);
+  $('#fc-back').innerHTML=detailHTML(w);
+  $('#fc-back').hidden=true;$('#fc-hint').hidden=false;
+  $('#fc-card').setAttribute('aria-expanded','false');
+  flashStats();
+}
+function reveal(){
+  if(F.revealed||F.cur<0)return;
+  F.revealed=true;$('#fc-back').hidden=false;$('#fc-hint').hidden=true;
+  $('#fc-card').setAttribute('aria-expanded','true');
+}
+$('#fc-card').addEventListener('click',e=>{if(e.target.closest('[data-say]'))return;reveal();});
+$('#fc-card').addEventListener('keydown',e=>{if(e.target!==e.currentTarget)return;if(e.key==='Enter'||e.key===' '){e.preventDefault();reveal();}});
+$('#fc-yes').addEventListener('click',()=>{if(F.cur<0)return;F.o++;F.done++;flashNext();});
+$('#fc-no').addEventListener('click',()=>{if(F.cur<0)return;F.x++;F.queue.push(F.cur);addWrong(F.cur,'플래시카드');flashNext();});
+function flashFinish(){
+  F.cur=-1;flashStats();stopSpeak();
+  $('#fc-play').hidden=true;$('#fc-done').hidden=false;
+  $('#fc-done-title').textContent=F.total+'단어 모두 알았어요!';
+  $('#fc-done-msg').textContent=F.x?'몰랐어요를 '+F.x+'번 눌렀지만 끝까지 다 외웠어요.':'한 번도 틀리지 않고 전부 알았어요.';
+  $('#fc-to-wrong').hidden=S.wrong.size===0;
+}
+$('#fc-restart').addEventListener('click',()=>flashStart(range(N)));
+$('#fc-to-wrong').addEventListener('click',()=>showPage('wrong'));
+
+/* ---------- 예문퀴즈 ---------- */
+const E={items:[],pos:0,o:0,x:0,wrongs:[],round:1,answered:false};
+function exStart(ids,round){E.items=shuffle(ids);E.pos=0;E.o=0;E.x=0;E.wrongs=[];E.round=round||1;exRender();}
+function exRender(){
+  const i=E.items[E.pos],w=W[i];E.answered=false;
+  $('#ex-round').textContent=E.round===1?'1회차':'틀린 문제 다시 · '+E.round+'회차';
+  $('#ex-fill').style.width=(E.pos/E.items.length*100)+'%';
+  $('#ex-label').textContent=(E.pos+1)+' / '+E.items.length;
+  $('#ex-o').textContent=E.o;$('#ex-x').textContent=E.x;
+  $('#ex-sentence').innerHTML=blankEx(w);
+  $('#ex-tr').textContent=w.tr;$('#ex-tr').hidden=true;$('#ex-tr-btn').hidden=false;
+  $('#ex-opts').innerHTML=optsFor(i,'ans').map(j=>'<button type="button" class="opt en" data-idx="'+j+'">'+esc(W[j].ans)+'</button>').join('');
+  const fb=$('#ex-feedback');fb.textContent='';fb.className='feedback';
+  $('#ex-next').hidden=true;
+}
+$('#ex-tr-btn').addEventListener('click',()=>{$('#ex-tr').hidden=false;$('#ex-tr-btn').hidden=true;});
+$('#ex-opts').addEventListener('click',e=>{
+  const b=e.target.closest('.opt');
+  if(!b||E.answered)return;
+  exAnswer(parseInt(b.dataset.idx,10));
+});
+function exAnswer(j){
+  E.answered=true;
+  const i=E.items[E.pos],w=W[i],ok=W[j].ans===w.ans;
+  $$('#ex-opts .opt').forEach(b=>{
+    const k=parseInt(b.dataset.idx,10);b.disabled=true;
+    if(W[k].ans===w.ans)b.classList.add('correct');else if(k===j)b.classList.add('wrong');
+  });
+  $('#ex-sentence').innerHTML=fillEx(w,ok?'':'miss');
+  $('#ex-tr').hidden=false;$('#ex-tr-btn').hidden=true;
+  if(ok){E.o++;}else{E.x++;E.wrongs.push(i);addWrong(i,'예문퀴즈');}
+  $('#ex-o').textContent=E.o;$('#ex-x').textContent=E.x;
+  const fb=$('#ex-feedback');
+  fb.className='feedback '+(ok?'ok':'no');
+  fb.textContent=ok?'정답! '+w.ans+' = '+w.ko:'정답은 '+w.ans+' ('+w.ko+')';
+  const nx=$('#ex-next');nx.hidden=false;nx.textContent=E.pos===E.items.length-1?'결과 보기':'다음 문제';
+  autoSpeak(plainEx(w));
+}
+$('#ex-next').addEventListener('click',()=>{
+  stopSpeak();
+  if(E.pos>=E.items.length-1){$('#ex-fill').style.width='100%';exRoundEnd();return;}
+  E.pos++;exRender();
+});
+function exRoundEnd(){
+  const wr=E.wrongs.slice(),round=E.round,total=E.items.length;
+  if(wr.length){
+    openModal({eyebrow:round+'회차 결과',score:E.o+' / '+total,title:'틀린 '+wr.length+'문제를 다시 풀어요',body:'다 맞힐 때까지 틀린 문제만 다시 나와요.',
+      primary:['다시 풀기',()=>exStart(wr,round+1)],secondary:['처음부터',()=>exStart(range(N),1)]});
+  }else{
+    openModal({eyebrow:round+'회차 결과',score:E.o+' / '+total,title:'모두 맞혔어요!',
+      body:round===1?'한 번에 전부 맞혔어요.':round+'회차 만에 남은 문제까지 전부 맞혔어요.',
+      primary:['처음부터 다시',()=>exStart(range(N),1)],secondary:null});
+  }
+}
+
+/* ---------- 단어장 ---------- */
+const GROUPS=['동사를 만드는 접미사','형용사를 만드는 접미사','명사를 만드는 접미사','out이 들어간 구동사'];
+$('#wb-sub').textContent=N+'단어 · 교재 순서';
+(function(){
+  let html='',g=-1;
+  W.forEach((w,i)=>{
+    if(w.g!==g){g=w.g;const c=W.filter(x=>x.g===g).length;html+='<li class="wb-group">'+esc(GROUPS[g])+'<span>'+c+'단어</span></li>';}
+    html+='<li class="wb-item" data-i="'+i+'"><div class="wb-head"><span class="wb-word">'+wordHTML(w)+'</span><span class="ipa">'+esc(w.ipa)+'</span><span class="mask-hint">탭해서 보기</span><button type="button" class="say" data-say="'+esc(sayOf(w))+'" aria-label="'+esc(w.w)+' 발음 듣기">'+SPK+'</button></div><div class="wb-body">'+detailHTML(w)+'</div></li>';
+  });
+  $('#wb-list').innerHTML=html;
+})();
+$('#wb-mask').addEventListener('click',function(){
+  const on=this.getAttribute('aria-pressed')!=='true';
+  this.setAttribute('aria-pressed',String(on));
+  this.textContent=on?'뜻 보이기':'뜻 가리기';
+  $('#wb-list').classList.toggle('masked',on);
+  $$('#wb-list .wb-item.peek').forEach(li=>li.classList.remove('peek'));
+});
+$('#wb-list').addEventListener('click',e=>{
+  if(e.target.closest('[data-say]'))return;
+  if(!$('#wb-list').classList.contains('masked'))return;
+  const li=e.target.closest('.wb-item');if(li)li.classList.toggle('peek');
+});
+
+/* ---------- 오답정리 ---------- */
+let clearArmed=false;
+function resetClear(){clearArmed=false;const b=$('#wr-clear');b.textContent='목록 비우기';b.classList.remove('danger');}
+function renderWrong(){
+  const ids=Array.from(S.wrong.keys()).sort((a,b)=>S.wrong.get(b).count-S.wrong.get(a).count||a-b);
+  const has=ids.length>0;
+  $('#wr-empty').hidden=has;$('#wr-actions').hidden=!has;
+  $('#wr-sub').textContent=has?ids.length+'단어 · 많이 틀린 순서':'틀린 단어가 여기에 모여요';
+  $('#wr-list').innerHTML=ids.map(i=>{
+    const w=W[i],r=S.wrong.get(i);
+    return '<li class="wr-item"><div class="wb-head"><span class="wb-word">'+wordHTML(w)+'</span><span class="ipa">'+esc(w.ipa)+'</span><button type="button" class="say" data-say="'+esc(sayOf(w))+'" aria-label="'+esc(w.w)+' 발음 듣기">'+SPK+'</button><span class="miss-count">'+r.count+'번 틀림</span></div>'
+      +'<p class="wr-ko">'+esc(w.ko)+'</p><p class="wr-ex">'+fillEx(w)+'</p>'
+      +'<div class="chips">'+Array.from(r.src).map(s=>'<span class="chip">'+esc(s)+'</span>').join('')+'</div></li>';
+  }).join('');
+  resetClear();
+}
+$('#wr-clear').addEventListener('click',()=>{
+  if(!clearArmed){clearArmed=true;const b=$('#wr-clear');b.textContent='한 번 더 누르면 비워져요';b.classList.add('danger');return;}
+  S.wrong.clear();updateWrongCount();renderWrong();
+});
+$('#wr-flash').addEventListener('click',()=>{
+  const ids=Array.from(S.wrong.keys());if(!ids.length)return;
+  flashStart(ids,'오답 '+ids.length+'단어');showPage('flash');
+});
+
+/* ---------- 듣기 ---------- */
+const L={items:[],pos:0,o:0,x:0,wrongs:[],round:1,answered:false};
+function lsStart(ids,round){L.items=shuffle(ids);L.pos=0;L.o=0;L.x=0;L.wrongs=[];L.round=round||1;lsRender();}
+function lsRender(){
+  const i=L.items[L.pos],w=W[i];L.answered=false;
+  $('#ls-round').textContent=L.round===1?'1회차':'틀린 문제 다시 · '+L.round+'회차';
+  $('#ls-fill').style.width=(L.pos/L.items.length*100)+'%';
+  $('#ls-label').textContent=(L.pos+1)+' / '+L.items.length;
+  $('#ls-o').textContent=L.o;$('#ls-x').textContent=L.x;
+  $('#ls-reveal').hidden=true;$('#ls-word').textContent=w.w;$('#ls-ipa').textContent=w.ipa;
+  $('#ls-play').dataset.say=sayOf(w);$('#ls-slow').dataset.say=sayOf(w);
+  $('#ls-opts').innerHTML=optsFor(i,'ko').map(j=>'<button type="button" class="opt" data-idx="'+j+'">'+esc(W[j].ko)+'</button>').join('');
+  const fb=$('#ls-feedback');fb.textContent='';fb.className='feedback';
+  $('#ls-next').hidden=true;
+  if(!$('#page-listen').hidden)autoSpeak(sayOf(w));
+}
+$('#ls-opts').addEventListener('click',e=>{
+  const b=e.target.closest('.opt');
+  if(!b||L.answered)return;
+  lsAnswer(parseInt(b.dataset.idx,10));
+});
+function lsAnswer(j){
+  L.answered=true;
+  const i=L.items[L.pos],w=W[i],ok=j===i;
+  $$('#ls-opts .opt').forEach(b=>{
+    const k=parseInt(b.dataset.idx,10);b.disabled=true;
+    if(k===i)b.classList.add('correct');else if(k===j)b.classList.add('wrong');
+  });
+  $('#ls-reveal').hidden=false;
+  if(ok){L.o++;}else{L.x++;L.wrongs.push(i);addWrong(i,'듣기');}
+  $('#ls-o').textContent=L.o;$('#ls-x').textContent=L.x;
+  const fb=$('#ls-feedback');
+  fb.className='feedback '+(ok?'ok':'no');
+  fb.textContent=ok?'정답! '+w.w+' = '+w.ko:'정답은 '+w.ko;
+  const nx=$('#ls-next');nx.hidden=false;nx.textContent=L.pos===L.items.length-1?'결과 보기':'다음 문제';
+  autoSpeak(sayOf(w));
+}
+$('#ls-next').addEventListener('click',()=>{
+  stopSpeak();
+  if(L.pos>=L.items.length-1){$('#ls-fill').style.width='100%';lsRoundEnd();return;}
+  L.pos++;lsRender();
+});
+function lsRoundEnd(){
+  const wr=L.wrongs.slice(),round=L.round,total=L.items.length;
+  if(wr.length){
+    openModal({eyebrow:'듣기 '+round+'회차 결과',score:L.o+' / '+total,title:'틀린 '+wr.length+'문제를 다시 들어요',body:'다 맞힐 때까지 틀린 단어만 다시 나와요.',
+      primary:['다시 풀기',()=>lsStart(wr,round+1)],secondary:['처음부터',()=>lsStart(range(N),1)]});
+  }else{
+    openModal({eyebrow:'듣기 '+round+'회차 결과',score:L.o+' / '+total,title:'모두 맞혔어요!',
+      body:round===1?'한 번에 전부 알아들었어요.':round+'회차 만에 남은 단어까지 전부 맞혔어요.',
+      primary:['처음부터 다시',()=>lsStart(range(N),1)],secondary:null});
+  }
+}
+
+/* ---------- 시작 ---------- */
+$('#sub').textContent='품사를 변화시키는 접미사 · '+N+'단어';
+$('#fc-say').innerHTML=SPK;
+if(!hasTTS){autoBtn.hidden=true;}
+renderAuto();
+updateWrongCount();
+flashStart(range(N));
+exStart(range(N),1);
+lsStart(range(N),1);
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 41–44 단어</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday study tool for a middle-schooler: calm, clear, a little playful
+   IDEA the academy notebook: teal spiral wordbook, ruled paper, teacher's red pen marks
+   PICTURE the working card / test sheet itself, drawn as a ruled page with spiral holes
+   COLOUR teal #0f8b8d field, paper white, ink, red pen #d7263d for marks and scores
+   TYPE Lexend for English + UI, Gowun Dodum for Korean, Nanum Pen Script for red-pen marks
+   LAYOUT teal band (title, day chips, tabs) on top, one centred page below; same stack on phone */
+:root{color-scheme:light dark;--bg:light-dark(#f4faf9,#0c1b1b);--paper:light-dark(#ffffff,#132726);--ink:light-dark(#16232a,#e6efee);--mute:light-dark(#5b6b70,#9db3b1);--teal:light-dark(#0f8b8d,#2bb3b0);--tealdk:light-dark(#0a6567,#0d3a3a);--red:light-dark(#d7263d,#ff6b7c);--line:light-dark(#d6e8f2,#22403f);--soft:light-dark(#e6f4f3,#183332);--ok:light-dark(#0f8b8d,#3cc7c3)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Lexend,"Gowun Dodum",system-ui,sans-serif;overflow-x:clip}
+button,input,select{font:inherit;color:inherit}
+.top{background:var(--teal);color:#fff;padding:18px max(16px,4vw) 14px}
+.top h1{margin:0;font-size:clamp(26px,5vw,34px);line-height:1.05;letter-spacing:-.02em;font-weight:700}
+.top h1 small{font:400 15px/1.4 "Gowun Dodum",sans-serif;opacity:.9;margin-left:8px;letter-spacing:0}
+.days{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.chip{border:2px solid rgba(255,255,255,.7);background:transparent;color:#fff;border-radius:22px;padding:6px 14px;min-height:40px;cursor:pointer;font-weight:600}
+.chip[aria-pressed=true]{background:#fff;color:var(--tealdk);border-color:#fff}
+.chip:focus-visible,.btn:focus-visible,.tab:focus-visible{outline:3px solid #ffd24a;outline-offset:2px}
+nav{position:sticky;top:0;z-index:5;background:var(--tealdk);display:flex;overflow-x:auto;padding:0 max(8px,3vw)}
+.tab{flex:none;border:0;background:none;color:#cfeceb;padding:12px 14px;min-height:48px;cursor:pointer;font-weight:600;border-bottom:3px solid transparent}
+.tab[aria-selected=true]{color:#fff;border-bottom-color:#ffd24a}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:2px solid var(--teal);background:var(--paper);color:var(--teal);border-radius:12px;padding:10px 18px;min-height:46px;font-weight:600;cursor:pointer}
+.btn.fill{background:var(--teal);color:#fff}
+.btn.red{border-color:var(--red);color:var(--red)}
+.btn.redfill{background:var(--red);border-color:var(--red);color:#fff}
+.btn:active{transform:translateY(1px)}
+.seg{display:inline-flex;border:2px solid var(--teal);border-radius:12px;overflow:hidden}
+.seg button{border:0;background:var(--paper);color:var(--teal);padding:8px 14px;min-height:42px;cursor:pointer;font-weight:600}
+.seg button[aria-pressed=true]{background:var(--teal);color:#fff}
+label.chk{display:inline-flex;gap:6px;align-items:center;min-height:42px;cursor:pointer}
+select{min-height:44px;border:2px solid var(--line);border-radius:10px;background:var(--paper);padding:0 10px}
+.meta{color:var(--mute);font-size:14px}
+.bar{height:8px;background:var(--soft);border-radius:4px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.paper{position:relative;background:var(--paper);border-radius:6px 16px 16px 6px;padding:22px 22px 22px 58px;box-shadow:0 1px 0 var(--line),0 8px 24px -16px rgba(0,40,40,.45);background-image:linear-gradient(90deg,transparent 46px,var(--red) 46px,var(--red) 48px,transparent 48px),repeating-linear-gradient(180deg,transparent 0 33px,var(--line) 33px 34px);background-attachment:local}
+.paper::before{content:"";position:absolute;left:12px;top:14px;bottom:14px;width:18px;background:radial-gradient(circle at 9px 9px,var(--bg) 6px,var(--teal) 7px,var(--teal) 8.5px,transparent 9px) 0 0/18px 34px repeat-y}
+.card{min-height:300px;cursor:pointer;display:flex;flex-direction:column;justify-content:center}
+.hint{color:var(--mute);font-size:15px;margin-top:12px}
+.hint b{color:var(--teal)}
+.mean{white-space:pre-line;font-family:"Gowun Dodum",sans-serif;font-size:19px;line-height:34px;margin:0}
+.word{font-size:clamp(34px,8vw,48px);font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:0 0 8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sa{margin-top:10px;display:grid;gap:4px}
+.sa div{white-space:pre-line}
+.sa b{display:inline-block;width:3em;color:var(--teal)}
+.sa .ant b{color:var(--red)}
+.spk{width:44px;height:44px;border-radius:50%;border:2px solid var(--teal);background:var(--paper);color:var(--teal);display:inline-grid;place-items:center;cursor:pointer;flex:none}
+.spk svg{width:20px;height:20px}
+.pen{font-family:"Nanum Pen Script",cursive;color:var(--red);line-height:1}
+.flipnote{position:absolute;right:16px;bottom:10px;font-size:13px;color:var(--mute)}
+.acts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:14px}
+.acts .btn{min-height:54px;font-size:17px}
+form.q{display:grid;gap:10px;margin-top:14px}
+.fld{display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:8px;align-items:center}
+.fld span{font-weight:600;color:var(--teal)}
+.fld.ant span{color:var(--red)}
+.fld input{height:46px;font-size:18px;border:2px solid var(--line);border-radius:10px;background:var(--paper);padding:0 12px;width:100%}
+.fld input:focus{outline:none;border-color:var(--teal)}
+.fld.good input{border-color:var(--ok)}
+.fld.bad input{border-color:var(--red);text-decoration:line-through;text-decoration-color:var(--red)}
+.fld .mk{grid-column:2;font-size:24px;margin-top:-4px;color:var(--red)}
+.fld.good .mk{color:var(--ok)}
+.ans{margin-top:14px;border-top:2px dashed var(--line);padding-top:12px}
+.score{font-size:clamp(64px,16vw,96px);text-align:center;margin:8px 0}
+.list{display:grid;gap:10px;margin-top:14px}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px}
+.item .w{font-weight:700;font-size:19px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.item .code{font-size:12px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--mute);font-weight:400}
+.item .m{grid-column:1/-1;white-space:pre-line;font-family:"Gowun Dodum",sans-serif;font-size:15px}
+.item .sa{grid-column:1/-1;margin:0;font-size:15px}
+.dayh{margin:22px 0 0;font-size:20px;color:var(--teal)}
+.search{width:100%;height:48px;font-size:16px;border:2px solid var(--line);border-radius:12px;padding:0 14px;background:var(--paper)}
+.cnt{font-family:"Nanum Pen Script",cursive;color:var(--red);font-size:26px;line-height:1}
+.empty{text-align:center;color:var(--mute);padding:40px 10px}
+h2{font-size:22px;margin:0 0 6px;letter-spacing:-.01em}
+@media(max-width:600px){.paper{padding:18px 16px 18px 50px;background-image:linear-gradient(90deg,transparent 40px,var(--red) 40px,var(--red) 42px,transparent 42px),repeating-linear-gradient(180deg,transparent 0 33px,var(--line) 33px 34px)}.paper::before{left:9px}.mean{font-size:18px}.top h1 small{display:block;margin:4px 0 0}}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<a id="hub-back" href="../index.html" style="display:flex;align-items:center;gap:4px;padding:11px 16px;font:600 15px/1.2 -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#1a7f37;background:#ffffff;border-bottom:1px solid #d0d7de;text-decoration:none;-webkit-tap-highlight-color:transparent;position:relative;z-index:20"><span style="font-size:20px;line-height:1">‹</span> 단어장 목록</a>
+
+<header class="top">
+  <h1>Day 41–44 단어<small>뜻 보고 단어 + 동의어·반의어까지</small></h1>
+  <div class="days" id="days"></div>
+</header>
+<nav id="tabs" role="tablist">
+  <button class="tab" role="tab" data-tab="card">카드</button>
+  <button class="tab" role="tab" data-tab="test">실전 시험</button>
+  <button class="tab" role="tab" data-tab="sa">동의어·반의어</button>
+  <button class="tab" role="tab" data-tab="list">단어장</button>
+  <button class="tab" role="tab" data-tab="wrong">오답</button>
+</nav>
+<main id="app"></main>
+<script>
+{
+const WORDS = [{"w":"mental","d":41,"m":"a. 정신의, 마음의","t":"a. 정신의, 마음의","s":"","a":"physical","sl":[],"al":["physical"]},{"w":"mention","d":41,"m":"1. n. 언급, 거론\n2. v. 언급[거론]하다, ~에 대해 말하다","t":"n. 언급, 거론\nv. 언급[거론]하다, ~에 대해 말하다","s":"2. refer to","a":"","sl":["refer to"],"al":[]},{"w":"comment","d":41,"m":"n./v. 의견(을 말하다), 논평(하다)","t":"n./v. 의견(을 말하다), 논평(하다)","s":"remark","a":"","sl":["remark"],"al":[]},{"w":"remind","d":41,"m":"1. v. (기억하도록) 상기시키다, 일깨워주다\n2. v. (과거의 일·사람을) 생각나게 하다","t":"v. (기억하도록) 상기시키다, 일깨워주다; (과거의 일·사람을) 생각나게 하다","s":"","a":"","sl":[],"al":[]},{"w":"monument","d":41,"m":"n. 기념물, 기념관","t":"n. 기념물, 기념관","s":"","a":"","sl":[],"al":[]},{"w":"monitor","d":41,"m":"1. n. (컴퓨터·TV의) 화면, 모니터\n2. n. 감시[관찰](자), 감시하는 일\n3. v. 감독[감시]하다, 관찰하다","t":"n. (컴퓨터·TV의) 화면, 모니터; 감시[관찰](자), 감시하는 일\nv. 감독[감시]하다, 관찰하다","s":"","a":"","sl":[],"al":[]},{"w":"summon","d":41,"m":"1. v. 호출하다, (법원에) 소환하다\n2. v. (회의 등을) 소집하다\n3. v. (용기 등을) 내다","t":"v. 호출하다, (법원에) 소환하다; (회의 등을) 소집하다; (용기 등을) 내다","s":"","a":"","sl":[],"al":[]},{"w":"eliminate","d":41,"m":"v. 제거하다, 없애다","t":"v. 제거하다, 없애다","s":"remove, get rid of, do away with","a":"","sl":["remove","get rid of","do away with"],"al":[]},{"w":"preliminary","d":41,"m":"1. a. 예비의, 준비의; 예선의; 서두의\n2. n. 예비, 준비; 예선전; 서두","t":"a. 예비의, 준비의; 예선의; 서두의\nn. 예비, 준비; 예선전; 서두","s":"1. preparatory, introductory","a":"","sl":["preparatory","introductory"],"al":[]},{"w":"limit","d":41,"m":"1. n. (양·속도 등의) 제한(선); 경계\n2. n. 한계(량), 극한, 최대치\n3. v. 제한하다, 한정하다","t":"n. (양·속도 등의) 제한(선); 경계; 한계(량), 극한, 최대치\nv. 제한하다, 한정하다","s":"1. boundary\n3. restrict, confine","a":"","sl":["boundary","restrict","confine"],"al":[]},{"w":"text","d":41,"m":"1. n. 본문, (모든 형태의) 글, 텍스트\n2. n. 원문\n3. v. 문자 메시지를 보내다","t":"n. 본문, (모든 형태의) 글, 텍스트; 원문\nv. 문자 메시지를 보내다","s":"","a":"","sl":[],"al":[]},{"w":"context","d":41,"m":"1. n. (사건 등의) 배경, 정황\n2. n. (문장의) 문맥, 전후 관계","t":"n. (사건 등의) 배경, 정황; (문장의) 문맥, 전후 관계","s":"","a":"","sl":[],"al":[]},{"w":"textile","d":41,"m":"n. 직물, 옷감","t":"n. 직물, 옷감","s":"cloth, fabric","a":"","sl":["cloth","fabric"],"al":[]},{"w":"texture","d":41,"m":"1. n. 감촉, 질감, 결\n2. n. 짜임새, 조화","t":"n. 감촉, 질감, 결; 짜임새, 조화","s":"","a":"","sl":[],"al":[]},{"w":"comprehend","d":41,"m":"v. 이해하다, 파악하다","t":"v. 이해하다, 파악하다","s":"understand, grasp","a":"","sl":["understand","grasp"],"al":[]},{"w":"prison","d":41,"m":"n. 감옥, 교도소","t":"n. 감옥, 교도소","s":"jail","a":"","sl":["jail"],"al":[]},{"w":"imprison","d":41,"m":"v. 수감하다, 감금하다","t":"v. 수감하다, 감금하다","s":"put in jail, confine","a":"","sl":["put in jail","confine"],"al":[]},{"w":"surprise","d":41,"m":"1. v. 놀라게 하다\n2. n. 놀람\n3. n. 뜻밖의 일","t":"v. 놀라게 하다\nn. 놀람; 뜻밖의 일","s":"","a":"","sl":[],"al":[]},{"w":"enterprise","d":41,"m":"1. n. 기업, 회사\n2. n. 진취적인 정신\n3. n. (중요하거나 모험적인) 사업, 계획","t":"n. 기업, 회사; 진취적인 정신; (중요하거나 모험적인) 사업, 계획","s":"1. firm\n3. venture","a":"","sl":["firm","venture"],"al":[]},{"w":"prey","d":41,"m":"1. n. 먹이\n2. n. 희생물, 희생자\n3. v. (+(up)on) 잡아먹다, 먹이로 삼다; 괴롭히다","t":"n. 먹이; 희생물, 희생자\nv. (+(up)on) 잡아먹다, 먹이로 삼다; 괴롭히다","s":"","a":"1. predator","sl":[],"al":["predator"]},{"w":"prosper","d":41,"m":"v. (일·사업 등이) 번영[번창]하다, 성공하다","t":"v. (일·사업 등이) 번영[번창]하다, 성공하다","s":"thrive, succeed","a":"","sl":["thrive","succeed"],"al":[]},{"w":"despair","d":41,"m":"n./v. 절망(하다), 자포자기(하다)","t":"n./v. 절망(하다), 자포자기(하다)","s":"","a":"hope","sl":[],"al":["hope"]},{"w":"please","d":41,"m":"1. v. 기쁘게[즐겁게] 하다, 만족시키다\n2. ad. 제발, 아무쪼록","t":"v. 기쁘게[즐겁게] 하다, 만족시키다\nad. 제발, 아무쪼록","s":"","a":"1. displease","sl":[],"al":["displease"]},{"w":"plead","d":41,"m":"1. v. (+with) 애원하다, 간청[탄원]하다\n2. v. (소송에서) 주장[변론]하다\n※ pleaded-pleaded / pled-pled","t":"v. (+with) 애원하다, 간청[탄원]하다; (소송에서) 주장[변론]하다","s":"1. beg","a":"","sl":["beg"],"al":[]},{"w":"admit","d":42,"m":"1. v. (주로 +to) (사실·비난 등을) 시인[인정]하다\n2. v. 입장[입학]을 허가하다\n※ admitted-admitted","t":"v. (주로 +to) (사실·비난 등을) 시인[인정]하다; 입장[입학]을 허가하다","s":"1. confess (to)","a":"1. deny","sl":["confess (to)"],"al":["deny"]},{"w":"commit","d":42,"m":"1. v. (죄·과실 등을) 범하다, 저지르다\n2. v. 전념[헌신]하다\n3. v. 약속하다, 서약하다\n4. v. (감옥·병원 등에) 보내다\n※ committed-committed","t":"v. (죄·과실 등을) 범하다, 저지르다; 전념[헌신]하다; 약속하다, 서약하다; (감옥·병원 등에) 보내다","s":"","a":"","sl":[],"al":[]},{"w":"committee","d":42,"m":"n. 위원회","t":"n. 위원회","s":"","a":"","sl":[],"al":[]},{"w":"emit","d":42,"m":"v. (가스·빛·열 등을) 내뿜다, 방출하다\n※ emitted-emitted","t":"v. (가스·빛·열 등을) 내뿜다, 방출하다","s":"give off, discharge","a":"absorb","sl":["give off","discharge"],"al":["absorb"]},{"w":"omit","d":42,"m":"v. 생략하다, 빠뜨리다\n※ omitted-omitted","t":"v. 생략하다, 빠뜨리다","s":"","a":"","sl":[],"al":[]},{"w":"permit","d":42,"m":"1. v. 허락[허용]하다, 용인하다\n2. n. 허가(증)\n※ permitted-permitted","t":"v. 허락[허용]하다, 용인하다\nn. 허가(증)","s":"1. allow, let","a":"1. forbid","sl":["allow","let"],"al":["forbid"]},{"w":"submit","d":42,"m":"1. v. 제출하다\n2. v. (법·권위 등에) 복종[굴복]하다\n※ submitted-submitted","t":"v. 제출하다; (법·권위 등에) 복종[굴복]하다","s":"1. hand in\n2. surrender, yield","a":"","sl":["hand in","surrender","yield"],"al":[]},{"w":"transmit","d":42,"m":"1. v. (신호 등을) 보내다, 전송하다, (정보·질병 등을) 전하다\n2. v. (빛·열·소리 등을) 전도하다, 투과시키다\n※ transmitted-transmitted","t":"v. (신호 등을) 보내다, 전송하다, (정보·질병 등을) 전하다; (빛·열·소리 등을) 전도하다, 투과시키다","s":"","a":"","sl":[],"al":[]},{"w":"mission","d":42,"m":"1. n. 임무, 사명\n2. n. (조직·개인 등의) 목표\n3. n. (정부·종교) 사절(단)","t":"n. 임무, 사명; (조직·개인 등의) 목표; (정부·종교) 사절(단)","s":"","a":"","sl":[],"al":[]},{"w":"commission","d":42,"m":"1. n. 위원회\n2. n. 수수료, 커미션\n3. n. 위임(장)\n4. v. 의뢰하다, 주문하다\n5. v. 위임하다, 권한을 주다","t":"n. 위원회; 수수료, 커미션; 위임(장)\nv. 의뢰하다, 주문하다; 위임하다, 권한을 주다","s":"","a":"","sl":[],"al":[]},{"w":"promise","d":42,"m":"1. n. 약속, 계약\n2. n. 전망, 장래성\n3. v. 약속[계약]하다\n4. v. ~할 가망이 있다","t":"n. 약속, 계약; 전망, 장래성\nv. 약속[계약]하다; ~할 가망이 있다","s":"","a":"","sl":[],"al":[]},{"w":"mess","d":42,"m":"1. n. 더러움, 어수선함, 혼란 (상태)\n2. v. (+up) 어지르다, 더럽히다","t":"n. 더러움, 어수선함, 혼란 (상태)\nv. (+up) 어지르다, 더럽히다","s":"","a":"","sl":[],"al":[]},{"w":"render","d":42,"m":"1. v. …을 ~한 상태로 만들다\n2. v. (도움 등을) 주다, 제공하다\n3. v. (글·그림 등으로) 표현하다, 묘사하다","t":"v. …을 ~한 상태로 만들다; (도움 등을) 주다, 제공하다; (글·그림 등으로) 표현하다, 묘사하다","s":"2. offer, provide","a":"","sl":["offer","provide"],"al":[]},{"w":"surrender","d":42,"m":"1. v. 항복하다\n2. v. 넘겨주다, 양도하다\n3. n. 항복\n4. n. 양도, 포기","t":"v. 항복하다; 넘겨주다, 양도하다\nn. 항복; 양도, 포기","s":"1. yield","a":"","sl":["yield"],"al":[]},{"w":"edit","d":42,"m":"v. (책·잡지·신문·영상 등을) 편집하다, 수정하다","t":"v. (책·잡지·신문·영상 등을) 편집하다, 수정하다","s":"","a":"","sl":[],"al":[]},{"w":"add","d":42,"m":"1. v. (주로 +to) 추가하다, 늘리다; 더하다, 합하다\n2. v. 덧붙여 말하다, 부언하다","t":"v. (주로 +to) 추가하다, 늘리다; 더하다, 합하다; 덧붙여 말하다, 부언하다","s":"","a":"1. subtract","sl":[],"al":["subtract"]},{"w":"rent","d":42,"m":"1. n. 임대[임차]료, 집세, 사용료\n2. v. 임대[임차]하다, 빌려주다, 빌리다","t":"n. 임대[임차]료, 집세, 사용료\nv. 임대[임차]하다, 빌려주다, 빌리다","s":"","a":"","sl":[],"al":[]},{"w":"certain","d":42,"m":"1. a. 확실한, 틀림없는\n2. a. (명사 앞에서) 일정한, 특정한\n3. a. (명사 앞에서) (명시하지 않고) 어떤, 어느","t":"a. 확실한, 틀림없는; (명사 앞에서) 일정한, 특정한; (명사 앞에서) (명시하지 않고) 어떤, 어느","s":"1. sure","a":"1. uncertain","sl":["sure"],"al":["uncertain"]},{"w":"certificate","d":42,"m":"n. 증명서, 이수[수료] 증명서","t":"n. 증명서, 이수[수료] 증명서","s":"","a":"","sl":[],"al":[]},{"w":"spirit","d":42,"m":"1. n. 정신, 마음\n2. n. 영혼, 혼\n3. n. 열정, 사기(士氣), 활기\n4. n. (복수형) 감정, 기분","t":"n. 정신, 마음; 영혼, 혼; 열정, 사기(士氣), 활기; (복수형) 감정, 기분","s":"2. soul\n4. mood","a":"1. material","sl":["soul","mood"],"al":["material"]},{"w":"aspire","d":42,"m":"v. (+to-v) (~하기를) 열망[갈망]하다, 바라다","t":"v. (+to-v) (~하기를) 열망[갈망]하다, 바라다","s":"desire to-v, yearn to-v","a":"","sl":["desire to-v","yearn to-v"],"al":[]},{"w":"inspire","d":42,"m":"1. v. 고무시키다, 격려하다\n2. v. (감정·사상 등을) 불어넣다\n3. v. 영감을 주다","t":"v. 고무시키다, 격려하다; (감정·사상 등을) 불어넣다; 영감을 주다","s":"","a":"","sl":[],"al":[]},{"w":"expire","d":42,"m":"v. (계약·임기 등이) 만기가 되다, 끝나다; 소멸하다","t":"v. (계약·임기 등이) 만기가 되다, 끝나다; 소멸하다","s":"","a":"","sl":[],"al":[]},{"w":"transparent","d":43,"m":"1. a. 투명한, 비치는\n2. a. 명쾌한, 명백한, 이해하기 쉬운","t":"a. 투명한, 비치는; 명쾌한, 명백한, 이해하기 쉬운","s":"","a":"","sl":[],"al":[]},{"w":"apparent","d":43,"m":"1. a. 명백한\n2. a. 외견상의, 겉으로의","t":"a. 명백한; 외견상의, 겉으로의","s":"1. evident, obvious, clear","a":"","sl":["evident","obvious","clear"],"al":[]},{"w":"appear","d":43,"m":"1. v. ~처럼 보이다, ~인 것 같다\n2. v. 나타나다, 출현하다","t":"v. ~처럼 보이다, ~인 것 같다; 나타나다, 출현하다","s":"1. seem to-v","a":"2. disappear","sl":["seem to-v"],"al":["disappear"]},{"w":"sequence","d":43,"m":"1. n. 연속, 잇달아 일어남\n2. n. 순서, 차례","t":"n. 연속, 잇달아 일어남; 순서, 차례","s":"","a":"","sl":[],"al":[]},{"w":"consequence","d":43,"m":"1. n. 결과\n2. n. 영향\n3. n. 중요성","t":"n. 결과; 영향; 중요성","s":"1. result\n2. effect\n3. significance, importance","a":"","sl":["result","effect","significance","importance"],"al":[]},{"w":"subsequent","d":43,"m":"a. 다음의, 그 뒤[후]의, (~에) 이어서 일어나는","t":"a. 다음의, 그 뒤[후]의, (~에) 이어서 일어나는","s":"following","a":"previous, prior","sl":["following"],"al":["previous","prior"]},{"w":"pursue","d":43,"m":"1. v. 추구하다\n2. v. 뒤쫓다, 추적하다","t":"v. 추구하다; 뒤쫓다, 추적하다","s":"2. chase","a":"","sl":["chase"],"al":[]},{"w":"suit","d":43,"m":"1. v. ~에 적합하다, 알맞다, 편리하다\n2. v. ~에게 어울리다\n3. n. 정장, 한 벌의 옷\n4. n. 소송","t":"v. ~에 적합하다, 알맞다, 편리하다; ~에게 어울리다\nn. 정장, 한 벌의 옷; 소송","s":"4. lawsuit","a":"","sl":["lawsuit"],"al":[]},{"w":"execute","d":43,"m":"1. v. 처형[사형]하다\n2. v. 실행[수행]하다, 집행하다","t":"v. 처형[사형]하다; 실행[수행]하다, 집행하다","s":"1. put to death\n2. carry out, implement","a":"","sl":["put to death","carry out","implement"],"al":[]},{"w":"emphasize","d":43,"m":"v. 강조하다, 중요시하다","t":"v. 강조하다, 중요시하다","s":"stress","a":"","sl":["stress"],"al":[]},{"w":"phase","d":43,"m":"1. n. 국면, 양상, (발전의) 단계\n2. v. 단계적으로 실행하다","t":"n. 국면, 양상, (발전의) 단계\nv. 단계적으로 실행하다","s":"","a":"","sl":[],"al":[]},{"w":"phenomenon","d":43,"m":"n. 현상, 사건\n※ 복수형 phenomena","t":"n. 현상, 사건","s":"","a":"","sl":[],"al":[]},{"w":"fancy","d":43,"m":"1. a. 장식적인, 화려한\n2. a. 고급의, 비싼\n3. v. 좋아하다, ~이 마음에 들다","t":"a. 장식적인, 화려한; 고급의, 비싼\nv. 좋아하다, ~이 마음에 들다","s":"","a":"1. plain","sl":[],"al":["plain"]},{"w":"cite","d":43,"m":"1. v. 언급하다\n2. v. (책 등을) 인용하다\n3. v. (법정으로) 소환하다","t":"v. 언급하다; (책 등을) 인용하다; (법정으로) 소환하다","s":"2. quote\n3. summon","a":"","sl":["quote","summon"],"al":[]},{"w":"recite","d":43,"m":"v. 암송하다, 낭독하다","t":"v. 암송하다, 낭독하다","s":"","a":"","sl":[],"al":[]},{"w":"excite","d":43,"m":"v. 흥분시키다, (남을) 자극하다","t":"v. 흥분시키다, (남을) 자극하다","s":"stimulate, arouse, stir up","a":"","sl":["stimulate","arouse","stir up"],"al":[]},{"w":"tailor","d":43,"m":"1. n. 재단사\n2. v. (요구·목적 등에) 맞추다, 맞게 하다","t":"n. 재단사\nv. (요구·목적 등에) 맞추다, 맞게 하다","s":"2. adjust, customize","a":"","sl":["adjust","customize"],"al":[]},{"w":"retail","d":43,"m":"1. n./v. 소매(하다)\n2. a. 소매의 / ad. 소매로","t":"n./v. 소매(하다)\na. 소매의 / ad. 소매로","s":"","a":"wholesale","sl":[],"al":["wholesale"]},{"w":"detail","d":43,"m":"1. n. 세부 사항, 사소한 것[일]\n2. n. 상세 정보\n3. v. (사실·정보 등을) 상술하다","t":"n. 세부 사항, 사소한 것[일]; 상세 정보\nv. (사실·정보 등을) 상술하다","s":"","a":"","sl":[],"al":[]},{"w":"patriot","d":43,"m":"n. 애국자","t":"n. 애국자","s":"","a":"","sl":[],"al":[]},{"w":"patron","d":43,"m":"1. n. 후원자, 보호자\n2. n. 고객, 단골","t":"n. 후원자, 보호자; 고객, 단골","s":"1. sponsor\n2. customer, client","a":"","sl":["sponsor","customer","client"],"al":[]},{"w":"pattern","d":43,"m":"1. n. 양식, 형태, 패턴\n2. n. 도안, 무늬\n3. n. 본보기, 견본","t":"n. 양식, 형태, 패턴; 도안, 무늬; 본보기, 견본","s":"","a":"","sl":[],"al":[]},{"w":"applaud","d":43,"m":"1. v. (공연 등에) 박수갈채하다\n2. v. (결정 등을) 칭찬하다","t":"v. (공연 등에) 박수갈채하다; (결정 등을) 칭찬하다","s":"1. clap\n2. praise","a":"","sl":["clap","praise"],"al":[]},{"w":"explode","d":43,"m":"1. v. 폭발하다, 폭발시키다\n2. v. 폭발적으로 증가하다","t":"v. 폭발하다, 폭발시키다; 폭발적으로 증가하다","s":"1. blow up, blast","a":"","sl":["blow up","blast"],"al":[]},{"w":"compete","d":44,"m":"v. 경쟁하다, 겨루다","t":"v. 경쟁하다, 겨루다","s":"contend, battle","a":"","sl":["contend","battle"],"al":[]},{"w":"competence","d":44,"m":"n. 능력, 역량","t":"n. 능력, 역량","s":"capability, ability","a":"","sl":["capability","ability"],"al":[]},{"w":"petition","d":44,"m":"1. n. 탄원(서), 청원, 간청\n2. v. 탄원하다, 청원하다","t":"n. 탄원(서), 청원, 간청\nv. 탄원하다, 청원하다","s":"","a":"","sl":[],"al":[]},{"w":"appetite","d":44,"m":"1. n. 식욕\n2. n. 욕구, 욕망","t":"n. 식욕; 욕구, 욕망","s":"2. desire","a":"","sl":["desire"],"al":[]},{"w":"repeat","d":44,"m":"1. v. 반복하다\n2. v. 따라 말하다\n3. v. (~에게) 말을 옮기다","t":"v. 반복하다; 따라 말하다; (~에게) 말을 옮기다","s":"","a":"","sl":[],"al":[]},{"w":"debt","d":44,"m":"1. n. 빚, 채무\n2. n. (남에게 진) 신세, 빚진 것","t":"n. 빚, 채무; (남에게 진) 신세, 빚진 것","s":"","a":"","sl":[],"al":[]},{"w":"due","d":44,"m":"1. a. ~하기로 되어 있는\n2. a. 만기가 된\n3. a. ~에 기인하는\n4. a. 적합한\n5. n. 회비","t":"a. ~하기로 되어 있는; 만기가 된; ~에 기인하는; 적합한\nn. 회비","s":"4. proper, suitable","a":"","sl":["proper","suitable"],"al":[]},{"w":"duty","d":44,"m":"1. n. (법적·도덕적인) 의무\n2. n. 직무, 임무\n3. n. 세금","t":"n. (법적·도덕적인) 의무; 직무, 임무; 세금","s":"1. obligation\n2. task, job","a":"","sl":["obligation","task","job"],"al":[]},{"w":"compare","d":44,"m":"1. v. 비교하다, 견주다\n2. v. 비유하다","t":"v. 비교하다, 견주다; 비유하다","s":"","a":"","sl":[],"al":[]},{"w":"peer","d":44,"m":"1. n. (나이·능력·신분 등이) 동등한 사람, 동료\n2. v. 응시하다, 자세히 들여다보다","t":"n. (나이·능력·신분 등이) 동등한 사람, 동료\nv. 응시하다, 자세히 들여다보다","s":"2. gaze","a":"","sl":["gaze"],"al":[]},{"w":"pair","d":44,"m":"1. n. (두 개가 하나를 이루는) 한 쌍; 한 개\n2. v. 짝을 짓다, 한 쌍이 되다","t":"n. (두 개가 하나를 이루는) 한 쌍; 한 개\nv. 짝을 짓다, 한 쌍이 되다","s":"","a":"","sl":[],"al":[]},{"w":"measure","d":44,"m":"1. n. 조치, 대책\n2. n. 척도, 기준\n3. n. (많은) 양, 정도\n4. v. 재다, 측정하다\n5. v. 판단하다, 평가하다","t":"n. 조치, 대책; 척도, 기준; (많은) 양, 정도\nv. 재다, 측정하다; 판단하다, 평가하다","s":"1. action\n5. assess","a":"","sl":["action","assess"],"al":[]},{"w":"dimension","d":44,"m":"1. n. 치수, 크기\n2. n. 특성, 특질, 면\n3. n. 차원","t":"n. 치수, 크기; 특성, 특질, 면; 차원","s":"1. measurement\n2. aspect","a":"","sl":["measurement","aspect"],"al":[]},{"w":"immense","d":44,"m":"a. 거대한, 매우 큰","t":"a. 거대한, 매우 큰","s":"huge, tremendous, enormous","a":"","sl":["huge","tremendous","enormous"],"al":[]},{"w":"audience","d":44,"m":"n. 청중, 관객, 시청자, 청취자","t":"n. 청중, 관객, 시청자, 청취자","s":"viewer, spectator","a":"","sl":["viewer","spectator"],"al":[]},{"w":"obey","d":44,"m":"v. (~에) 복종하다, 따르다","t":"v. (~에) 복종하다, 따르다","s":"submit to","a":"disobey","sl":["submit to"],"al":["disobey"]},{"w":"precious","d":44,"m":"1. a. 귀중한, 소중한\n2. a. 값비싼","t":"a. 귀중한, 소중한; 값비싼","s":"1. valuable\n2. costly","a":"","sl":["valuable","costly"],"al":[]},{"w":"appreciate","d":44,"m":"1. v. 이해하다, 깨닫다\n2. v. 고맙게 여기다\n3. v. 감상하다\n4. v. 인정하다","t":"v. 이해하다, 깨닫다; 고맙게 여기다; 감상하다; 인정하다","s":"1. realize","a":"","sl":["realize"],"al":[]},{"w":"praise","d":44,"m":"1. v. 칭찬하다, 찬양하다\n2. n. 칭찬","t":"v. 칭찬하다, 찬양하다\nn. 칭찬","s":"","a":"1. criticize","sl":[],"al":["criticize"]},{"w":"priceless","d":44,"m":"a. 매우 귀중한, (너무 귀하여) 값을 매길 수 없는\n※ '가치 없는'이 아님 (invaluable도 같음)","t":"a. 매우 귀중한, (너무 귀하여) 값을 매길 수 없는","s":"invaluable","a":"","sl":["invaluable"],"al":[]},{"w":"survive","d":44,"m":"1. v. 살아남다, 생존하다\n2. v. 극복하다\n3. v. ~보다 오래 살다","t":"v. 살아남다, 생존하다; 극복하다; ~보다 오래 살다","s":"","a":"","sl":[],"al":[]},{"w":"vivid","d":44,"m":"a. (기억·묘사·색상 등이) 생생한, 선명한","t":"a. (기억·묘사·색상 등이) 생생한, 선명한","s":"","a":"vague","sl":[],"al":["vague"]},{"w":"vital","d":44,"m":"1. a. 매우 중요한, 필수적인\n2. a. 생명 유지에 필요한\n3. a. 활기찬","t":"a. 매우 중요한, 필수적인; 생명 유지에 필요한; 활기찬","s":"1. crucial, essential","a":"","sl":["crucial","essential"],"al":[]},{"w":"avenge","d":44,"m":"v. (주로 피해자를 대신해) 복수하다, 원수를 갚다","t":"v. (주로 피해자를 대신해) 복수하다, 원수를 갚다","s":"","a":"","sl":[],"al":[]},{"w":"revenge","d":44,"m":"n./v. (주로 피해자 자신이) 복수(하다), 원한(을 갚다)","t":"n./v. (주로 피해자 자신이) 복수(하다), 원한(을 갚다)","s":"vengeance","a":"","sl":["vengeance"],"al":[]}];
+const DAYS = [41, 42, 43, 44];
+const KEY = 'voca-day41-44';
+const C = '①②③④⑤';
+const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+const canSpeak = 'speechSynthesis' in window;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const hint = n => C.slice(0, n).split('').join(' ');
+const byW = Object.fromEntries(WORDS.map(w => [w.w, w]));
+
+let S = { tab: 'card', days: new Set(DAYS), wrong: {}, dir: 'mw', mix: true, qn: 0, card: null, quiz: null, q: '', clearArm: false };
+
+function load() { try { const v = JSON.parse(localStorage.getItem(KEY) || '{}'); if (v.wrong) S.wrong = v.wrong; } catch (e) {} }
+function save() { try { localStorage.setItem(KEY, JSON.stringify({ wrong: S.wrong })); } catch (e) {} }
+function speak(t) { if (!canSpeak) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.lang = 'en-US'; u.rate = 0.9; speechSynthesis.speak(u); } catch (e) {} }
+const spkBtn = w => canSpeak ? `<button class="spk" type="button" data-say="${esc(w)}" aria-label="${esc(w)} 듣기">${SPK}</button>` : '';
+
+const norm = s => String(s).toLowerCase().replace(/[’`]/g, "'").replace(/\.$/, '').replace(/\s+/g, ' ').trim();
+function variants(t) {
+  const out = new Set();
+  const base = norm(t);
+  for (const v of [base, base.replace(/[()]/g, ''), base.replace(/\s*\([^)]*\)/g, '')]) {
+    for (const x of [v, v.replace(/to-v/g, 'to v'), v.replace(/to-v/g, 'to'), v.replace(/\s*to-v/g, '')]) out.add(norm(x));
+  }
+  return out;
+}
+function matchAll(inputs, targets) {
+  const pool = targets.map(t => ({ t, v: variants(t), used: false }));
+  return inputs.map(x => { const n = norm(x); const hit = n && pool.find(p => !p.used && p.v.has(n)); if (hit) hit.used = true; return !!hit; });
+}
+
+const pool = () => WORDS.filter(w => S.days.has(w.d));
+const saPool = () => pool().filter(w => w.sl.length || w.al.length);
+const saHint = w => [w.sl.length ? `<b>Syn</b> ${hint(w.sl.length)}` : '', w.al.length ? `<b>Ant</b> ${hint(w.al.length)}` : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
+const saBlock = w => `<div class="sa">${w.s ? `<div><b>Syn</b>${esc(w.s)}</div>` : ''}${w.a ? `<div class="ant"><b>Ant</b>${esc(w.a)}</div>` : ''}${!w.s && !w.a ? '<div class="meta">동의어·반의어 없음</div>' : ''}</div>`;
+function addWrong(w) { S.wrong[w] = (S.wrong[w] || 0) + 1; save(); }
+function easeWrong(w) { if (S.wrong[w]) { S.wrong[w]--; if (!S.wrong[w]) delete S.wrong[w]; save(); } }
+
+/* ---------- cards ---------- */
+function startCards(list) { S.card = { queue: S.mix ? shuffle(list) : list.slice(), total: list.length, known: 0, missed: new Set(), flip: false }; }
+function viewCard() {
+  const c = S.card;
+  const setup = `<div class="row" style="justify-content:space-between;margin-bottom:12px">
+    <div class="seg" role="group" aria-label="방향"><button data-dir="mw" aria-pressed="${S.dir === 'mw'}">뜻 → 단어</button><button data-dir="wm" aria-pressed="${S.dir === 'wm'}">단어 → 뜻</button></div>
+    <div class="row"><label class="chk"><input type="checkbox" id="mix" ${S.mix ? 'checked' : ''}> 섞기</label><button class="btn" data-act="cards-all">처음부터</button></div></div>`;
+  if (!c || !c.total) return setup + `<p class="empty">선택한 Day에 단어가 없어요.</p>`;
+  if (!c.queue.length) return setup + `<div class="paper"><h2>다 외웠어요</h2><p class="pen score">${c.total}</p><p style="text-align:center">처음에 몰랐던 단어 <b class="cnt">${c.missed.size}</b>개</p>
+    <div class="acts">${c.missed.size ? `<button class="btn red" data-act="cards-missed">몰랐던 것만 다시</button>` : '<span></span>'}<button class="btn fill" data-act="cards-all">전체 다시</button></div></div>`;
+  const w = c.queue[0];
+  const done = c.total - c.queue.length;
+  const front = S.dir === 'mw'
+    ? `<p class="mean">${esc(w.t)}</p><div class="hint">${saHint(w) || '동의어·반의어 없음'}</div>`
+    : `<p class="word">${esc(w.w)} ${spkBtn(w.w)}</p><div class="hint">${saHint(w) || '동의어·반의어 없음'}</div>`;
+  const back = `<p class="word">${esc(w.w)} ${spkBtn(w.w)}</p><p class="mean">${esc(w.m)}</p>${saBlock(w)}`;
+  return setup + `<div class="meta">Day ${w.d} · ${done + 1} / ${c.total} · 남은 카드 ${c.queue.length}</div>
+    <div class="bar"><i style="width:${done / c.total * 100}%"></i></div>
+    <div class="paper card" data-act="flip" role="button" tabindex="0" aria-label="카드 뒤집기">${c.flip ? back : front}<span class="flipnote">${c.flip ? '' : '눌러서 정답 보기'}</span></div>
+    <div class="acts">${c.flip
+      ? `<button class="btn redfill" data-act="no">몰랐어요</button><button class="btn fill" data-act="yes">알았어요</button>`
+      : `<button class="btn" data-act="flip" style="grid-column:1/-1">정답 보기</button>`}</div>`;
+}
+
+/* ---------- quiz (실전 시험 + 동의어·반의어) ---------- */
+function startQuiz(mode, list) { S.quiz = { mode, list: S.mix ? shuffle(list) : list.slice(), i: 0, res: [], graded: null }; }
+function quizSetup(mode) {
+  const n = mode === 'test' ? pool().length : saPool().length;
+  const opts = [0, 20, 40].filter(k => k < n).map(k => `<option value="${k}" ${S.qn === k ? 'selected' : ''}>${k ? k + '문제' : '전체 ' + n + '문제'}</option>`).join('');
+  const what = mode === 'test'
+    ? '학원 시험처럼 <b>뜻</b>을 보고 단어와 동의어·반의어를 써요. 커트라인 87.5% (40문제 중 35개).'
+    : '<b>단어</b>를 보고 동의어·반의어만 써요. 동의어나 반의어가 있는 단어만 나와요.';
+  return `<div class="paper"><h2>${mode === 'test' ? '실전 시험' : '동의어·반의어 연습'}</h2><p>${what}</p>
+    <div class="row"><select id="qn" aria-label="문제 수">${opts}</select><label class="chk"><input type="checkbox" id="mix" ${S.mix ? 'checked' : ''}> 섞기</label>
+    <button class="btn fill" data-act="go-${mode}">시작</button></div></div>`;
+}
+function fields(w, mode, g) {
+  const f = (cls, key, label, i, val) => {
+    const st = g ? (g[key][i] ? 'good' : 'bad') : '';
+    return `<div class="fld ${cls} ${st}"><span>${label}</span><input id="in-${key}-${i}" data-k="${key}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" ${g ? 'readonly' : ''} value="${esc(val || '')}">${g ? `<span class="mk pen">${g[key][i] ? '✓' : '✗'}</span>` : ''}</div>`;
+  };
+  const v = g ? g.vals : { w: [''], s: [], a: [] };
+  let h = mode === 'test' ? f('', 'w', '단어', 0, v.w[0]) : '';
+  w.sl.forEach((_, i) => h += f('', 's', 'Syn ' + C[i], i, v.s[i]));
+  w.al.forEach((_, i) => h += f('ant', 'a', 'Ant ' + C[i], i, v.a[i]));
+  return h;
+}
+function viewQuiz(mode) {
+  const q = S.quiz;
+  if (!q || q.mode !== mode) return quizSetup(mode);
+  if (!q.list.length) return `<p class="empty">문제가 없어요. Day를 골라 주세요.</p>`;
+  if (q.i >= q.list.length) {
+    const ok = q.res.filter(r => r.ok).length, n = q.res.length, pass = ok / n >= 0.875;
+    const bad = q.res.filter(r => !r.ok);
+    return `<div class="paper"><h2>${mode === 'test' ? '시험 결과' : '연습 결과'}</h2>
+      <p class="pen score">${ok} / ${n}</p>
+      <p style="text-align:center;margin-top:0">${pass ? '<b style="color:var(--teal)">통과!</b> 커트라인 87.5% 넘었어요.' : `<b style="color:var(--red)">재시험</b> 커트라인까지 ${Math.ceil(n * 0.875) - ok}개 더 맞혀야 해요.`}</p>
+      ${bad.length ? `<div class="list">${bad.map(r => `<div class="item"><div class="w">${esc(r.w.w)} ${spkBtn(r.w.w)}</div><div class="m">${esc(r.w.t)}</div>${saBlock(r.w)}</div>`).join('')}</div>` : ''}
+      <div class="acts">${bad.length ? `<button class="btn red" data-act="retry">틀린 것만 다시</button>` : '<span></span>'}<button class="btn fill" data-act="new-quiz">새로 시작</button></div></div>`;
+  }
+  const w = q.list[q.i], g = q.graded;
+  const prompt = mode === 'test'
+    ? `<p class="mean">${esc(w.t)}</p>`
+    : `<p class="word">${esc(w.w)} ${spkBtn(w.w)}</p><p class="mean" style="font-size:16px;line-height:28px">${esc(w.t)}</p>`;
+  return `<div class="meta">Day ${w.d} · ${q.i + 1} / ${q.list.length} · 맞힘 ${q.res.filter(r => r.ok).length}</div>
+    <div class="bar"><i style="width:${q.i / q.list.length * 100}%"></i></div>
+    <div class="paper">${prompt}${mode === 'test' && !w.sl.length && !w.al.length ? '<div class="hint">동의어·반의어 없음 — 단어만 쓰면 돼요</div>' : ''}
+    <form class="q" id="qf">${fields(w, mode, g)}
+    ${g ? `<div class="ans"><p class="word" style="font-size:30px">${esc(w.w)} ${spkBtn(w.w)} <span class="pen" style="font-size:40px">${g.ok ? '참 잘했어요' : '다시 보기'}</span></p><p class="mean" style="font-size:16px;line-height:28px">${esc(w.m)}</p>${saBlock(w)}</div>
+      <button class="btn fill" type="submit" id="nextbtn">${q.i + 1 < q.list.length ? '다음' : '결과 보기'}</button>`
+      : `<button class="btn fill" type="submit">채점</button>`}</form></div>`;
+}
+function grade() {
+  const q = S.quiz, w = q.list[q.i];
+  const val = k => [...document.querySelectorAll(`#qf input[data-k="${k}"]`)].map(x => x.value);
+  const vals = { w: val('w'), s: val('s'), a: val('a') };
+  const g = { vals, w: q.mode === 'test' ? [norm(vals.w[0]) === norm(w.w)] : [], s: matchAll(vals.s, w.sl), a: matchAll(vals.a, w.al) };
+  g.ok = [...g.w, ...g.s, ...g.a].every(Boolean);
+  q.graded = g;
+  q.res.push({ w, ok: g.ok });
+  g.ok ? easeWrong(w.w) : addWrong(w.w);
+}
+
+/* ---------- word list ---------- */
+function viewList() {
+  const qs = norm(S.q);
+  const rows = pool().filter(w => !qs || [w.w, w.m, w.s, w.a].some(x => norm(x).includes(qs)));
+  let h = `<input class="search" id="search" type="search" placeholder="단어·뜻·동의어 검색" value="${esc(S.q)}" aria-label="검색">`;
+  if (!rows.length) return h + `<p class="empty">찾는 단어가 없어요.</p>`;
+  for (const d of DAYS) {
+    const r = rows.filter(w => w.d === d);
+    if (!r.length) continue;
+    h += `<h3 class="dayh">Day ${d} <span class="meta">${r.length}개</span></h3><div class="list">` + r.map(w => {
+      const code = (w.sl.length ? 'S' + w.sl.length : '') + (w.al.length ? 'A' + w.al.length : '') || '0';
+      return `<div class="item"><div class="w">${esc(w.w)}<span class="code">${code}</span>${S.wrong[w.w] ? `<span class="cnt">✗${S.wrong[w.w]}</span>` : ''}</div>${spkBtn(w.w)}<div class="m">${esc(w.m)}</div>${w.s || w.a ? saBlock(w) : ''}</div>`;
+    }).join('') + `</div>`;
+  }
+  return h;
+}
+
+/* ---------- wrong notes ---------- */
+function viewWrong() {
+  const list = Object.entries(S.wrong).filter(([w]) => byW[w]).sort((a, b) => b[1] - a[1]);
+  if (!list.length) return `<div class="paper"><h2>오답 노트</h2><p>아직 틀린 단어가 없어요. 카드에서 <b>몰랐어요</b>를 누르거나 시험에서 틀리면 여기에 모여요.</p></div>`;
+  return `<div class="paper"><h2>오답 노트 <span class="cnt">${list.length}</span></h2><p class="meta" style="margin-top:0">틀릴 때마다 ✗가 하나씩 늘고, 시험에서 맞히면 하나씩 줄어요. 선택한 Day와 상관없이 전부 보여요.</p>
+    <div class="row"><button class="btn" data-act="wrong-cards">오답 카드</button><button class="btn fill" data-act="wrong-test">오답 시험</button>
+    <button class="btn red" data-act="clear">${S.clearArm ? '정말 지울까요? 한 번 더' : '기록 지우기'}</button></div></div>
+    <div class="list">${list.map(([k, n]) => { const w = byW[k]; return `<div class="item"><div class="w">${esc(w.w)} <span class="code">Day ${w.d}</span> <span class="cnt">✗${n}</span></div>${spkBtn(w.w)}<div class="m">${esc(w.t)}</div>${saBlock(w)}</div>`; }).join('')}</div>`;
+}
+
+/* ---------- render + events ---------- */
+function render() {
+  $('days').innerHTML = DAYS.map(d => `<button class="chip" data-day="${d}" aria-pressed="${S.days.has(d)}">Day ${d}</button>`).join('') + `<span style="align-self:center;opacity:.9">${pool().length}단어</span>`;
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.tab === S.tab));
+  const v = { card: viewCard, test: () => viewQuiz('test'), sa: () => viewQuiz('sa'), list: viewList, wrong: viewWrong }[S.tab];
+  $('app').innerHTML = v();
+  const first = document.querySelector('#qf input:not([readonly])');
+  if (first) first.focus({ preventScroll: true });
+  else if ($('nextbtn')) $('nextbtn').focus({ preventScroll: true });
+}
+function act(a) {
+  const c = S.card;
+  if (a === 'flip' && c && c.queue.length) { c.flip = !c.flip; }
+  else if (a === 'yes') { c.queue.shift(); c.flip = false; }
+  else if (a === 'no') { const w = c.queue.shift(); c.queue.push(w); if (!c.missed.has(w.w)) { c.missed.add(w.w); addWrong(w.w); } c.flip = false; }
+  else if (a === 'cards-all') startCards(pool());
+  else if (a === 'cards-missed') startCards(WORDS.filter(w => c.missed.has(w.w)));
+  else if (a === 'go-test' || a === 'go-sa') {
+    const mode = a.slice(3), n = +($('qn')?.value || 0); S.qn = n;
+    let l = mode === 'test' ? pool() : saPool(); if (S.mix) l = shuffle(l); if (n) l = l.slice(0, n);
+    S.quiz = { mode, list: l, i: 0, res: [], graded: null };
+  }
+  else if (a === 'retry') { const q = S.quiz; startQuiz(q.mode, q.res.filter(r => !r.ok).map(r => r.w)); }
+  else if (a === 'new-quiz') S.quiz = null;
+  else if (a === 'wrong-cards') { startCards(Object.keys(S.wrong).map(k => byW[k]).filter(Boolean)); S.tab = 'card'; }
+  else if (a === 'wrong-test') { startQuiz('test', Object.keys(S.wrong).map(k => byW[k]).filter(Boolean)); S.tab = 'test'; }
+  else if (a === 'clear') { if (S.clearArm) { S.wrong = {}; save(); S.clearArm = false; } else { S.clearArm = true; } render(); return; }
+  S.clearArm = false;
+  render();
+}
+document.addEventListener('click', e => {
+  const say = e.target.closest('[data-say]'); if (say) { e.stopPropagation(); speak(say.dataset.say); return; }
+  const day = e.target.closest('[data-day]');
+  if (day) { const d = +day.dataset.day; if (S.days.has(d) && S.days.size > 1) S.days.delete(d); else S.days.add(d); startCards(pool()); S.quiz = null; render(); return; }
+  const tab = e.target.closest('[data-tab]'); if (tab) { S.tab = tab.dataset.tab; S.clearArm = false; if (S.tab === 'wrong' || S.tab === 'list') {} render(); window.scrollTo(0, 0); return; }
+  const dir = e.target.closest('[data-dir]'); if (dir) { S.dir = dir.dataset.dir; if (S.card) S.card.flip = false; render(); return; }
+  const el = e.target.closest('[data-act]'); if (el) act(el.dataset.act);
+});
+document.addEventListener('keydown', e => {
+  if (e.target.matches?.('.card') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); act('flip'); }
+});
+document.addEventListener('change', e => { if (e.target.id === 'mix') S.mix = e.target.checked; if (e.target.id === 'qn') S.qn = +e.target.value; });
+document.addEventListener('input', e => {
+  if (e.target.id === 'search') { S.q = e.target.value; const pos = e.target.selectionStart; render(); const s = $('search'); s.focus(); try { s.setSelectionRange(pos, pos); } catch (x) {} }
+});
+document.addEventListener('submit', e => {
+  if (e.target.id !== 'qf') return;
+  e.preventDefault();
+  const q = S.quiz;
+  if (!q.graded) {
+    const empty = [...document.querySelectorAll('#qf input')].find(x => !x.value.trim());
+    if (empty && document.activeElement !== empty && document.activeElement?.tagName === 'INPUT' && document.activeElement.compareDocumentPosition(empty) & Node.DOCUMENT_POSITION_FOLLOWING) { empty.focus(); return; }
+    grade();
+  } else { q.i++; q.graded = null; }
+  render();
+});
+
+function start(data) {
+  load();
+  if (data && data.wrong) S.wrong = data.wrong;
+  if (data && data.tab) S.tab = data.tab;
+  if (data && data.days && data.days.length) S.days = new Set(data.days);
+  startCards(pool());
+  render();
+}
+window.claude?.hot?.snapshot?.(() => ({ tab: S.tab, days: [...S.days], wrong: S.wrong }));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+}
+</script>
+</body>
+</html>

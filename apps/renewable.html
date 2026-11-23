@@ -1,0 +1,746 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<a id="hub-back" href="../index.html" style="display:flex;align-items:center;gap:4px;padding:11px 16px;font:600 15px/1.2 -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#1a7f37;background:#ffffff;border-bottom:1px solid #d0d7de;text-decoration:none;-webkit-tap-highlight-color:transparent;position:relative;z-index:20"><span style="font-size:20px;line-height:1">‹</span> 단어장 목록</a>
+
+<title>재생에너지 독해 단어</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans:wght@400;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: single 600px study column, sticky 5-tab bar, one task card per screen (same look as the UNIT v4 apps) */
+:root{
+  --bg:#f6f8fa; --card:#ffffff; --sunken:#eef1f4; --border:#d0d7de;
+  --text:#1f2328; --muted:#57606a;
+  --green:#1a7f37; --green-soft:rgba(26,127,55,.10);
+  --red:#cf222e; --red-soft:rgba(207,34,46,.09);
+  --blue:#0969da; --blue-soft:rgba(9,105,218,.09);
+  --amber:#8a5d00; --amber-soft:rgba(154,103,0,.10);
+  --on-accent:#ffffff;
+  --scrim:rgba(31,35,40,.45);
+  --shadow:0 1px 2px rgba(31,35,40,.05),0 6px 18px rgba(31,35,40,.06);
+  --shadow-lg:0 10px 40px rgba(31,35,40,.18);
+  --f-ko:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --f-en:'Noto Sans','Helvetica Neue',Arial,'Noto Sans KR',sans-serif;
+  --f-mono:'Space Mono',ui-monospace,Menlo,'Noto Sans KR',monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1117; --card:#161b22; --sunken:#1c2230; --border:#30363d;
+    --text:#e6edf3; --muted:#8b949e;
+    --green:#3fb950; --green-soft:rgba(63,185,80,.14);
+    --red:#f85149; --red-soft:rgba(248,81,73,.13);
+    --blue:#58a6ff; --blue-soft:rgba(88,166,255,.13);
+    --amber:#d29922; --amber-soft:rgba(210,153,34,.13);
+    --on-accent:#0d1117;
+    --scrim:rgba(1,4,9,.7);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+    --shadow-lg:0 10px 40px rgba(0,0,0,.55);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1117; --card:#161b22; --sunken:#1c2230; --border:#30363d;
+  --text:#e6edf3; --muted:#8b949e;
+  --green:#3fb950; --green-soft:rgba(63,185,80,.14);
+  --red:#f85149; --red-soft:rgba(248,81,73,.13);
+  --blue:#58a6ff; --blue-soft:rgba(88,166,255,.13);
+  --amber:#d29922; --amber-soft:rgba(210,153,34,.13);
+  --on-accent:#0d1117;
+  --scrim:rgba(1,4,9,.7);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+  --shadow-lg:0 10px 40px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--f-ko);font-size:15px;line-height:1.55;margin:0;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+p,h1,h2,ul{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+.app{max-width:600px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px;display:flex;flex-direction:column;gap:14px}
+
+/* header */
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{min-width:0}
+.brand h1{font-family:var(--f-mono);font-size:1.05rem;font-weight:700;letter-spacing:.14em;color:var(--green);text-transform:uppercase}
+.brand p{margin-top:3px;color:var(--muted);font-size:.84rem}
+.auto-btn{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--border);background:var(--card);border-radius:999px;padding:6px 12px;font-size:.78rem;color:var(--muted);cursor:pointer}
+.auto-btn b{font-weight:700}
+.auto-btn[aria-pressed="true"]{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+
+/* tabs */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:6px}
+.nav-tabs{display:flex;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card)}
+.nav-tab{position:relative;flex:1 1 0;min-width:0;padding:11px 2px;border:0;border-right:1px solid var(--border);background:transparent;color:var(--muted);font-size:.8rem;letter-spacing:-.02em;white-space:nowrap;cursor:pointer;transition:background .15s,color .15s}
+.nav-tab:last-child{border-right:0}
+.nav-tab[aria-selected="true"]{background:var(--green-soft);color:var(--green);font-weight:700}
+.nav-tab .count{position:absolute;top:3px;right:3px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--red);color:var(--on-accent);font-family:var(--f-mono);font-size:.6rem;line-height:16px;font-weight:700}
+
+/* pages */
+.page{display:flex;flex-direction:column;gap:14px}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+.progress-row{display:flex;align-items:center;gap:12px}
+.progress-bar{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--green);border-radius:3px;transition:width .35s ease}
+.progress-label{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+.score-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.round-chip{margin-right:auto;font-size:.8rem;color:var(--muted);font-weight:500}
+.score-badge{font-family:var(--f-mono);font-size:.8rem;padding:3px 11px;border-radius:12px;font-variant-numeric:tabular-nums}
+.score-badge.correct{background:var(--green-soft);color:var(--green)}
+.score-badge.wrong{background:var(--red-soft);color:var(--red)}
+
+/* speaker button */
+.say{flex:none;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);color:var(--blue);cursor:pointer}
+.say svg{width:17px;height:17px}
+.say:active{background:var(--blue-soft)}
+
+/* flashcard */
+.fc{background:var(--card);border:1.5px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:30px 20px 22px;display:flex;flex-direction:column;gap:14px;cursor:pointer;min-height:230px;justify-content:center;-webkit-tap-highlight-color:transparent}
+.fc-front{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.fc-word{font-family:var(--f-en);font-size:clamp(2rem,9vw,2.6rem);font-weight:700;line-height:1.1;letter-spacing:-.01em;overflow-wrap:anywhere}
+.fc-sub{display:flex;align-items:center;gap:10px}
+.ipa{font-family:var(--f-en);color:var(--muted);font-size:.98rem}
+.fc-hint{margin-top:6px;font-size:.8rem;color:var(--muted);border:1px dashed var(--border);border-radius:999px;padding:3px 12px}
+.fc-back{border-top:1px dashed var(--border);padding-top:16px;cursor:default}
+
+.detail{display:flex;flex-direction:column;gap:12px}
+.senses{display:flex;flex-direction:column;gap:8px}
+.sense{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.pos{font-family:var(--f-mono);font-size:.7rem;color:var(--blue);background:var(--blue-soft);border-radius:6px;padding:1px 7px;margin-top:3px;min-width:34px;text-align:center}
+.sense-txt{display:flex;flex-direction:column;min-width:0}
+.sense-ko{font-weight:700;font-size:1.02rem}
+.sense-en{font-family:var(--f-en);color:var(--muted);font-size:.86rem;line-height:1.45}
+.ex{display:grid;grid-template-columns:1fr auto;gap:4px 10px;background:var(--sunken);border-radius:12px;padding:11px 12px;align-items:start}
+.ex-en{font-family:var(--f-en);font-size:.98rem;line-height:1.5;min-width:0}
+.ex-tr{grid-column:1/2;color:var(--muted);font-size:.86rem}
+.ex .say{grid-row:1/3;grid-column:2;width:30px;height:30px}
+.ex .say svg{width:15px;height:15px}
+mark.hl{background:var(--green-soft);color:var(--green);font-weight:700;padding:0 3px;border-radius:4px}
+mark.hl.miss{background:var(--red-soft);color:var(--red)}
+.tip{display:flex;gap:8px;color:var(--amber);background:var(--amber-soft);border-radius:12px;padding:9px 12px;font-size:.87rem;line-height:1.5}
+.tip-arrow{font-family:var(--f-mono);font-weight:700;flex:none}
+
+/* buttons */
+.btn{border:1.5px solid transparent;border-radius:12px;padding:14px 12px;font-weight:700;cursor:pointer;transition:transform .08s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn.no{background:var(--card);border-color:var(--red);color:var(--red)}
+.btn.yes,.btn.primary{background:var(--green);color:var(--on-accent)}
+.btn.ghost{background:var(--card);border-color:var(--border);color:var(--text);font-weight:500}
+.btn.ghost.danger{border-color:var(--red);color:var(--red);background:var(--red-soft)}
+.btn.small{padding:8px 14px;font-size:.84rem;border-radius:10px}
+.judge{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.judge .btn{font-size:1.02rem;padding:16px 10px}
+.note{color:var(--muted);font-size:.8rem;text-align:center}
+
+.done{background:var(--card);border:1.5px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:30px 22px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.done-eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;color:var(--green)}
+.done h2{font-size:1.3rem;font-weight:900;text-wrap:balance}
+.done p{color:var(--muted);font-size:.9rem}
+.done-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+
+/* question cards */
+.q-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px}
+.q-prompt{font-size:.8rem;color:var(--muted)}
+.q-sentence{font-family:var(--f-en);font-size:1.2rem;line-height:1.7}
+.blank{display:inline-block;min-width:5.5em;height:1.1em;border-bottom:2.5px solid var(--blue);vertical-align:-.15em;margin:0 3px}
+.q-tr{color:var(--muted);font-size:.9rem;border-left:3px solid var(--border);padding-left:10px}
+.link-btn{align-self:flex-start;border:0;background:none;color:var(--blue);font-size:.84rem;padding:2px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts.one{grid-template-columns:1fr}
+.opt{min-width:0;overflow-wrap:anywhere;padding:14px 12px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:1rem;cursor:pointer;text-align:center;transition:background .15s,border-color .15s}
+.opt.en{font-family:var(--f-en);font-size:1.05rem}
+.opts.one .opt{text-align:left;padding:13px 16px}
+.opt:disabled{cursor:default}
+.opt:disabled:not(.correct):not(.wrong){opacity:.5}
+.opt.correct{border-color:var(--green);background:var(--green-soft);color:var(--green);font-weight:700}
+.opt.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+
+.feedback-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;min-height:50px}
+.feedback{font-weight:700;font-size:.95rem;min-width:0;flex:1 1 200px}
+.feedback.ok{color:var(--green)}
+.feedback.no{color:var(--red)}
+.feedback-row .btn{padding:12px 22px}
+
+/* listening */
+.listen-top{display:flex;flex-direction:column;align-items:center;gap:14px;padding-block:8px}
+.play-big{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;background:var(--blue);color:var(--on-accent);padding:16px 30px;font-size:1.05rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow)}
+.play-big svg{width:22px;height:22px}
+.listen-btns{display:flex;gap:10px;align-items:center}
+.listen-reveal{display:flex;flex-direction:column;align-items:center;gap:2px}
+.listen-reveal .fc-word{font-size:1.9rem}
+
+/* section heads */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sec-title{font-size:1.15rem;font-weight:900}
+.sec-sub{color:var(--muted);font-size:.82rem;margin-top:2px}
+.toggle{border:1.5px solid var(--border);background:var(--card);border-radius:999px;padding:7px 14px;font-size:.82rem;cursor:pointer;color:var(--muted)}
+.toggle[aria-pressed="true"]{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);font-weight:700}
+
+/* wordbook + wrong list */
+.wb-list,.wr-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
+.wb-item,.wr-item{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px 14px 14px 16px;display:flex;flex-direction:column;gap:10px}
+.wb-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wb-word{font-family:var(--f-en);font-weight:700;font-size:1.2rem}
+.wb-head .say{margin-left:auto}
+.wb-list.masked .wb-item{cursor:pointer}
+.wb-list.masked .wb-item:not(.peek) .wb-body{filter:blur(7px);user-select:none;-webkit-user-select:none;pointer-events:none}
+.mask-hint{display:none;font-size:.78rem;color:var(--blue)}
+.wb-list.masked .wb-item:not(.peek) .mask-hint{display:inline}
+
+.miss-count{font-family:var(--f-mono);font-size:.75rem;color:var(--red);background:var(--red-soft);border-radius:8px;padding:2px 8px;font-variant-numeric:tabular-nums}
+.wr-item .wb-head .say{margin-left:0}
+.wr-item .miss-count{margin-left:auto}
+.wr-ko{font-weight:700}
+.wr-ex{font-family:var(--f-en);font-size:.92rem;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:.72rem;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:1px 9px}
+.wr-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.empty{background:var(--card);border:1.5px dashed var(--border);border-radius:16px;padding:32px 20px;text-align:center;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.empty b{color:var(--text)}
+
+/* modal */
+.modal-back{position:fixed;inset:0;z-index:50;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.modal{background:var(--card);border:1.5px solid var(--border);border-radius:20px;box-shadow:var(--shadow-lg);width:100%;max-width:380px;padding:26px 20px 20px;display:flex;flex-direction:column;gap:6px;text-align:center}
+.m-eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;color:var(--muted)}
+.m-score{font-family:var(--f-mono);font-size:2.6rem;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums;line-height:1.2}
+.modal h2{font-size:1.15rem;font-weight:900;text-wrap:balance}
+.m-body{color:var(--muted);font-size:.88rem}
+.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+
+@media (max-width:380px){
+  .nav-tab{font-size:.74rem}
+  .opts:not(.one){grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <h1>Vocab · 독해 07</h1>
+      <p id="sub">2020년 11월 23번 · 재생에너지의 환경 영향</p>
+    </div>
+    <button type="button" class="auto-btn" id="auto-btn" aria-pressed="true">
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a4.5 4.5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      자동 발음 <b id="auto-state">켜짐</b>
+    </button>
+  </header>
+
+  <nav class="nav" aria-label="학습 메뉴">
+    <div class="nav-tabs" role="tablist">
+      <button type="button" class="nav-tab" role="tab" data-page="flash" aria-selected="true">플래시카드</button>
+      <button type="button" class="nav-tab" role="tab" data-page="ex" aria-selected="false">예문퀴즈</button>
+      <button type="button" class="nav-tab" role="tab" data-page="list" aria-selected="false">단어장</button>
+      <button type="button" class="nav-tab" role="tab" data-page="wrong" aria-selected="false">오답정리<span class="count" id="wrong-count" hidden>0</span></button>
+      <button type="button" class="nav-tab" role="tab" data-page="listen" aria-selected="false">듣기</button>
+    </div>
+  </nav>
+
+  <!-- 플래시카드 -->
+  <section class="page" id="page-flash" role="tabpanel">
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" id="fc-fill"></div></div>
+      <span class="progress-label" id="fc-label">0 / 0</span>
+    </div>
+    <div class="score-row">
+      <span class="round-chip" id="fc-mode">전체 단어</span>
+      <span class="score-badge correct">O <b id="fc-o">0</b></span>
+      <span class="score-badge wrong">X <b id="fc-x">0</b></span>
+    </div>
+    <div class="stack" id="fc-play">
+      <div class="fc" id="fc-card" role="button" tabindex="0" aria-expanded="false" aria-label="카드를 눌러 뜻 보기">
+        <div class="fc-front">
+          <span class="fc-word" id="fc-word"></span>
+          <div class="fc-sub">
+            <span class="ipa" id="fc-ipa"></span>
+            <button type="button" class="say" id="fc-say" data-say="" aria-label="발음 듣기"></button>
+          </div>
+          <span class="fc-hint" id="fc-hint">탭해서 뜻 보기</span>
+        </div>
+        <div class="fc-back" id="fc-back" hidden></div>
+      </div>
+      <div class="judge">
+        <button type="button" class="btn no" id="fc-no">몰랐어요</button>
+        <button type="button" class="btn yes" id="fc-yes">알았어요</button>
+      </div>
+      <p class="note">몰랐어요를 누른 단어는 맨 뒤로 가서 다시 나와요. 모두 알았어요가 될 때까지 계속돼요.</p>
+    </div>
+    <div class="done" id="fc-done" hidden>
+      <p class="done-eyebrow">FLASHCARD CLEAR</p>
+      <h2 id="fc-done-title">모든 단어를 알았어요!</h2>
+      <p id="fc-done-msg"></p>
+      <div class="done-actions">
+        <button type="button" class="btn yes" id="fc-restart">전체 단어 다시</button>
+        <button type="button" class="btn ghost" id="fc-to-wrong">오답정리 보기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 예문퀴즈 -->
+  <section class="page" id="page-ex" role="tabpanel" hidden>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" id="ex-fill"></div></div>
+      <span class="progress-label" id="ex-label">0 / 0</span>
+    </div>
+    <div class="score-row">
+      <span class="round-chip" id="ex-round">1회차</span>
+      <span class="score-badge correct">O <b id="ex-o">0</b></span>
+      <span class="score-badge wrong">X <b id="ex-x">0</b></span>
+    </div>
+    <div class="q-card">
+      <p class="q-prompt">빈칸에 알맞은 단어를 고르세요</p>
+      <p class="q-sentence" id="ex-sentence"></p>
+      <button type="button" class="link-btn" id="ex-tr-btn">해석 보기</button>
+      <p class="q-tr" id="ex-tr" hidden></p>
+    </div>
+    <div class="opts" id="ex-opts"></div>
+    <div class="feedback-row">
+      <p class="feedback" id="ex-feedback" aria-live="polite"></p>
+      <button type="button" class="btn primary" id="ex-next" hidden>다음 문제</button>
+    </div>
+  </section>
+
+  <!-- 단어장 -->
+  <section class="page" id="page-list" role="tabpanel" hidden>
+    <div class="sec-head">
+      <div>
+        <h2 class="sec-title">단어장</h2>
+        <p class="sec-sub" id="wb-sub">본문 순서</p>
+      </div>
+      <button type="button" class="toggle" id="wb-mask" aria-pressed="false">뜻 가리기</button>
+    </div>
+    <ul class="wb-list" id="wb-list"></ul>
+  </section>
+
+  <!-- 오답정리 -->
+  <section class="page" id="page-wrong" role="tabpanel" hidden>
+    <div class="sec-head">
+      <div>
+        <h2 class="sec-title">오답정리</h2>
+        <p class="sec-sub" id="wr-sub">틀린 단어가 여기에 모여요</p>
+      </div>
+    </div>
+    <div class="wr-actions" id="wr-actions" hidden>
+      <button type="button" class="btn primary" id="wr-flash">이 단어로 플래시카드</button>
+      <button type="button" class="btn ghost" id="wr-clear">목록 비우기</button>
+    </div>
+    <ul class="wr-list" id="wr-list"></ul>
+    <div class="empty" id="wr-empty">
+      <b>아직 틀린 단어가 없어요</b>
+      <span>플래시카드에서 몰랐어요를 누르거나 예문퀴즈·듣기에서 틀리면 여기에 모여요.</span>
+    </div>
+    <p class="note">오답 기록은 앱을 새로고침하면 지워져요.</p>
+  </section>
+
+  <!-- 듣기 -->
+  <section class="page" id="page-listen" role="tabpanel" hidden>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" id="ls-fill"></div></div>
+      <span class="progress-label" id="ls-label">0 / 0</span>
+    </div>
+    <div class="score-row">
+      <span class="round-chip" id="ls-round">1회차</span>
+      <span class="score-badge correct">O <b id="ls-o">0</b></span>
+      <span class="score-badge wrong">X <b id="ls-x">0</b></span>
+    </div>
+    <div class="q-card">
+      <p class="q-prompt">단어를 듣고 알맞은 뜻을 고르세요</p>
+      <div class="listen-top">
+        <div class="listen-btns">
+          <button type="button" class="play-big" id="ls-play" data-say="">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            듣기
+          </button>
+          <button type="button" class="btn ghost small" id="ls-slow" data-say="" data-rate="0.55">느리게</button>
+        </div>
+        <div class="listen-reveal" id="ls-reveal" hidden>
+          <span class="fc-word" id="ls-word"></span>
+          <span class="ipa" id="ls-ipa"></span>
+        </div>
+      </div>
+    </div>
+    <div class="opts one" id="ls-opts"></div>
+    <div class="feedback-row">
+      <p class="feedback" id="ls-feedback" aria-live="polite"></p>
+      <button type="button" class="btn primary" id="ls-next" hidden>다음 문제</button>
+    </div>
+  </section>
+</div>
+
+<!-- 라운드 결과 모달 -->
+<div class="modal-back" id="modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <p class="m-eyebrow" id="m-eyebrow"></p>
+    <p class="m-score" id="m-score"></p>
+    <h2 id="m-title"></h2>
+    <p class="m-body" id="m-body"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="m-secondary">닫기</button>
+      <button type="button" class="btn primary" id="m-primary">확인</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- 단어 데이터 (본문 순서 → 선택지 순서) ---------- */
+const W=[
+{w:"renewable",ipa:"/rɪˈnuː.ə.bəl/",s:[["adj","재생 가능한","able to be replaced naturally and used again"]],ko:"재생 가능한",ex:"Solar power is a ___ source of energy.",ans:"renewable",tr:"태양열은 재생 가능한 에너지원이다.",tip:"re(다시) + new(새로운) + able(~할 수 있는) = 다시 새로 생겨날 수 있는. (renewable energy = 재생에너지)"},
+{w:"harmonize",ipa:"/ˈhɑːr.mə.naɪz/",s:[["v","조화시키다","to make different things fit together well"]],ko:"조화시키다",ex:"We need to ___ economic growth with nature.",ans:"harmonize",tr:"우리는 경제 성장과 자연을 조화시킬 필요가 있다.",tip:"harmony(조화)의 동사형. harmonize A with B = A와 B를 조화시키다"},
+{w:"secure",ipa:"/sɪˈkjʊr/",s:[["v","확보하다","to get something important, often with effort"],["adj","안전한","safe and protected"]],ko:"확보하다; 안전한",ex:"The city worked hard to ___ enough water.",ans:"secure",tr:"그 도시는 충분한 물을 확보하려고 열심히 노력했다.",tip:"'안전한'으로만 알기 쉬운데, 동사로 '확보하다'라는 뜻으로도 자주 쓰임. (secure electricity supply = 전력 공급을 확보하다)"},
+{w:"supply",ipa:"/səˈplaɪ/",s:[["n","공급","an amount of something available to use"],["v","공급하다","to provide something that is needed"]],ko:"공급; 공급하다",ex:"The storm cut off the electricity ___.",ans:"supply",tr:"폭풍으로 전기 공급이 끊겼다.",tip:""},
+{w:"objective",ipa:"/əbˈdʒek.tɪv/",s:[["n","목표","something you are trying to achieve"],["adj","객관적인","based on facts, not feelings"]],ko:"목표; 객관적인",ex:"Our main ___ is to protect the environment.",ans:"objective",tr:"우리의 주된 목표는 환경을 보호하는 것이다.",tip:"명사 '목표'(= goal)와 형용사 '객관적인' 두 뜻이 있음. 반대말은 subjective(주관적인)"},
+{w:"consequence",ipa:"/ˈkɑːn.sə.kwens/",s:[["n","결과","a result of an action, usually a bad one"]],ko:"결과",ex:"He had to face the ___ of his lie.",ans:"consequences",tr:"그는 자신의 거짓말에 대한 결과를 감당해야 했다.",tip:"주로 '안 좋은 결과'라는 느낌. come with consequences = 대가가 따르다"},
+{w:"consideration",ipa:"/kənˌsɪd.əˈreɪ.ʃən/",s:[["n","고려","careful thought about something"],["n","배려","kindness toward other people's feelings"]],ko:"고려; 배려",ex:"The plan needs careful ___.",ans:"consideration",tr:"그 계획은 신중한 고려가 필요하다.",tip:""},
+{w:"variety",ipa:"/vəˈraɪ.ə.t̬i/",s:[["n","다양성, 여러 가지","many different kinds of things"]],ko:"다양성, 여러 가지",ex:"The store sells a ___ of fruits.",ans:"variety",tr:"그 가게는 다양한 과일을 판다.",tip:""},
+{w:"hydropower",ipa:"/ˈhaɪ.droʊˌpaʊ.ɚ/",s:[["n","수력 (발전)","electricity made from moving water"]],ko:"수력 (발전)",ex:"___ uses the force of rivers to make electricity.",ans:"hydropower",tr:"수력 발전은 강물의 힘을 이용해 전기를 만든다.",tip:"hydro(물) + power(힘, 전력). hydrogen(수소)의 hydro와 같은 뿌리"},
+{w:"solar",ipa:"/ˈsoʊ.lɚ/",s:[["adj","태양의","relating to the sun"]],ko:"태양의",ex:"___ panels turn sunlight into electricity.",ans:"solar",tr:"태양광 패널은 햇빛을 전기로 바꾼다.",tip:""},
+{w:"geothermal",ipa:"/ˌdʒiː.oʊˈθɝː.məl/",s:[["adj","지열의","relating to the heat inside the earth"]],ko:"지열의",ex:"Iceland uses ___ energy to heat homes.",ans:"geothermal",tr:"아이슬란드는 지열 에너지로 집을 난방한다.",tip:"geo(땅) + thermal(열의). geography(지리)의 geo와 같음"},
+{w:"biomass",ipa:"/ˈbaɪ.oʊ.mæs/",s:[["n","바이오매스(에너지로 쓸 수 있는 생물체)","plant and animal material used as fuel"]],ko:"바이오매스(에너지로 쓰는 생물체)",ex:"Wood and farm waste can be used as ___.",ans:"biomass",tr:"나무와 농업 폐기물은 바이오매스로 사용될 수 있다.",tip:"bio(생물) + mass(덩어리). 나무, 볏짚, 가축 분뇨 등을 태우거나 발효시켜 에너지를 얻음"},
+{w:"impact",ipa:"/ˈɪm.pækt/",s:[["n","영향, 충격","a strong effect on something"],["v","영향을 주다","to have an effect on something"]],ko:"영향, 충격; 영향을 주다",ex:"Plastic has a huge ___ on sea animals.",ans:"impact",tr:"플라스틱은 바다 동물들에게 엄청난 영향을 미친다.",tip:"have an impact on ~ = ~에 영향을 미치다"},
+{w:"aquatic",ipa:"/əˈkwɑː.t̬ɪk/",s:[["adj","물속의, 수생의","living or growing in water"]],ko:"물속의, 수생의",ex:"Fish and seaweed are ___ living things.",ans:"aquatic",tr:"물고기와 해초는 물속에 사는 생물이다.",tip:"aqua(물)에서 나온 말. aquarium(수족관)과 같은 뿌리"},
+{w:"ecosystem",ipa:"/ˈiː.koʊˌsɪs.təm/",s:[["n","생태계","all the living things in an area and how they affect each other"]],ko:"생태계",ex:"Pollution can destroy an entire ___.",ans:"ecosystem",tr:"오염은 생태계 전체를 파괴할 수 있다.",tip:""},
+{w:"identify",ipa:"/aɪˈden.t̬ə.faɪ/",s:[["v","확인하다, 밝혀내다","to find out who or what something is"]],ko:"확인하다, 밝혀내다",ex:"Scientists ___ the cause of the disease.",ans:"identified",tr:"과학자들은 그 병의 원인을 밝혀냈다.",tip:"be identified as ~ = ~로 밝혀지다 (본문: have been identified as significant sources = 주요 원인으로 밝혀졌다)"},
+{w:"significant",ipa:"/sɪɡˈnɪf.ə.kənt/",s:[["adj","상당한, 중요한","large or important enough to be noticed"]],ko:"상당한, 중요한",ex:"There was a ___ increase in sales.",ans:"significant",tr:"판매량이 상당히 증가했다.",tip:""},
+{w:"greenhouse",ipa:"/ˈɡriːn.haʊs/",s:[["n","온실","a glass building for growing plants"]],ko:"온실",ex:"___ gases make the Earth warmer.",ans:"greenhouse",tr:"온실가스는 지구를 더 따뜻하게 만든다.",tip:"greenhouse emissions = 온실가스 배출. 지구를 온실처럼 덥게 만드는 가스라서 이렇게 부름"},
+{w:"emission",ipa:"/iˈmɪʃ.ən/",s:[["n","배출(물)","gas or other substance sent into the air"]],ko:"배출(물)",ex:"Cars are a major cause of carbon ___.",ans:"emissions",tr:"자동차는 탄소 배출의 주요 원인이다.",tip:"emit(내뿜다)의 명사형"},
+{w:"pollution",ipa:"/pəˈluː.ʃən/",s:[["n","오염, 공해","damage to air, water, or land by harmful things"]],ko:"오염, 공해",ex:"Air ___ is a big problem in large cities.",ans:"pollution",tr:"대기 오염은 대도시의 큰 문제이다.",tip:"본문 visual pollution = 시각 공해 (풍력발전기·태양광 패널이 경치를 해치는 것)"},
+{w:"intensive",ipa:"/ɪnˈten.sɪv/",s:[["adj","집중적인, 많이 필요로 하는","using a lot of something in a short time or small area"]],ko:"집중적인, 많이 필요로 하는",ex:"She took an ___ English course.",ans:"intensive",tr:"그녀는 집중 영어 과정을 들었다.",tip:"본문 intensive land occupation = 넓은 땅을 대규모로 차지함"},
+{w:"occupation",ipa:"/ˌɑː.kjəˈpeɪ.ʃən/",s:[["n","직업","a job"],["n","점유, 차지","the act of using or living in a place"]],ko:"직업; 점유, 차지",ex:"Please write your name and ___.",ans:"occupation",tr:"이름과 직업을 적어 주세요.",tip:"보통 '직업'으로 배우지만, 이 글에서는 occupy(차지하다)의 명사형 '차지함, 점유'의 뜻"},
+{w:"population",ipa:"/ˌpɑː.pjəˈleɪ.ʃən/",s:[["n","인구, (동물의) 개체 수","the number of people or animals living in an area"]],ko:"인구, (동물의) 개체 수",ex:"The tiger ___ is getting smaller.",ans:"population",tr:"호랑이 개체 수가 줄어들고 있다.",tip:"사람에게 쓰면 '인구', 동물에게 쓰면 '개체 수' (bird populations = 새의 개체 수)"},
+{w:"side effect",ipa:"/ˈsaɪd ɪˌfekt/",s:[["n","부작용","an unwanted result that happens along with the main effect"]],ko:"부작용",ex:"This medicine may have ___.",ans:"side effects",tr:"이 약은 부작용이 있을 수 있다.",tip:""},
+{w:"practical",ipa:"/ˈpræk.tɪ.kəl/",s:[["adj","실용적인, 현실적인","useful and likely to work in real life"]],ko:"실용적인, 현실적인",ex:"We need a ___ solution.",ans:"practical",tr:"우리는 현실적인 해결책이 필요하다.",tip:""},
+{w:"demand",ipa:"/dɪˈmænd/",s:[["n","수요, 요구","the need or desire for something"],["v","요구하다","to ask for something strongly"]],ko:"수요, 요구; 요구하다",ex:"The ___ for electric cars is increasing.",ans:"demand",tr:"전기차에 대한 수요가 늘고 있다.",tip:"supply(공급) ↔ demand(수요)를 짝으로 기억하기"},
+{w:"numerous",ipa:"/ˈnuː.mɚ.əs/",s:[["adj","수많은","very many"]],ko:"수많은",ex:"She has visited ___ countries.",ans:"numerous",tr:"그녀는 수많은 나라를 방문했다.",tip:""},
+{w:"obtain",ipa:"/əbˈteɪn/",s:[["v","얻다, 획득하다","to get something, often with effort"]],ko:"얻다, 획득하다",ex:"You must ___ permission first.",ans:"obtain",tr:"먼저 허가를 받아야 한다.",tip:""},
+{w:"procedure",ipa:"/prəˈsiː.dʒɚ/",s:[["n","절차, 방법","a set of steps for doing something"]],ko:"절차, 방법",ex:"Follow the safety ___ carefully.",ans:"procedures",tr:"안전 절차를 주의 깊게 따르세요.",tip:""}
+];
+const N=W.length;
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const ESC={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>ESC[c]);
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const range=n=>Array.from({length:n},(_,i)=>i);
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a;}
+const SPK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+function exParts(w){const p=w.ex.split('___');return{pre:p[0],post:p[1]||'',a:p[0]===''?cap(w.ans):w.ans};}
+function fillEx(w,cls){const x=exParts(w);return esc(x.pre)+'<mark class="hl '+(cls||'')+'">'+esc(x.a)+'</mark>'+esc(x.post);}
+function plainEx(w){const x=exParts(w);return x.pre+x.a+x.post;}
+function blankEx(w){const x=exParts(w);return esc(x.pre)+'<span class="blank" aria-label="빈칸"></span>'+esc(x.post);}
+
+function detailHTML(w){
+  const senses=w.s.map(s=>'<div class="sense"><span class="pos">'+s[0]+'</span><div class="sense-txt"><span class="sense-ko">'+esc(s[1])+'</span><span class="sense-en">'+esc(s[2])+'</span></div></div>').join('');
+  const ex='<div class="ex"><p class="ex-en">'+fillEx(w)+'</p><p class="ex-tr">'+esc(w.tr)+'</p><button type="button" class="say" data-say="'+esc(plainEx(w))+'" aria-label="예문 듣기">'+SPK+'</button></div>';
+  const tip=w.tip?'<p class="tip"><span class="tip-arrow" aria-hidden="true">→</span><span>'+esc(w.tip)+'</span></p>':'';
+  return '<div class="detail"><div class="senses">'+senses+'</div>'+ex+tip+'</div>';
+}
+function optsFor(i,field){
+  const seen=new Set([W[i][field]]),pool=[];
+  for(const j of shuffle(range(N))){
+    if(j===i||seen.has(W[j][field]))continue;
+    seen.add(W[j][field]);pool.push(j);
+    if(pool.length===3)break;
+  }
+  return shuffle([i].concat(pool));
+}
+
+/* ---------- 상태 (메모리 전용: iPad/Safari 호환) ---------- */
+const S={auto:true,interacted:false,wrong:new Map()};
+function addWrong(i,src){
+  let r=S.wrong.get(i);
+  if(!r){r={count:0,src:new Set()};S.wrong.set(i,r);}
+  r.count++;r.src.add(src);updateWrongCount();
+}
+function updateWrongCount(){const c=$('#wrong-count');c.textContent=S.wrong.size;c.hidden=S.wrong.size===0;}
+
+/* ---------- 발음 (Web Speech API) ---------- */
+const hasTTS='speechSynthesis' in window;
+let voice=null;
+function pickVoice(){
+  try{
+    const vs=speechSynthesis.getVoices()||[];
+    voice=vs.find(v=>/^en[-_]US/i.test(v.lang)&&/Samantha|Google US English|Ava|Allison|Aaron|Nicky/i.test(v.name))
+      ||vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;
+  }catch(e){voice=null;}
+}
+if(hasTTS){pickVoice();try{speechSynthesis.addEventListener('voiceschanged',pickVoice);}catch(e){speechSynthesis.onvoiceschanged=pickVoice;}}
+function speak(text,rate){
+  if(!hasTTS||!text)return;
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US';if(voice)u.voice=voice;u.rate=rate||0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function stopSpeak(){if(hasTTS){try{speechSynthesis.cancel();}catch(e){}}}
+function autoSpeak(text){if(S.auto&&S.interacted)speak(text);}
+document.addEventListener('pointerdown',function(){
+  if(S.interacted)return;
+  S.interacted=true;
+  if(hasTTS){try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}}
+},true);
+document.addEventListener('click',function(e){
+  const b=e.target.closest('[data-say]');
+  if(!b)return;
+  S.interacted=true;
+  speak(b.dataset.say,b.dataset.rate?parseFloat(b.dataset.rate):0.9);
+});
+
+const autoBtn=$('#auto-btn');
+function renderAuto(){autoBtn.setAttribute('aria-pressed',String(S.auto));$('#auto-state').textContent=S.auto?'켜짐':'꺼짐';}
+autoBtn.addEventListener('click',function(){S.auto=!S.auto;renderAuto();if(!S.auto)stopSpeak();});
+
+/* ---------- 탭 ---------- */
+function showPage(p){
+  $$('.nav-tab').forEach(t=>t.setAttribute('aria-selected',String(t.dataset.page===p)));
+  $$('.page').forEach(pg=>{pg.hidden=pg.id!=='page-'+p;});
+  stopSpeak();
+  if(p==='wrong')renderWrong();
+  if(p==='flash'&&F.cur>=0)autoSpeak(W[F.cur].w);
+  if(p==='listen'&&!L.answered&&L.items.length)autoSpeak(W[L.items[L.pos]].w);
+}
+$$('.nav-tab').forEach(t=>t.addEventListener('click',()=>showPage(t.dataset.page)));
+
+/* ---------- 모달 ---------- */
+const M={p:null,s:null};
+function openModal(o){
+  $('#m-eyebrow').textContent=o.eyebrow;
+  $('#m-score').textContent=o.score;
+  $('#m-title').textContent=o.title;
+  $('#m-body').textContent=o.body;
+  $('#m-primary').textContent=o.primary[0];M.p=o.primary[1];
+  if(o.secondary){$('#m-secondary').textContent=o.secondary[0];M.s=o.secondary[1];}
+  else{$('#m-secondary').textContent='닫기';M.s=null;}
+  $('#modal').hidden=false;
+}
+function closeModal(){$('#modal').hidden=true;}
+$('#m-primary').addEventListener('click',()=>{const f=M.p;closeModal();if(f)f();});
+$('#m-secondary').addEventListener('click',()=>{const f=M.s;closeModal();if(f)f();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#modal').hidden)closeModal();});
+
+/* ---------- 플래시카드 ---------- */
+const F={queue:[],cur:-1,o:0,x:0,done:0,total:0,revealed:false,label:'전체 단어'};
+function flashStart(ids,label){
+  F.queue=shuffle(ids);F.total=ids.length;F.o=0;F.x=0;F.done=0;F.label=label||'전체 단어';
+  $('#fc-done').hidden=true;$('#fc-play').hidden=false;
+  flashNext();
+}
+function flashNext(){
+  if(!F.queue.length){flashFinish();return;}
+  F.cur=F.queue.shift();F.revealed=false;renderFlash();
+  if(!$('#page-flash').hidden)autoSpeak(W[F.cur].w);
+}
+function flashStats(){
+  $('#fc-fill').style.width=(F.total?F.done/F.total*100:0)+'%';
+  $('#fc-label').textContent=F.done+' / '+F.total;
+  $('#fc-o').textContent=F.o;$('#fc-x').textContent=F.x;
+  $('#fc-mode').textContent=F.label;
+}
+function renderFlash(){
+  const w=W[F.cur];
+  $('#fc-word').textContent=w.w;
+  $('#fc-ipa').textContent=w.ipa;
+  $('#fc-say').dataset.say=w.w;
+  $('#fc-back').innerHTML=detailHTML(w);
+  $('#fc-back').hidden=true;$('#fc-hint').hidden=false;
+  $('#fc-card').setAttribute('aria-expanded','false');
+  flashStats();
+}
+function reveal(){
+  if(F.revealed||F.cur<0)return;
+  F.revealed=true;$('#fc-back').hidden=false;$('#fc-hint').hidden=true;
+  $('#fc-card').setAttribute('aria-expanded','true');
+}
+$('#fc-card').addEventListener('click',e=>{if(e.target.closest('[data-say]'))return;reveal();});
+$('#fc-card').addEventListener('keydown',e=>{if(e.target!==e.currentTarget)return;if(e.key==='Enter'||e.key===' '){e.preventDefault();reveal();}});
+$('#fc-yes').addEventListener('click',()=>{if(F.cur<0)return;F.o++;F.done++;flashNext();});
+$('#fc-no').addEventListener('click',()=>{if(F.cur<0)return;F.x++;F.queue.push(F.cur);addWrong(F.cur,'플래시카드');flashNext();});
+function flashFinish(){
+  F.cur=-1;flashStats();stopSpeak();
+  $('#fc-play').hidden=true;$('#fc-done').hidden=false;
+  $('#fc-done-title').textContent=F.total+'단어 모두 알았어요!';
+  $('#fc-done-msg').textContent=F.x?'몰랐어요를 '+F.x+'번 눌렀지만 끝까지 다 외웠어요.':'한 번도 틀리지 않고 전부 알았어요.';
+  $('#fc-to-wrong').hidden=S.wrong.size===0;
+}
+$('#fc-restart').addEventListener('click',()=>flashStart(range(N)));
+$('#fc-to-wrong').addEventListener('click',()=>showPage('wrong'));
+
+/* ---------- 예문퀴즈 ---------- */
+const E={items:[],pos:0,o:0,x:0,wrongs:[],round:1,answered:false};
+function exStart(ids,round){E.items=shuffle(ids);E.pos=0;E.o=0;E.x=0;E.wrongs=[];E.round=round||1;exRender();}
+function exRender(){
+  const i=E.items[E.pos],w=W[i];E.answered=false;
+  $('#ex-round').textContent=E.round===1?'1회차':'틀린 문제 다시 · '+E.round+'회차';
+  $('#ex-fill').style.width=(E.pos/E.items.length*100)+'%';
+  $('#ex-label').textContent=(E.pos+1)+' / '+E.items.length;
+  $('#ex-o').textContent=E.o;$('#ex-x').textContent=E.x;
+  $('#ex-sentence').innerHTML=blankEx(w);
+  $('#ex-tr').textContent=w.tr;$('#ex-tr').hidden=true;$('#ex-tr-btn').hidden=false;
+  $('#ex-opts').innerHTML=optsFor(i,'ans').map(j=>'<button type="button" class="opt en" data-idx="'+j+'">'+esc(W[j].ans)+'</button>').join('');
+  const fb=$('#ex-feedback');fb.textContent='';fb.className='feedback';
+  $('#ex-next').hidden=true;
+}
+$('#ex-tr-btn').addEventListener('click',()=>{$('#ex-tr').hidden=false;$('#ex-tr-btn').hidden=true;});
+$('#ex-opts').addEventListener('click',e=>{
+  const b=e.target.closest('.opt');
+  if(!b||E.answered)return;
+  exAnswer(parseInt(b.dataset.idx,10));
+});
+function exAnswer(j){
+  E.answered=true;
+  const i=E.items[E.pos],w=W[i],ok=W[j].ans===w.ans;
+  $$('#ex-opts .opt').forEach(b=>{
+    const k=parseInt(b.dataset.idx,10);b.disabled=true;
+    if(W[k].ans===w.ans)b.classList.add('correct');else if(k===j)b.classList.add('wrong');
+  });
+  $('#ex-sentence').innerHTML=fillEx(w,ok?'':'miss');
+  $('#ex-tr').hidden=false;$('#ex-tr-btn').hidden=true;
+  if(ok){E.o++;}else{E.x++;E.wrongs.push(i);addWrong(i,'예문퀴즈');}
+  $('#ex-o').textContent=E.o;$('#ex-x').textContent=E.x;
+  const fb=$('#ex-feedback');
+  fb.className='feedback '+(ok?'ok':'no');
+  fb.textContent=ok?'정답! '+w.ans+' = '+w.ko:'정답은 '+w.ans+' ('+w.ko+')';
+  const nx=$('#ex-next');nx.hidden=false;nx.textContent=E.pos===E.items.length-1?'결과 보기':'다음 문제';
+  autoSpeak(plainEx(w));
+}
+$('#ex-next').addEventListener('click',()=>{
+  stopSpeak();
+  if(E.pos>=E.items.length-1){$('#ex-fill').style.width='100%';exRoundEnd();return;}
+  E.pos++;exRender();
+});
+function exRoundEnd(){
+  const wr=E.wrongs.slice(),round=E.round,total=E.items.length;
+  if(wr.length){
+    openModal({eyebrow:round+'회차 결과',score:E.o+' / '+total,title:'틀린 '+wr.length+'문제를 다시 풀어요',body:'다 맞힐 때까지 틀린 문제만 다시 나와요.',
+      primary:['다시 풀기',()=>exStart(wr,round+1)],secondary:['처음부터',()=>exStart(range(N),1)]});
+  }else{
+    openModal({eyebrow:round+'회차 결과',score:E.o+' / '+total,title:'모두 맞혔어요!',
+      body:round===1?'한 번에 전부 맞혔어요.':round+'회차 만에 남은 문제까지 전부 맞혔어요.',
+      primary:['처음부터 다시',()=>exStart(range(N),1)],secondary:null});
+  }
+}
+
+/* ---------- 단어장 ---------- */
+$('#wb-sub').textContent=N+'단어 · 본문에 나온 순서';
+$('#wb-list').innerHTML=W.map((w,i)=>
+  '<li class="wb-item" data-i="'+i+'"><div class="wb-head"><span class="wb-word">'+esc(w.w)+'</span><span class="ipa">'+esc(w.ipa)+'</span><span class="mask-hint">탭해서 보기</span><button type="button" class="say" data-say="'+esc(w.w)+'" aria-label="'+esc(w.w)+' 발음 듣기">'+SPK+'</button></div><div class="wb-body">'+detailHTML(w)+'</div></li>'
+).join('');
+$('#wb-mask').addEventListener('click',function(){
+  const on=this.getAttribute('aria-pressed')!=='true';
+  this.setAttribute('aria-pressed',String(on));
+  this.textContent=on?'뜻 보이기':'뜻 가리기';
+  $('#wb-list').classList.toggle('masked',on);
+  $$('#wb-list .wb-item.peek').forEach(li=>li.classList.remove('peek'));
+});
+$('#wb-list').addEventListener('click',e=>{
+  if(e.target.closest('[data-say]'))return;
+  if(!$('#wb-list').classList.contains('masked'))return;
+  const li=e.target.closest('.wb-item');if(li)li.classList.toggle('peek');
+});
+
+/* ---------- 오답정리 ---------- */
+let clearArmed=false;
+function resetClear(){clearArmed=false;const b=$('#wr-clear');b.textContent='목록 비우기';b.classList.remove('danger');}
+function renderWrong(){
+  const ids=Array.from(S.wrong.keys()).sort((a,b)=>S.wrong.get(b).count-S.wrong.get(a).count||a-b);
+  const has=ids.length>0;
+  $('#wr-empty').hidden=has;$('#wr-actions').hidden=!has;
+  $('#wr-sub').textContent=has?ids.length+'단어 · 많이 틀린 순서':'틀린 단어가 여기에 모여요';
+  $('#wr-list').innerHTML=ids.map(i=>{
+    const w=W[i],r=S.wrong.get(i);
+    return '<li class="wr-item"><div class="wb-head"><span class="wb-word">'+esc(w.w)+'</span><span class="ipa">'+esc(w.ipa)+'</span><button type="button" class="say" data-say="'+esc(w.w)+'" aria-label="'+esc(w.w)+' 발음 듣기">'+SPK+'</button><span class="miss-count">'+r.count+'번 틀림</span></div>'
+      +'<p class="wr-ko">'+esc(w.ko)+'</p><p class="wr-ex">'+fillEx(w)+'</p>'
+      +'<div class="chips">'+Array.from(r.src).map(s=>'<span class="chip">'+esc(s)+'</span>').join('')+'</div></li>';
+  }).join('');
+  resetClear();
+}
+$('#wr-clear').addEventListener('click',()=>{
+  if(!clearArmed){clearArmed=true;const b=$('#wr-clear');b.textContent='한 번 더 누르면 비워져요';b.classList.add('danger');return;}
+  S.wrong.clear();updateWrongCount();renderWrong();
+});
+$('#wr-flash').addEventListener('click',()=>{
+  const ids=Array.from(S.wrong.keys());if(!ids.length)return;
+  flashStart(ids,'오답 '+ids.length+'단어');showPage('flash');
+});
+
+/* ---------- 듣기 ---------- */
+const L={items:[],pos:0,o:0,x:0,wrongs:[],round:1,answered:false};
+function lsStart(ids,round){L.items=shuffle(ids);L.pos=0;L.o=0;L.x=0;L.wrongs=[];L.round=round||1;lsRender();}
+function lsRender(){
+  const i=L.items[L.pos],w=W[i];L.answered=false;
+  $('#ls-round').textContent=L.round===1?'1회차':'틀린 문제 다시 · '+L.round+'회차';
+  $('#ls-fill').style.width=(L.pos/L.items.length*100)+'%';
+  $('#ls-label').textContent=(L.pos+1)+' / '+L.items.length;
+  $('#ls-o').textContent=L.o;$('#ls-x').textContent=L.x;
+  $('#ls-reveal').hidden=true;$('#ls-word').textContent=w.w;$('#ls-ipa').textContent=w.ipa;
+  $('#ls-play').dataset.say=w.w;$('#ls-slow').dataset.say=w.w;
+  $('#ls-opts').innerHTML=optsFor(i,'ko').map(j=>'<button type="button" class="opt" data-idx="'+j+'">'+esc(W[j].ko)+'</button>').join('');
+  const fb=$('#ls-feedback');fb.textContent='';fb.className='feedback';
+  $('#ls-next').hidden=true;
+  if(!$('#page-listen').hidden)autoSpeak(w.w);
+}
+$('#ls-opts').addEventListener('click',e=>{
+  const b=e.target.closest('.opt');
+  if(!b||L.answered)return;
+  lsAnswer(parseInt(b.dataset.idx,10));
+});
+function lsAnswer(j){
+  L.answered=true;
+  const i=L.items[L.pos],w=W[i],ok=j===i;
+  $$('#ls-opts .opt').forEach(b=>{
+    const k=parseInt(b.dataset.idx,10);b.disabled=true;
+    if(k===i)b.classList.add('correct');else if(k===j)b.classList.add('wrong');
+  });
+  $('#ls-reveal').hidden=false;
+  if(ok){L.o++;}else{L.x++;L.wrongs.push(i);addWrong(i,'듣기');}
+  $('#ls-o').textContent=L.o;$('#ls-x').textContent=L.x;
+  const fb=$('#ls-feedback');
+  fb.className='feedback '+(ok?'ok':'no');
+  fb.textContent=ok?'정답! '+w.w+' = '+w.ko:'정답은 '+w.ko;
+  const nx=$('#ls-next');nx.hidden=false;nx.textContent=L.pos===L.items.length-1?'결과 보기':'다음 문제';
+  autoSpeak(w.w);
+}
+$('#ls-next').addEventListener('click',()=>{
+  stopSpeak();
+  if(L.pos>=L.items.length-1){$('#ls-fill').style.width='100%';lsRoundEnd();return;}
+  L.pos++;lsRender();
+});
+function lsRoundEnd(){
+  const wr=L.wrongs.slice(),round=L.round,total=L.items.length;
+  if(wr.length){
+    openModal({eyebrow:'듣기 '+round+'회차 결과',score:L.o+' / '+total,title:'틀린 '+wr.length+'문제를 다시 들어요',body:'다 맞힐 때까지 틀린 단어만 다시 나와요.',
+      primary:['다시 풀기',()=>lsStart(wr,round+1)],secondary:['처음부터',()=>lsStart(range(N),1)]});
+  }else{
+    openModal({eyebrow:'듣기 '+round+'회차 결과',score:L.o+' / '+total,title:'모두 맞혔어요!',
+      body:round===1?'한 번에 전부 알아들었어요.':round+'회차 만에 남은 단어까지 전부 맞혔어요.',
+      primary:['처음부터 다시',()=>lsStart(range(N),1)],secondary:null});
+  }
+}
+
+/* ---------- 시작 ---------- */
+$('#sub').textContent='2020년 11월 23번 · 재생에너지의 환경 영향 · '+N+'단어';
+$('#fc-say').innerHTML=SPK;
+if(!hasTTS){autoBtn.hidden=true;}
+renderAuto();
+updateWrongCount();
+flashStart(range(N));
+exStart(range(N),1);
+lsStart(range(N),1);
+})();
+</script>
+
+</body></html>

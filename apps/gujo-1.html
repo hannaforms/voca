@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>구조독해 단어 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: 차분하고 또렷한 공부 도구, 중학생 눈높이
+   IDEA: 영어 공책과 단어 카드 — 파란 줄 공책, 빨간 머리줄, 형광펜
+   PICTURE: 가운데 크게 놓인 줄 쳐진 인덱스 카드, 탭하면 뒤집힘
+   COLOUR and TYPE: 공책 파랑 + 흰 종이 + 형광 노랑; Lexend(영어) + Noto Sans KR(한글)
+   LAYOUT: 파란 머리띠 → 고정 탭 → 720px 한 칼럼 작업면 */
+:root{color-scheme:light dark;--bg:#fff;--paper:#fff;--ink:#151a2e;--mute:#596079;--blue:#2447d6;--onBlue:#fff;--band:#2447d6;--rule:#dbe3f6;--soft:#eef2fd;--hi:#ffe45c;--ok:#0f7a45;--okBg:#e7f6ee;--bad:#c62a36;--badBg:#fdeced;--red:#ef7a80;--shadow:rgba(30,45,110,.35)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark;--bg:#0f121a;--paper:#181d29;--ink:#e8ecf6;--mute:#a0a9bf;--blue:#8ea2ff;--onBlue:#0f121a;--band:#1c2c86;--rule:#2b3450;--soft:#20283d;--hi:#ffd93b;--ok:#5cd496;--okBg:#123022;--bad:#ff8a91;--badBg:#3b171b;--red:#a8464d;--shadow:rgba(0,0,0,.6)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0f121a;--paper:#181d29;--ink:#e8ecf6;--mute:#a0a9bf;--blue:#8ea2ff;--onBlue:#0f121a;--band:#1c2c86;--rule:#2b3450;--soft:#20283d;--hi:#ffd93b;--ok:#5cd496;--okBg:#123022;--bad:#ff8a91;--badBg:#3b171b;--red:#a8464d;--shadow:rgba(0,0,0,.6)}}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Noto Sans KR',system-ui,sans-serif;overflow-x:clip;-webkit-text-size-adjust:100%}
+button,input{font-family:inherit}
+.en,.hw,.ipa,.ex,.sent,.qw,.sen,.count,.def{font-family:Lexend,'Noto Sans KR',sans-serif}
+.top{background:var(--band);color:#fff}
+.hwrap,.tabin,.wrap{max-width:720px;margin:0 auto;padding-inline:14px}
+.hwrap{padding-block:22px 18px}
+.top h1{margin:0;font-size:32px;line-height:1.05;font-weight:700;text-wrap:balance}
+.top p{margin:8px 0 0;font:400 14px/1.5 Lexend,sans-serif;opacity:.85}
+.tabs{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+.tabin{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+.tabin::-webkit-scrollbar{display:none}
+.tabs button{flex:none;min-height:44px;padding:0 14px;border-radius:999px;border:0;background:transparent;color:var(--mute);font-size:15px;font-weight:500;cursor:pointer}
+.tabs button.on{background:var(--blue);color:var(--onBlue)}
+.tabs button:focus-visible,.btn:focus-visible,.opt:focus-visible,.seg button:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.badge{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-left:4px;border-radius:999px;background:var(--bad);color:#fff;font:600 12px/1 Lexend,sans-serif}
+.badge[hidden]{display:none}
+.wrap{padding-block:18px 56px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--soft);border-radius:999px;padding:4px}
+.seg button{min-height:40px;padding:0 14px;border:0;border-radius:999px;background:transparent;color:var(--mute);font-size:15px;font-weight:600;cursor:pointer}
+.seg button.on{background:var(--paper);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.count{font-size:15px;font-weight:600;color:var(--mute);white-space:nowrap}
+.tag{font:600 12px 'Noto Sans KR',sans-serif;background:var(--badBg);color:var(--bad);padding:3px 8px;border-radius:999px}
+.prog{height:6px;background:var(--soft);border-radius:9px;margin-top:10px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--blue);border-radius:9px;transition:width .3s}
+.btn{min-height:48px;padding:0 18px;border-radius:12px;border:2px solid transparent;background:var(--blue);color:var(--onBlue);font-size:16px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{background:var(--soft);color:var(--ink)}
+.btn.yes{background:var(--okBg);color:var(--ok);border-color:var(--ok)}
+.btn.no{background:var(--badBg);color:var(--bad);border-color:var(--bad)}
+.btn.wide{width:100%;margin-top:14px}
+.row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.row>.btn{flex:1 1 0}
+.row.center{justify-content:center}.row.center>.btn{flex:0 1 auto}
+.link{background:none;border:0;color:var(--blue);font-size:15px;font-weight:600;min-height:44px;cursor:pointer;padding:0 4px}
+.hint{color:var(--mute);font-size:15px;margin:0 0 12px}
+.fine{color:var(--mute);font-size:13px;text-align:center;margin-top:18px}
+.c{text-align:center}
+mark{background:var(--hi);color:#1b1600;padding:0 3px;border-radius:3px}
+/* 카드 */
+.fc{perspective:1400px;margin:16px 0 4px;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+.fc:focus-visible .face{outline:3px solid var(--blue)}
+.inner{display:grid;transition:transform .55s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d;-webkit-transform-style:preserve-3d}
+.fc.flip .inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:16px;background-color:var(--paper);border:1px solid var(--rule);box-shadow:0 18px 34px -22px var(--shadow);padding:68px 22px 22px;min-height:340px;display:flex;flex-direction:column}
+.front{justify-content:center;align-items:center;text-align:center;background-image:linear-gradient(var(--red),var(--red)),repeating-linear-gradient(transparent 0 31px,var(--rule) 31px 32px);background-size:100% 2px,100% 100%;background-position:0 48px,0 62px;background-repeat:no-repeat,repeat}
+.back{transform:rotateY(180deg);padding-top:6px;background-image:linear-gradient(var(--red),var(--red));background-size:100% 2px;background-position:0 48px;background-repeat:no-repeat}
+.hw{font-size:clamp(40px,11vw,58px);line-height:1.05;font-weight:700;margin:0;letter-spacing:-.01em}
+.hw.sm{font-size:26px;height:42px;display:flex;align-items:center;gap:10px;margin:0 0 18px;flex-wrap:wrap;overflow:hidden}
+.ipa{color:var(--mute);font-size:16px;font-weight:400;margin:8px 0 0}
+.hw.sm .ipa{margin:0}
+.km{font-size:clamp(26px,7vw,36px);line-height:1.3;font-weight:700;margin:0;text-wrap:balance}
+.pos{color:var(--mute);margin:8px 0 0;font-size:15px}
+.tap{margin:26px 0 0;color:var(--mute);font-size:13px}
+.mean{margin:0 0 10px;font-size:16px;line-height:1.5}
+.mean b{color:var(--blue);font-weight:600}
+.def{color:var(--mute);font-size:14px}
+.ex{font-size:17px;font-weight:500;line-height:1.5;margin:14px 0 2px}
+.exk{color:var(--mute);margin:0;font-size:15px}
+.note{background:var(--soft);border-radius:10px;padding:10px 12px;font-size:14.5px;margin:14px 0 0}
+/* 문제 */
+.qcard{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:22px 18px;margin-top:16px;box-shadow:0 18px 34px -24px var(--shadow)}
+.qcard.center{text-align:center}
+.prompt{font-size:20px;font-weight:500;margin:0 0 14px;line-height:1.5}
+.prompt b{color:var(--blue);font-weight:600;font-size:15px;margin-right:4px}
+.hintline{font:600 22px Lexend,sans-serif;letter-spacing:.12em;color:var(--blue);margin:0 0 14px}
+.ans{display:flex;gap:8px}
+input{flex:1;width:100%;min-height:48px;font:500 17px Lexend,'Noto Sans KR',sans-serif;padding:0 14px;border-radius:12px;border:2px solid var(--rule);background:var(--bg);color:var(--ink)}
+input:focus{outline:none;border-color:var(--blue)}
+input:disabled,input[readonly]{opacity:1;-webkit-text-fill-color:var(--ink)}
+.fb{margin-top:14px;padding:12px 14px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:16px;font-weight:600}
+.fb.good{background:var(--okBg);color:var(--ok)}
+.fb.nope{background:var(--badBg);color:var(--bad)}
+.fb b{font:700 21px Lexend,sans-serif;color:var(--ink)}
+.fb .k{color:var(--ink);font-weight:500}
+.spk{width:44px;height:44px;border-radius:50%;border:0;background:var(--soft);color:var(--blue);display:inline-grid;place-items:center;cursor:pointer;flex:none;vertical-align:middle}
+.spk.sm{width:38px;height:38px}
+.sent{font-size:19px;font-weight:500;line-height:1.6;margin:0 0 16px}
+.blank{display:inline-block;width:4.5em;height:1.1em;border-bottom:2px solid var(--blue);vertical-align:baseline}
+.opts{display:grid;gap:10px}
+.opt{min-height:52px;text-align:left;padding:10px 16px;border-radius:12px;border:2px solid var(--rule);background:var(--paper);color:var(--ink);font:500 17px Lexend,'Noto Sans KR',sans-serif;cursor:pointer}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--ok);background:var(--okBg)}
+.opt.wrongp{border-color:var(--bad);background:var(--badBg)}
+.exk2{color:var(--mute);margin:12px 0 0;font-size:15px}
+.play{width:116px;height:116px;border-radius:50%;background:var(--blue);color:var(--onBlue);border:0;display:grid;place-items:center;margin:6px auto 2px;box-shadow:0 14px 26px -14px var(--blue);cursor:pointer}
+.play:active{transform:scale(.96)}
+/* 단어장 */
+.item{padding:14px 0 18px;border-bottom:1px solid var(--rule)}
+.ih{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hwb{font:700 25px Lexend,sans-serif;color:var(--blue);background:none;border:0;padding:0;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;gap:8px}
+.item .ipa{margin:0}
+.item .mean{margin:6px 0 0}
+/* 실전테스트 */
+.tsec h3{font-size:18px;margin:26px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--blue)}
+.tsec .hint{margin:0 0 8px}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:24px minmax(0,7.5em) minmax(0,1fr) auto;gap:6px 8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule)}
+.qn{font:600 14px Lexend,sans-serif;color:var(--mute)}
+.qw{font-size:17px;font-weight:600}
+.qk{font-size:15px;line-height:1.35}
+.tl.bl li{grid-template-columns:24px minmax(0,1fr) auto}
+.tl.bl .qn{align-self:start;padding-top:2px}
+.tl.bl .sen{grid-column:2/-1;font-size:16px;line-height:1.5}
+.tl.bl input{grid-column:2}
+.tl.bl .mk{grid-column:3}
+.sol{grid-column:2/-1;font-size:14px;color:var(--mute)}
+.sol b{color:var(--ok);font-family:Lexend,'Noto Sans KR',sans-serif}
+.mk{width:40px;height:40px;border-radius:50%;border:2px solid;font:700 17px Lexend,sans-serif;background:transparent;cursor:pointer}
+.mk.o{color:var(--ok);border-color:var(--ok);background:var(--okBg)}
+.mk.x{color:var(--bad);border-color:var(--bad);background:var(--badBg)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.bank span{font:500 14px Lexend,sans-serif;padding:5px 10px;border-radius:999px;background:var(--soft)}
+.score{display:flex;align-items:baseline;gap:6px 10px;flex-wrap:wrap;background:var(--soft);border-radius:14px;padding:14px 16px}
+.score b{font:700 42px/1 Lexend,sans-serif;color:var(--blue)}
+.score em{font:600 18px Lexend,sans-serif;font-style:normal;color:var(--mute)}
+.score span{font-size:14px;color:var(--mute);flex-basis:100%}
+/* 오답 */
+.wl{list-style:none;padding:0;margin:14px 0 0}
+.wl li{display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr) auto;align-items:center;gap:10px;border-bottom:1px solid var(--rule);padding:4px 0}
+.wl .hwb{font-size:19px}
+.cnt{color:var(--bad);font:600 15px Lexend,sans-serif;white-space:nowrap}
+.done,.empty{text-align:center;padding:36px 8px}
+.done h2,.empty h2{font-size:32px;line-height:1.1;margin:0 0 10px}
+.done h2.big{font:700 52px/1 Lexend,sans-serif;color:var(--blue)}
+.done p,.empty p{color:var(--mute);margin:0 0 6px}
+.done p b{color:var(--ink);font-family:Lexend,sans-serif}
+.modal{position:fixed;inset:0;background:rgba(10,14,30,.55);display:grid;place-items:center;padding:20px;z-index:20}
+.modal[hidden]{display:none}
+.mbox{background:var(--paper);color:var(--ink);border-radius:18px;padding:26px 20px 20px;width:min(420px,100%);text-align:center;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.mbox h2{font:700 46px/1 Lexend,sans-serif;margin:0 0 8px;color:var(--blue)}
+.mbox p{margin:0;color:var(--mute)}
+@media (max-width:420px){.tl li{grid-template-columns:22px minmax(0,6.2em) minmax(0,1fr) auto}.wl li{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}.face{padding-inline:18px}}
+@media (prefers-reduced-motion:reduce){.inner,.prog i{transition:none}}
+</style>
+</head>
+<body>
+<a id="hub-back" href="../index.html" style="display:flex;align-items:center;gap:4px;padding:11px 16px;font:600 15px/1.2 -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#1a7f37;background:#ffffff;border-bottom:1px solid #d0d7de;text-decoration:none;-webkit-tap-highlight-color:transparent;position:relative;z-index:20"><span style="font-size:20px;line-height:1">‹</span> 단어장 목록</a>
+
+<header class="top"><div class="hwrap">
+<h1>구조독해 단어 1</h1>
+<p>colonial · settler · slang · cab · rideshare · edge · oddly · sewer · persist · bureau · burden</p>
+</div></header>
+<nav class="tabs" aria-label="학습 메뉴"><div class="tabin">
+<button data-tab="flash" class="on">플래시카드</button>
+<button data-tab="list">단어장</button>
+<button data-tab="spell">스펠링</button>
+<button data-tab="ex">예문퀴즈</button>
+<button data-tab="listen">듣기</button>
+<button data-tab="test">실전테스트</button>
+<button data-tab="wrong">오답정리<span class="badge" id="badge" hidden></span></button>
+</div></nav>
+<main class="wrap" id="app"></main>
+<div class="modal" id="modal" hidden><div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mt"><h2 id="mt"></h2><p id="mp"></p><div class="row" id="mb"></div></div></div>
+<script>
+{
+const SPK='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.6 6a8.6 8.6 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const SPK_BIG=SPK.replace('width="20" height="20"','width="54" height="54"');
+
+const W=[
+{w:"colonial",ipa:"/kəˈloʊ.ni.əl/",sm:"식민지의, 식민지 시대의",m:[["adj","식민지의, 식민지 시대의","relating to a colony or the time when a country ruled other lands"]],ex:"The town still has many colonial buildings.",ko:"그 마을에는 아직 식민지 시대 건물이 많이 남아 있다.",ans:"colonial",note:"colony(식민지) + -al. 미국 역사에서 colonial America는 독립하기 전 영국 식민지 시절을 말함.",key:["식민"]},
+{w:"settler",ipa:"/ˈset.lər/",sm:"정착민, 이주민",m:[["n","정착민, 이주민","a person who moves to a new place to live there, especially where few people lived before"]],ex:"The early settlers built their houses near the river.",ko:"초기 정착민들은 강 근처에 집을 지었다.",ans:"settlers",note:"",key:["정착","이주"]},
+{w:"slang",ipa:"/slæŋ/",sm:"속어, 은어",m:[["n","속어, 은어","very informal words used by a particular group of people"]],ex:'"Cool" is a slang word for "very good."',ko:"'cool'은 '아주 좋은'이라는 뜻의 속어다.",ans:"slang",note:"",key:["속어","은어","비속어"]},
+{w:"cab",ipa:"/kæb/",sm:"택시",m:[["n","택시","a taxi"]],ex:"We took a cab to the airport.",ko:"우리는 공항까지 택시를 탔다.",ans:"cab",note:"",key:["택시"]},
+{w:"rideshare",ipa:"/ˈraɪd.ʃer/",sm:"승차 공유 (서비스)",m:[["n","승차 공유 (서비스)","a service where you use an app to get a ride in someone's car"],["v","차를 함께 타다","to share a car ride with other people"]],ex:"Many people use rideshare apps instead of taxis.",ko:"많은 사람들이 택시 대신 승차 공유 앱을 이용한다.",ans:"rideshare",note:"ride(타다) + share(나누다). 우버(Uber)처럼 앱으로 일반인의 차를 불러 타는 서비스.",key:["공유","합승","카풀","같이타","함께타"]},
+{w:"edge",ipa:"/edʒ/",sm:"가장자리, 끝",m:[["n","가장자리, 끝","the outer part or line of something"],["n","(칼의) 날","the sharp side of a knife"],["n","우위, 유리함","an advantage over others"]],ex:"Don't stand too close to the edge of the cliff.",ko:"절벽 끝에 너무 가까이 서지 마라.",ans:"edge",note:"have an edge (over ~) = (~보다) 유리하다, 한발 앞서 있다.",key:["가장자리","끝","모서리","테두리","날","우위","유리"]},
+{w:"oddly",ipa:"/ˈɑːd.li/",sm:"이상하게(도), 묘하게",m:[["adv","이상하게, 묘하게","in a strange or unusual way"],["adv","이상하게도","used to say that something is surprising"]],ex:"Oddly, nobody noticed the mistake.",ko:"이상하게도 아무도 그 실수를 알아채지 못했다.",ans:"Oddly",note:"odd(이상한) + -ly. 문장 맨 앞에 'Oddly (enough),'가 오면 \"이상하게도\"로 해석.",key:["이상","묘하","기묘","특이"]},
+{w:"sewer",ipa:"/ˈsuː.ər/",sm:"하수도, 하수관",m:[["n","하수도, 하수관","an underground pipe that carries away dirty water and waste"]],ex:"The city built new sewers under the streets.",ko:"시는 거리 밑에 새 하수관을 설치했다.",ans:"sewers",note:"철자가 같은 sewer /ˈsoʊ.ər/(바느질하는 사람, sew + er)와는 발음과 뜻이 다름.",key:["하수"]},
+{w:"persist",ipa:"/pərˈsɪst/",sm:"계속되다, 끈질기게 계속하다",m:[["v","계속되다, 지속되다","to continue to exist or happen for a long time"],["v","끈질기게 계속하다, 고집하다","to keep doing something even when it is difficult"]],ex:"If the pain persists, see a doctor.",ko:"통증이 계속되면 병원에 가 보세요.",ans:"persists",note:"persistent(끈질긴, 계속되는), persistence(끈기)도 독해에 자주 나옴. persist in ~ing = 끈질기게 ~하다.",key:["계속","지속","고집","끈질","버티"]},
+{w:"bureau",ipa:"/ˈbjʊr.oʊ/",sm:"(정부의) 국·부서, 사무소",m:[["n","(정부의) 국, 부서","a government department"],["n","사무소, 안내소","an office that gives information or a service"]],ex:"Ask at the tourist bureau for a free map.",ko:"관광 안내소에서 무료 지도를 달라고 해 보세요.",ans:"bureau",note:"프랑스어에서 온 단어라 철자와 발음이 달라서 주의('뷰로'). FBI = Federal Bureau of Investigation(미국 연방수사국).",key:["국","부서","사무소","사무실","안내소","관청","기관"]},
+{w:"burden",ipa:"/ˈbɜːr.dən/",sm:"짐, 부담",m:[["n","짐, 부담","a heavy load, or a difficult duty or problem"],["v","부담을 지우다","to give someone something difficult to deal with"]],ex:"She didn't want to be a burden to her family.",ko:"그녀는 가족에게 짐이 되고 싶지 않았다.",ans:"burden",note:"원래 등에 지는 무거운 '짐'이라는 뜻에서 '마음의 짐, 부담'으로 뜻이 넓어진 말. (a heavy burden = 무거운 부담)",key:["짐","부담"]}
+];
+const T=[
+{s:"The rain ___ all weekend, so we stayed inside.",a:"persisted",w:"persist",ko:"비가 주말 내내 계속돼서 우리는 집 안에 있었다."},
+{s:"The ___ cleared the land and planted corn.",a:"settlers",w:"settler",ko:"정착민들은 땅을 개간하고 옥수수를 심었다."},
+{s:"Workers went down into the ___ to fix a broken pipe.",a:"sewer",acc:["sewer","sewers"],w:"sewer",ko:"작업자들이 깨진 관을 고치려고 하수도로 내려갔다."},
+{s:"The dog was ___ quiet all morning.",a:"oddly",w:"oddly",ko:"그 개는 아침 내내 이상하게 조용했다."},
+{s:"Too much homework can be a ___ for students.",a:"burden",w:"burden",ko:"숙제가 너무 많으면 학생들에게 부담이 될 수 있다."},
+{s:"My teacher told us not to use ___ in our essays.",a:"slang",w:"slang",ko:"선생님은 에세이에 속어를 쓰지 말라고 하셨다."},
+{s:"Put the glass in the middle of the table, not near the ___.",a:"edge",w:"edge",ko:"유리잔을 식탁 가장자리 말고 가운데에 놓아라."},
+{s:"The ___ driver turned on the meter and drove us downtown.",a:"cab",w:"cab",ko:"택시 기사가 미터기를 켜고 우리를 시내로 태워 갔다."},
+{s:"The museum shows how people lived in ___ America.",a:"colonial",w:"colonial",ko:"그 박물관은 식민지 시대 미국 사람들이 어떻게 살았는지 보여 준다."},
+{s:"The Federal ___ of Investigation is also called the FBI.",a:"Bureau",w:"bureau",ko:"미국 연방수사국은 FBI라고도 불린다."},
+{s:"Instead of calling a taxi, she used a ___ app to get a ride.",a:"rideshare",w:"rideshare",ko:"그녀는 택시를 부르는 대신 승차 공유 앱으로 차를 불렀다."}
+];
+
+const byW={};W.forEach(x=>{byW[x.w]=x});
+const app=document.getElementById('app');
+const modal=document.getElementById('modal');
+const badge=document.getElementById('badge');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t}return a};
+const hl=(s,a)=>esc(s).replace(new RegExp('\\b'+a+'\\b','i'),m=>'<mark>'+m+'</mark>');
+const all=()=>W.map(x=>x.w);
+const others=(w,n)=>shuffle(W.filter(y=>y.w!==w)).slice(0,n);
+const posOf=x=>[...new Set(x.m.map(m=>m[0]))].join(' · ');
+
+/* 오답 기록 (메모리에만 보관) */
+const wrong={};
+const updBadge=()=>{const n=Object.keys(wrong).length;badge.textContent=n;badge.hidden=!n};
+const miss=w=>{wrong[w]=(wrong[w]||0)+1;updBadge()};
+const unmiss=w=>{if(wrong[w]){wrong[w]--;if(!wrong[w])delete wrong[w];updBadge()}};
+
+/* 발음 */
+let voice=null;
+const pickVoice=()=>{try{const v=speechSynthesis.getVoices();voice=v.find(x=>x.lang==='en-US'&&/Samantha|Google US|Aaron|Nicky/.test(x.name))||v.find(x=>/^en[-_]US/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null}catch(e){}};
+try{pickVoice();speechSynthesis.addEventListener('voiceschanged',pickVoice)}catch(e){}
+const say=(t,r)=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=r||0.85;if(voice)u.voice=voice;speechSynthesis.speak(u)}catch(e){}};
+
+let tab='flash';
+
+/* 플래시카드 */
+const F={dir:'en',deck:[],total:0,known:0,flip:false,done:false,label:''};
+const fStart=(ws,label)=>{F.deck=shuffle(ws);F.total=ws.length;F.known=0;F.flip=false;F.done=false;F.label=label||''};
+function rFlash(){
+  if(!F.deck.length&&!F.done)fStart(all());
+  const head=`<div class="bar"><div class="seg">${[['en','영 → 한'],['ko','한 → 영']].map(([v,l])=>`<button class="${F.dir===v?'on':''}" data-act="fdir" data-v="${v}">${l}</button>`).join('')}</div><span class="count">${F.label?`<span class="tag">${F.label}</span> `:''}${F.known} / ${F.total}</span></div><div class="prog"><i style="width:${F.total?F.known/F.total*100:0}%"></i></div>`;
+  if(F.done)return head+`<div class="done"><h2>다 외웠어요!</h2><p>${F.total}개 단어를 모두 '알아요'로 넘겼어요.</p><div class="row center"><button class="btn" data-act="frestart">전체 다시</button></div></div>`;
+  const x=byW[F.deck[0]];
+  const front=F.dir==='en'?`<p class="hw">${x.w}</p><p class="ipa">${x.ipa}</p>`:`<p class="km">${esc(x.sm)}</p><p class="pos">${posOf(x)}</p>`;
+  const back=`<p class="hw sm">${x.w}<span class="ipa">${x.ipa}</span></p>${x.m.map(m=>`<p class="mean"><b>(${m[0]})</b> ${esc(m[1])}<br><span class="def">${esc(m[2])}</span></p>`).join('')}<p class="ex">${hl(x.ex,x.ans)}</p><p class="exk">${esc(x.ko)}</p>${x.note?`<p class="note">→ ${esc(x.note)}</p>`:''}`;
+  return head+`<div class="fc${F.flip?' flip':''}" data-act="flip" role="button" tabindex="0" aria-label="카드 뒤집기"><div class="inner"><div class="face front">${front}<p class="tap">탭해서 뒤집기</p></div><div class="face back">${back}</div></div></div>
+  <div class="row"><button class="btn ghost" data-say="${x.w}">${SPK} 발음 듣기</button></div>
+  <div class="row"><button class="btn no" data-act="fno">몰랐어요</button><button class="btn yes" data-act="fyes">알아요</button></div>`;
+}
+
+/* 단어장 */
+function rList(){
+  return `<p class="hint">영어 단어나 스피커를 누르면 발음이 나와요.</p>`+W.map(x=>`<article class="item"><div class="ih"><button class="hwb" data-say="${x.w}">${x.w} ${SPK}</button><span class="ipa">${x.ipa}</span></div>${x.m.map(m=>`<p class="mean"><b>(${m[0]})</b> ${esc(m[1])} <span class="def">${esc(m[2])}</span></p>`).join('')}<p class="ex">${hl(x.ex,x.ans)} <button class="spk sm" data-say="${esc(x.ex)}" aria-label="예문 듣기">${SPK}</button></p><p class="exk">${esc(x.ko)}</p>${x.note?`<p class="note">→ ${esc(x.note)}</p>`:''}</article>`).join('');
+}
+
+/* 스펠링 */
+const SP={q:[],i:0,res:[],hint:false,shown:false};
+const spStart=ws=>{SP.q=shuffle(ws);SP.i=0;SP.res=[];SP.shown=false};
+function rSpell(){
+  if(!SP.q.length)spStart(all());
+  const n=SP.q.length;
+  if(SP.i>=n){
+    const bad=SP.res.filter(r=>!r.ok);
+    return `<div class="done"><h2 class="big">${n-bad.length} / ${n}</h2><p>${bad.length?'틀린 단어: '+bad.map(r=>`<b>${r.w}</b>`).join(', '):'모두 맞았어요!'}</p><div class="row center">${bad.length?'<button class="btn" data-act="spretry">틀린 것만 다시</button>':''}<button class="btn ghost" data-act="sprestart">처음부터</button></div></div>`;
+  }
+  const x=byW[SP.q[SP.i]];
+  const r=SP.shown?SP.res[SP.res.length-1]:null;
+  const hint=x.w[0]+' '+Array(x.w.length-1).fill('_').join(' ')+`  (${x.w.length}글자)`;
+  return `<div class="bar"><span class="count">${SP.i+1} / ${n}</span><button class="link" data-act="sphint">${SP.hint?'힌트 숨기기':'첫 글자 힌트'}</button></div><div class="prog"><i style="width:${SP.i/n*100}%"></i></div>
+  <div class="qcard"><p class="prompt">${x.m.map(m=>`<b>(${m[0]})</b>${esc(m[1])}`).join('<br>')}</p>${SP.hint?`<p class="hintline">${hint}</p>`:''}
+  <form class="ans" data-submit="spcheck"><input ${r?'disabled':'data-focus'} value="${r?esc(r.v):''}" placeholder="영어 철자 쓰기" aria-label="영어 철자" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off"><button class="btn" ${r?'disabled':''}>확인</button></form>
+  ${r?`<div class="fb ${r.ok?'good':'nope'}">${r.ok?'정답!':'정답은'} <b>${x.w}</b> <span class="ipa">${x.ipa}</span><button class="spk" data-say="${x.w}" aria-label="발음 듣기">${SPK}</button></div><button class="btn wide" data-act="spnext" data-focus>${SP.i+1<n?'다음':'결과 보기'}</button>`:''}</div>`;
+}
+
+/* 예문퀴즈 */
+const EQ={q:[],i:0,wrongs:[],picked:null,opts:null};
+const eqStart=ws=>{EQ.q=shuffle(ws);EQ.i=0;EQ.wrongs=[];EQ.picked=null;EQ.opts=null};
+function rEx(){
+  if(!EQ.q.length)eqStart(all());
+  const n=EQ.q.length;
+  if(EQ.i>=n){
+    const c=n-EQ.wrongs.length;
+    return `<div class="done"><h2 class="big">${c} / ${n}</h2><p>${EQ.wrongs.length?'틀린 단어: '+EQ.wrongs.map(w=>`<b>${w}</b>`).join(', '):'모두 맞았어요!'}</p><div class="row center">${EQ.wrongs.length?'<button class="btn" data-act="exretry">틀린 문제 다시</button>':''}<button class="btn ghost" data-act="exrestart">처음부터</button></div></div>`;
+  }
+  const x=byW[EQ.q[EQ.i]];
+  if(!EQ.opts)EQ.opts=shuffle([x.ans,...others(x.w,3).map(y=>y.ans)]);
+  const p=EQ.picked;
+  const sent=esc(x.ex).replace(new RegExp('\\b'+x.ans+'\\b','i'),p===null?'<span class="blank"></span>':'<mark>'+x.ans+'</mark>');
+  const opts=EQ.opts.map((o,i)=>{let c='';if(p!==null){if(o===x.ans)c='right';else if(i===p)c='wrongp'}return `<button class="opt ${c}" data-act="expick" data-v="${i}" ${p!==null?'disabled':''}>${o.toLowerCase()}</button>`}).join('');
+  return `<div class="bar"><span class="count">${EQ.i+1} / ${n}</span><span class="count">빈칸에 알맞은 말</span></div><div class="prog"><i style="width:${EQ.i/n*100}%"></i></div>
+  <div class="qcard"><p class="sent">${sent}</p><div class="opts">${opts}</div>
+  ${p!==null?`<p class="exk2">${esc(x.ko)}</p><button class="btn wide" data-act="exnext" data-focus>${EQ.i+1<n?'다음':'결과 보기'}</button>`:''}</div>`;
+}
+
+/* 듣기 */
+const LS={mode:'mean',q:[],i:0,picked:null,typed:null,opts:null,res:[]};
+const lsStart=()=>{LS.q=shuffle(all());LS.i=0;LS.picked=null;LS.typed=null;LS.opts=null;LS.res=[]};
+function rListen(){
+  if(!LS.q.length)lsStart();
+  const n=LS.q.length;
+  const head=`<div class="bar"><div class="seg">${[['mean','뜻 고르기'],['type','받아쓰기']].map(([v,l])=>`<button class="${LS.mode===v?'on':''}" data-act="lmode" data-v="${v}">${l}</button>`).join('')}</div><span class="count">${Math.min(LS.i+1,n)} / ${n}</span></div><div class="prog"><i style="width:${LS.i/n*100}%"></i></div>`;
+  if(LS.i>=n){
+    const c=LS.res.filter(Boolean).length;
+    return head+`<div class="done"><h2 class="big">${c} / ${n}</h2><p>${c===n?'모두 맞았어요!':'틀린 단어는 오답정리에 모여 있어요.'}</p><div class="row center"><button class="btn" data-act="lrestart">다시 하기</button></div></div>`;
+  }
+  const x=byW[LS.q[LS.i]];
+  const done=LS.mode==='mean'?LS.picked!==null:LS.typed!==null;
+  let body;
+  if(LS.mode==='mean'){
+    if(!LS.opts)LS.opts=shuffle([x.w,...others(x.w,3).map(y=>y.w)]);
+    body=`<div class="opts">${LS.opts.map((w,i)=>{let c='';if(done){if(w===x.w)c='right';else if(i===LS.picked)c='wrongp'}return `<button class="opt ${c}" data-act="lpick" data-v="${i}" ${done?'disabled':''}>${esc(byW[w].sm)}</button>`}).join('')}</div>`;
+  }else{
+    body=`<form class="ans" data-submit="lcheck"><input ${done?'disabled':''} value="${done?esc(LS.typed):''}" placeholder="들은 단어 쓰기" aria-label="들은 단어" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off"><button class="btn" ${done?'disabled':''}>확인</button></form>`;
+  }
+  const ok=LS.res[LS.res.length-1];
+  const fb=done?`<div class="fb ${ok?'good':'nope'}">${ok?'정답!':'정답은'} <b>${x.w}</b> <span class="k">${esc(x.sm)}</span></div><button class="btn wide" data-act="lnext" data-focus>${LS.i+1<n?'다음 단어':'결과 보기'}</button>`:'';
+  return head+`<div class="qcard center"><button class="play" data-say="${x.w}" aria-label="단어 듣기">${SPK_BIG}</button><button class="link" data-say="${x.w}" data-rate="0.55">천천히 듣기</button><p class="hint">스피커를 눌러 듣고 ${LS.mode==='mean'?'뜻을 고르세요':'철자를 쓰세요'}.</p>${body}${fb}</div>`;
+}
+
+/* 실전테스트 */
+const TS={a:{},ov:{},graded:false,o1:[],o2:[],o3:[]};
+const tsStart=()=>{TS.a={};TS.ov={};TS.graded=false;TS.o1=shuffle(all());TS.o2=shuffle(all());TS.o3=shuffle(T.map((t,i)=>i))};
+const tKeys=()=>[...TS.o1.map(w=>'m-'+w),...TS.o2.map(w=>'s-'+w),...TS.o3.map(i=>'b-'+i)];
+const wordOf=k=>k[0]==='b'?T[+k.slice(2)].w:k.slice(2);
+const judge=k=>{
+  if(k in TS.ov)return TS.ov[k];
+  const v=(TS.a[k]||'').trim();if(!v)return false;
+  const t=k[0],id=k.slice(2);
+  if(t==='m'){const s=v.replace(/\s/g,'');return byW[id].key.some(q=>s.includes(q))}
+  if(t==='s')return v.toLowerCase()===id;
+  const tt=T[+id];return (tt.acc||[tt.a.toLowerCase()]).includes(v.toLowerCase());
+};
+function rTest(){
+  if(!TS.o1.length)tsStart();
+  const g=TS.graded,keys=tKeys();
+  const mk=k=>{if(!g)return '';const o=judge(k);return `<button class="mk ${o?'o':'x'}" data-act="ttoggle" data-v="${k}" aria-label="채점 바꾸기">${o?'O':'X'}</button>`};
+  const inp=(k,ph,lab)=>`<input data-k="${k}" value="${esc(TS.a[k]||'')}" placeholder="${ph}" aria-label="${esc(lab)}" ${g?'readonly':''} autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off">`;
+  const s1=TS.o1.map((w,i)=>{const k='m-'+w;return `<li><span class="qn">${i+1}</span><span class="qw">${w}</span>${inp(k,'뜻 쓰기',w+' 뜻')}${mk(k)}${g?`<span class="sol">정답 <b>${esc(byW[w].sm)}</b></span>`:''}</li>`}).join('');
+  const s2=TS.o2.map((w,i)=>{const k='s-'+w,x=byW[w];return `<li><span class="qn">${i+1}</span><span class="qk">${esc(x.sm)}</span>${inp(k,'영어 쓰기',x.sm+' 영어 철자')}${mk(k)}${g?`<span class="sol">정답 <b>${w}</b></span>`:''}</li>`}).join('');
+  const s3=TS.o3.map((ti,i)=>{const k='b-'+ti,t=T[ti];return `<li><span class="qn">${i+1}</span><span class="sen">${esc(t.s).replace('___','<span class="blank"></span>')}</span>${inp(k,'단어 쓰기',(i+1)+'번 빈칸')}${mk(k)}${g?`<span class="sol">정답 <b>${t.a}</b> · ${esc(t.ko)}</span>`:''}</li>`}).join('');
+  const top=g?`<div class="score"><b>${keys.filter(judge).length}</b><em>/ ${keys.length}</em><span>뜻 쓰기는 핵심 단어로 자동 채점해요. 채점이 틀렸으면 O·X를 눌러 바꾸세요.</span></div>`:`<p class="hint">학원 시험처럼 뜻 쓰기 → 스펠링 쓰기 → 빈칸 채우기 순서예요. 다 쓰고 맨 아래 채점하기를 누르세요.</p>`;
+  return top+`<section class="tsec"><h3>A. 뜻 쓰기</h3><ol class="tl">${s1}</ol></section>
+  <section class="tsec"><h3>B. 스펠링 쓰기</h3><ol class="tl">${s2}</ol></section>
+  <section class="tsec"><h3>C. 빈칸 채우기</h3><p class="hint">아래 단어에서 골라 쓰고, 필요하면 형태를 바꾸세요.</p><div class="bank">${W.map(x=>`<span>${x.w}</span>`).join('')}</div><ol class="tl bl">${s3}</ol></section>
+  <div class="row center">${g?'<button class="btn" data-act="trestart">새로 풀기</button>':'<button class="btn" data-act="tgrade">채점하기</button>'}</div>`;
+}
+
+/* 오답정리 */
+function rWrong(){
+  const list=Object.entries(wrong).sort((a,b)=>b[1]-a[1]);
+  if(!list.length)return `<div class="empty"><h2>아직 틀린 단어가 없어요</h2><p>카드에서 '몰랐어요'를 누르거나 문제를 틀리면 여기에 모여요.</p></div><p class="fine">기록은 이 화면을 닫으면 지워져요.</p>`;
+  return `<div class="row"><button class="btn" data-act="wflash">오답 카드 복습</button><button class="btn" data-act="wspell">오답 스펠링</button></div>
+  <ul class="wl">${list.map(([w,c])=>`<li><button class="hwb" data-say="${w}">${w}</button><span>${esc(byW[w].sm)}</span><span class="cnt">${c}회</span></li>`).join('')}</ul>
+  <div class="row center"><button class="btn ghost" data-act="wclear">기록 지우기</button></div><p class="fine">기록은 이 화면을 닫으면 지워져요.</p>`;
+}
+
+/* 모달 */
+const showModal=(t,p,btns)=>{document.getElementById('mt').textContent=t;document.getElementById('mp').textContent=p;document.getElementById('mb').innerHTML=btns;modal.hidden=false;const b=modal.querySelector('button');if(b){try{b.focus()}catch(e){}}};
+const closeModal=()=>{modal.hidden=true};
+
+const ACT={
+  flip(){F.flip=!F.flip;const c=app.querySelector('.fc');if(c)c.classList.toggle('flip',F.flip)},
+  fdir(v){F.dir=v;F.flip=false;render()},
+  fyes(){F.deck.shift();F.known++;F.flip=false;if(!F.deck.length)F.done=true;render()},
+  fno(){const w=F.deck.shift();F.deck.push(w);miss(w);F.flip=false;render()},
+  frestart(){fStart(all());render()},
+  sphint(){SP.hint=!SP.hint;render()},
+  spcheck(v,f){if(SP.shown)return;const x=byW[SP.q[SP.i]];const val=f.querySelector('input').value.trim().toLowerCase();if(!val)return;const ok=val===x.w;SP.res.push({w:x.w,ok,v:val});if(!ok)miss(x.w);SP.shown=true;say(x.w);render()},
+  spnext(){SP.i++;SP.shown=false;render()},
+  spretry(){spStart(SP.res.filter(r=>!r.ok).map(r=>r.w));render()},
+  sprestart(){spStart(all());render()},
+  expick(v){if(EQ.picked!==null)return;EQ.picked=+v;const x=byW[EQ.q[EQ.i]];if(EQ.opts[EQ.picked]!==x.ans){EQ.wrongs.push(x.w);miss(x.w)}render()},
+  exnext(){EQ.i++;EQ.picked=null;EQ.opts=null;render();if(EQ.i>=EQ.q.length){const n=EQ.q.length,c=n-EQ.wrongs.length;showModal(c+' / '+n,c===n?'모두 맞았어요!':'틀린 문제만 한 번 더 풀어 볼까요?',(EQ.wrongs.length?'<button class="btn" data-act="exretry">틀린 문제 다시</button>':'')+'<button class="btn ghost" data-act="exrestart">처음부터</button>')}},
+  exretry(){const w=EQ.wrongs.slice();closeModal();eqStart(w);render()},
+  exrestart(){closeModal();eqStart(all());render()},
+  lmode(v){LS.mode=v;lsStart();render()},
+  lpick(v){if(LS.picked!==null)return;LS.picked=+v;const x=byW[LS.q[LS.i]];const ok=LS.opts[LS.picked]===x.w;LS.res.push(ok);if(!ok)miss(x.w);render()},
+  lcheck(v,f){if(LS.typed!==null)return;const val=f.querySelector('input').value.trim().toLowerCase();if(!val)return;const x=byW[LS.q[LS.i]];LS.typed=val;const ok=val===x.w;LS.res.push(ok);if(!ok)miss(x.w);render()},
+  lnext(){LS.i++;LS.picked=null;LS.typed=null;LS.opts=null;render();if(LS.i<LS.q.length)say(LS.q[LS.i])},
+  lrestart(){lsStart();render()},
+  tgrade(){TS.graded=true;tKeys().forEach(k=>{if(!judge(k))miss(wordOf(k))});render();try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){}},
+  ttoggle(k){if(!TS.graded)return;const was=judge(k);TS.ov[k]=!was;if(was)miss(wordOf(k));else unmiss(wordOf(k));render()},
+  trestart(){tsStart();render();try{window.scrollTo(0,0)}catch(e){}},
+  wflash(){fStart(Object.keys(wrong),'오답 복습');tab='flash';render()},
+  wspell(){spStart(Object.keys(wrong));tab='spell';render()},
+  wclear(){Object.keys(wrong).forEach(k=>{delete wrong[k]});updBadge();render()}
+};
+
+const R={flash:rFlash,list:rList,spell:rSpell,ex:rEx,listen:rListen,test:rTest,wrong:rWrong};
+function render(){
+  document.querySelectorAll('.tabs [data-tab]').forEach(b=>{const on=b.dataset.tab===tab;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+  app.innerHTML=R[tab]();
+  const f=app.querySelector('[data-focus]');
+  if(f){try{f.focus({preventScroll:true})}catch(e){}}
+}
+
+document.addEventListener('click',e=>{
+  if(e.target===modal){closeModal();return}
+  const t=e.target.closest('[data-tab]');
+  if(t){tab=t.dataset.tab;closeModal();render();try{window.scrollTo(0,0)}catch(_){}return}
+  const s=e.target.closest('[data-say]');
+  if(s){say(s.dataset.say,s.dataset.rate?+s.dataset.rate:0);return}
+  const b=e.target.closest('[data-act]');
+  if(b&&!b.disabled&&ACT[b.dataset.act])ACT[b.dataset.act](b.dataset.v,b);
+});
+document.addEventListener('submit',e=>{e.preventDefault();const a=e.target.dataset.submit;if(ACT[a])ACT[a](null,e.target)});
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.k;if(k)TS.a[k]=e.target.value});
+document.addEventListener('keydown',e=>{
+  if(e.target.classList&&e.target.classList.contains('fc')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();ACT.flip()}
+  else if(e.key==='Escape'&&!modal.hidden)closeModal();
+});
+
+render();
+}
+</script>
+</body>
+</html>
