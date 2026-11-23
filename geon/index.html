@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>윤건이 단어장</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="윤건 단어">
+<meta name="theme-color" content="#f6f8fa">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<style>
+:root{
+  --bg:#f6f8fa; --card:#ffffff; --border:#d0d7de;
+  --text:#1f2328; --muted:#57606a;
+  --blue:#0969da; --blue-soft:rgba(9,105,218,.10);
+  --amber:#8a5d00; --amber-soft:rgba(154,103,0,.12);
+  --red:#cf222e;
+  --shadow:0 1px 2px rgba(31,35,40,.05),0 4px 14px rgba(31,35,40,.06);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:16px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+  word-break:keep-all; overflow-wrap:anywhere;
+  padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);
+}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 44px}
+header{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+header img{width:52px;height:52px;border-radius:14px;box-shadow:var(--shadow)}
+h1{margin:0;font-size:1.6rem;letter-spacing:-.02em}
+header p{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+
+.hint{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--blue-soft);border:1px solid rgba(9,105,218,.25);color:#0a3069;
+  border-radius:12px;padding:12px 14px;margin-bottom:20px;font-size:.93rem
+}
+.hint[hidden]{display:none}
+.hint .txt{flex:1 1 220px}
+.hint b{white-space:nowrap}
+.install{
+  border:0;border-radius:999px;background:var(--blue);color:#fff;font:inherit;font-weight:700;
+  min-height:44px;padding:0 18px;cursor:pointer
+}
+.install[hidden]{display:none}
+.close{border:0;background:transparent;color:inherit;font:inherit;font-size:1.25rem;line-height:1;padding:4px 6px;cursor:pointer}
+
+section{margin-top:24px}
+h2{display:flex;align-items:baseline;gap:8px;margin:0 0 10px;font-size:1.02rem;color:var(--muted);font-weight:700}
+h2 small{font-weight:500;font-size:.85rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{
+  position:relative;display:flex;flex-direction:column;gap:4px;min-height:92px;
+  padding:16px 40px 16px 16px;border-radius:14px;
+  background:var(--card);border:1.5px solid var(--border);box-shadow:var(--shadow);
+  color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;
+  transition:transform .08s ease,border-color .15s ease
+}
+.card:active{transform:scale(.98);border-color:var(--blue)}
+@media (hover:hover){.card:hover{border-color:var(--blue)}}
+.card strong{font-size:1.12rem;letter-spacing:-.01em}
+.card .desc{color:var(--muted);font-size:.9rem}
+.card .arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1.6rem;color:var(--border)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2px}
+.tag{font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--amber-soft);color:var(--amber)}
+.tag.new{background:var(--red);color:#fff}
+
+footer{margin-top:34px;color:var(--muted);font-size:.8rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="icon-192.png" alt="">
+    <div>
+      <h1>윤건이 단어장</h1>
+      <p>오늘 연습할 범위를 골라요</p>
+    </div>
+  </header>
+
+  <div class="hint" id="hint" hidden>
+    <div class="txt" id="hintText"></div>
+    <button type="button" class="install" id="installBtn" hidden>홈 화면에 설치</button>
+    <button type="button" class="close" id="hintClose" aria-label="닫기">×</button>
+  </div>
+
+  <main id="list"></main>
+
+  <footer>한 번 열어 본 앱은 인터넷이 없어도 열려요</footer>
+</div>
+
+<script>
+/* ───────── 앱 목록 ─────────
+   새 앱을 추가할 때: apps 폴더에 HTML을 넣고 아래 APPS에 한 줄 추가 (sw.js의 APP_FILES에도 추가) */
+const SECTIONS = [
+  { id:'hw',    title:'학원 숙제 · 테스트', note:'날짜별' },
+  { id:'topic', title:'9월 초 주제별 단어', note:'처음 정리한 단어' },
+  { id:'gram',  title:'문법',              note:'' }
+];
+
+const APPS = [
+  { sec:'hw',    href:'apps/oct.html',         title:'10월 숙제·테스트',   desc:'131단어 · 10/1~10/17 · Unit 9·10 테스트 포함', tags:['학원 테스트'], added:'2026-10-17' },
+  { sec:'hw',    href:'apps/sep-mid.html',     title:'9월 중순 숙제·테스트', desc:'137단어 · 9/10~9/22 · Bricks·GLP 리딩, Unit 7·8 테스트', tags:['학원 테스트'], added:'2026-09-22' },
+  { sec:'topic', href:'apps/sep-early-2.html', title:'9월 초 ⑦–⑫',        desc:'258단어 · 집안일·화산·탐험 ~ GLP Unit 5·6',      tags:[], added:'2026-09-09' },
+  { sec:'topic', href:'apps/sep-early-1.html', title:'9월 초 ①–⑥',        desc:'251단어 · 기부·봉사 ~ 카페·까마귀',              tags:[], added:'2026-09-08' },
+  { sec:'gram',  href:'apps/verbs.html',       title:'불규칙 동사 과거형',  desc:'26개 · break → broke',                 tags:[], added:'2026-09-08' }
+];
+
+const NEW_DAYS = 7; // 추가한 지 이 기간 안이면 NEW 표시
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function isNew(d){ const t = Date.parse(d + 'T00:00:00+09:00'); return !isNaN(t) && (Date.now() - t) < NEW_DAYS * 864e5; }
+
+(function render(){
+  let html = '';
+  for (const s of SECTIONS){
+    const items = APPS.filter(a => a.sec === s.id).sort((a,b) => b.added.localeCompare(a.added));
+    if (!items.length) continue;
+    html += `<section><h2>${esc(s.title)}${s.note ? ` <small>${esc(s.note)}</small>` : ''}</h2><div class="grid">`;
+    for (const a of items){
+      let tags = isNew(a.added) ? '<span class="tag new">NEW</span>' : '';
+      for (const t of a.tags) tags += `<span class="tag">${esc(t)}</span>`;
+      html += `<a class="card" href="${esc(a.href)}">`
+            + (tags ? `<span class="tags">${tags}</span>` : '')
+            + `<strong>${esc(a.title)}</strong><span class="desc">${esc(a.desc)}</span>`
+            + `<span class="arrow" aria-hidden="true">›</span></a>`;
+    }
+    html += '</div></section>';
+  }
+  document.getElementById('list').innerHTML = html;
+})();
+
+/* 홈 화면 설치 안내: 갤럭시(크롬·삼성 인터넷)는 설치 버튼, 아이폰·아이패드는 공유 메뉴 안내 */
+(function(){
+  const box = document.getElementById('hint'), text = document.getElementById('hintText'), btn = document.getElementById('installBtn');
+  const standalone = navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+  let closed = false; try { closed = localStorage.getItem('geon-hub-hint-closed') === '1'; } catch(e){}
+  if (standalone || closed) return;
+  const ua = navigator.userAgent;
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isAndroid = /Android/i.test(ua);
+  if (isAndroid){
+    text.innerHTML = /SamsungBrowser/i.test(ua)
+      ? '📌 <b>앱처럼 쓰려면</b> 아래쪽 메뉴(≡) → <b>‘현재 페이지 추가’ → ‘홈 화면’</b>을 누르세요.'
+      : '📌 <b>앱처럼 쓰려면</b> 오른쪽 위 메뉴(⋮) → <b>‘홈 화면에 추가’</b>를 누르세요.';
+    box.hidden = false;
+  } else if (isIOS){
+    text.innerHTML = '📌 <b>앱처럼 쓰려면</b> 공유 버튼(⬆︎) → <b>‘홈 화면에 추가’</b>를 누르세요.';
+    box.hidden = false;
+  }
+  let deferred = null;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault(); deferred = e;
+    text.innerHTML = '📌 <b>홈 화면에 설치</b>하면 앱처럼 바로 열 수 있어요.';
+    btn.hidden = false; box.hidden = false;
+  });
+  btn.addEventListener('click', async () => {
+    if (!deferred) return;
+    deferred.prompt();
+    try { await deferred.userChoice; } catch(e){}
+    deferred = null; btn.hidden = true; box.hidden = true;
+  });
+  window.addEventListener('appinstalled', () => { box.hidden = true; });
+  document.getElementById('hintClose').addEventListener('click', () => {
+    box.hidden = true; try { localStorage.setItem('geon-hub-hint-closed','1'); } catch(e){}
+  });
+})();
+
+if ('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+</script>
+</body>
+</html>
