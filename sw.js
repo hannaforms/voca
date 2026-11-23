@@ -1,7 +1,8 @@
 // 단어장 목록 + apps 폴더의 앱을 오프라인에서도 열 수 있게 저장
 // 새 앱을 추가하면 APP_FILES에 한 줄 넣고 CACHE 숫자를 올리세요.
-const CACHE = 'voca-hub-v1';
+const CACHE = 'voca-hub-v2';
 const APP_FILES = [
+  './apps/day51-52.html',
   './apps/day49-50.html',
   './apps/day41-44.html',
   './apps/gujo-1.html',
