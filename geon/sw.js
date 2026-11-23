@@ -1,7 +1,8 @@
 // 윤건이 단어장 목록 + apps 폴더의 앱을 오프라인에서도 열 수 있게 저장
 // 새 앱을 추가하면 APP_FILES에 한 줄 넣고 CACHE 숫자를 올리세요.
-const CACHE = 'geon-hub-v1';
+const CACHE = 'geon-hub-v2';
 const APP_FILES = [
+  './apps/all.html',
   './apps/oct.html',
   './apps/sep-mid.html',
   './apps/sep-early-2.html',
